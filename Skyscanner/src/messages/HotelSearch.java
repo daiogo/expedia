@@ -3,38 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package skyscanner;
+package messages;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author Diogo
  */
-public class Hotel {
-    private String hotelId;
-    private String hotelName;
+public class HotelSearch implements Serializable {
     private String city;
-    private String address;
+    private int numberOfRooms;
     private Date checkInDate;
     private Date checkOutDate;
-
-    public String getHotelId() {
-        return hotelId;
-    }
-
-    public void setHotelId(String hotelId) {
-        this.hotelId = hotelId;
-    }
-
-    public String getHotelName() {
-        return hotelName;
-    }
-
-    public void setHotelName(String hotelName) {
-        this.hotelName = hotelName;
-    }
-
+    
     public String getCity() {
         return city;
     }
@@ -43,12 +26,12 @@ public class Hotel {
         this.city = city;
     }
 
-    public String getAddress() {
-        return address;
+    public int getNumberOfRooms() {
+        return numberOfRooms;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setNumberOfRooms(int numberOfRooms) {
+        this.numberOfRooms = numberOfRooms;
     }
 
     public Date getCheckInDate() {
@@ -66,5 +49,4 @@ public class Hotel {
     public void setCheckOutDate(Date checkOutDate) {
         this.checkOutDate = checkOutDate;
     }
-    
 }
