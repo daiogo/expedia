@@ -3,27 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package skyscanner;
+package messages;
 
-import java.util.Date;
+import java.util.ArrayList;
 
 /**
  *
  * @author Diogo
  */
-public class Flight {
+public class FlightBooking extends Booking {
     private String flightNumber;
     private String airline;
     private String origin;
     private String destination;
     private boolean roundTrip;
-    private Date departureDate;
-    private Date returnDate;
-    private String originDepartureTime;
-    private String originArrivalTime;
-    private String destinationDepartureTime;
-    private String destinationArrivalTime;
+    private String departureDate;
+    private String returnDate;
+    private ArrayList<Customer> passengers;
     private double airfare;
-    private int availableSeats;
-
 }

@@ -3,20 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package skyscanner;
+package messages;
 
-import java.util.Date;
+import java.util.ArrayList;
 
 /**
  *
  * @author Diogo
  */
-public class Hotel {
+public class HotelBooking extends Booking {
     private String hotelId;
     private String hotelName;
     private String city;
-    private String address;
-    private Date checkInDate;
-    private Date checkOutDate;
-    
+    private String checkInDate;
+    private String checkOutDate;
+    private int numberOfRooms;
+    private ArrayList<Customer> guests;
 }

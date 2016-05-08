@@ -5,8 +5,6 @@
  */
 package skyscanner;
 
-import interfaces.SkyscannerInterface;
-import interfaces.TravellerInterface;
 import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -18,13 +16,21 @@ import java.rmi.registry.Registry;
  */
 public class Skyscanner {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) throws RemoteException, AlreadyBoundException {
+    private AdminGui adminGui;
+    
+    public Skyscanner() {
+        this.adminGui = new AdminGui(this);
+        adminGui.setVisible(true);
+    }
+    
+    public void run() throws RemoteException, AlreadyBoundException {
         Registry namingServiceReference = LocateRegistry.createRegistry(1099);
         SkyscannerServant skyscannerServantReference = new SkyscannerServant();
         namingServiceReference.bind("skyscanner", skyscannerServantReference);
+    }
+    
+    public static void main(String[] args) {
+        Skyscanner s = new Skyscanner();
     }
 
     
