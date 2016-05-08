@@ -9,6 +9,8 @@ import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Skyscanner {
 
@@ -19,14 +21,19 @@ public class Skyscanner {
         adminGui.setVisible(true);
     }
     
-    public void run() throws RemoteException, AlreadyBoundException {
+    public void initialize() throws RemoteException, AlreadyBoundException {
         Registry namingServiceReference = LocateRegistry.createRegistry(1099);
         SkyscannerServant skyscannerServantReference = new SkyscannerServant();
         namingServiceReference.bind("skyscanner", skyscannerServantReference);
     }
     
     public static void main(String[] args) {
-        Skyscanner s = new Skyscanner();
+        try {
+            Skyscanner s = new Skyscanner();
+            s.initialize();
+        } catch (RemoteException | AlreadyBoundException ex) {
+            Logger.getLogger(Skyscanner.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     
