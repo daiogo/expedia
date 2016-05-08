@@ -28,8 +28,8 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="jTabbedPane1" min="-2" pref="378" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <Component id="jTabbedPane1" min="-2" pref="426" max="-2" attributes="0"/>
+              <EmptySpace min="0" pref="4" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -70,36 +70,45 @@
                                   <Component id="departDateFormattedField" min="-2" pref="111" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="toField" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="returnDateFormattedField" alignment="0" min="-2" pref="114" max="-2" attributes="0"/>
+                                  <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="toField" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="returnDateFormattedField" alignment="0" min="-2" pref="114" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Component id="jLabel12" min="-2" pref="69" max="-2" attributes="0"/>
+                                          <Component id="jLabel13" min="-2" pref="69" max="-2" attributes="0"/>
+                                          <Component id="jLabel14" min="-2" pref="69" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="travellersFormattedField" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                                          <Component id="travellersFormattedField1" min="-2" pref="30" max="-2" attributes="0"/>
+                                          <Component id="travellersFormattedField2" min="-2" pref="30" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="jLabel10" alignment="0" min="-2" pref="134" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="searchFlightsButton" max="32767" attributes="0"/>
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" attributes="0">
-                                              <Component id="jLabel5" min="-2" pref="112" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
-                                              <Component id="jLabel10" min="-2" pref="134" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="returnRadioButton" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="oneWayRadioButton" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
-                                              <Component id="travellersFormattedField" min="-2" pref="30" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                      <EmptySpace min="0" pref="31" max="32767" attributes="0"/>
+                                  <Component id="jLabel5" alignment="0" min="-2" pref="112" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="returnRadioButton" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="oneWayRadioButton" min="-2" max="-2" attributes="0"/>
                                   </Group>
+                                  <Component id="searchFlightsButton" alignment="0" min="-2" pref="397" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -109,47 +118,64 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel5" min="-2" pref="23" max="-2" attributes="0"/>
-                          <Component id="jLabel10" alignment="1" min="-2" pref="23" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jLabel5" min="-2" pref="23" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="returnRadioButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="oneWayRadioButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="travellersFormattedField" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="fromField" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="fromField" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="toField" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="departDateFormattedField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="returnDateFormattedField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
                           </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="toField" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="jLabel10" min="-2" pref="23" max="-2" attributes="0"/>
+                              <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="travellersFormattedField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel14" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                              </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="departDateFormattedField" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="returnDateFormattedField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="travellersFormattedField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel13" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="travellersFormattedField2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel12" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                      <EmptySpace pref="36" max="32767" attributes="0"/>
                       <Component id="searchFlightsButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="13" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -232,6 +258,35 @@
                 </Property>
               </Properties>
             </Component>
+            <Component class="javax.swing.JFormattedTextField" name="travellersFormattedField1">
+              <Properties>
+                <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
+                  <Format format="#0" subtype="-1" type="0"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JFormattedTextField" name="travellersFormattedField2">
+              <Properties>
+                <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
+                  <Format format="#0" subtype="-1" type="0"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel12">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="under 2"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel13">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="under 12"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel14">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="12 + years"/>
+              </Properties>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="jPanel2">
@@ -276,7 +331,7 @@
                                       <Component id="jLabel11" min="-2" pref="134" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace min="0" pref="85" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="133" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
