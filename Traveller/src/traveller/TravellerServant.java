@@ -35,6 +35,7 @@ public class TravellerServant extends UnicastRemoteObject implements TravellerIn
     private ArrayList<Flight> departingFlights;
     private ArrayList<Flight> returningFlights;
     private ArrayList<Hotel> hotels;
+    private TravellerFrame travellerFrame;
     
     public TravellerServant (Registry namingServiceReference) throws RemoteException {
         try {
@@ -42,7 +43,18 @@ public class TravellerServant extends UnicastRemoteObject implements TravellerIn
         } catch (NotBoundException | AccessException ex) {
             Logger.getLogger(TravellerServant.class.getName()).log(Level.SEVERE, null, ex);
         }
+        travellerFrame = new TravellerFrame(this);
+        travellerFrame.setVisible(true);
+        travellerFrame.setLocationRelativeTo(null);
     }
+    
+    public void searchFlights (FlightSearch flightSearch) {
+        try {
+            skyscannerReference.searchFlights(flightSearch,this);
+        } catch (RemoteException ex) {
+            Logger.getLogger(TravellerServant.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    } 
 
     public void run() throws RemoteException {
         try {
@@ -51,11 +63,11 @@ public class TravellerServant extends UnicastRemoteObject implements TravellerIn
             ArrayList<Customer> guests = new ArrayList();
             guests.add(new Customer("Diogo Freitas", 21));
             
-            skyscannerReference.searchFlights(new FlightSearch("Curitiba", "São Paulo", true, "01/01/2016", "07/01/2016", 1), this);
+            searchFlights(new FlightSearch("Curitiba", "São Paulo", true, "01/01/2016", "07/01/2016", 1));
             skyscannerReference.searchHotels(new HotelSearch("São Paulo", 1, "01/01/2016", "07/01/2016"), this);
-            skyscannerReference.bookFlight(new FlightBooking("JJ2020", "JJ2023", "01/01/2016", "07/01/2016", true, passengers), this);
+            //skyscannerReference.bookFlight(new FlightBooking("JJ2020", "JJ2023", "01/01/2016", "07/01/2016", true, passengers), this);
             skyscannerReference.bookHotel(new HotelBooking(hotels.get(0).getHotelId(), "01/01/2016", "07/01/2016", 1, guests), this);
-            skyscannerReference.searchFlights(new FlightSearch("Curitiba", "São Paulo", true, "01/01/2016", "07/01/2016", 1), this);
+            searchFlights(new FlightSearch("Curitiba", "São Paulo", true, "01/01/2016", "07/01/2016", 1));
             skyscannerReference.searchHotels(new HotelSearch("São Paulo", 1, "01/01/2016", "07/01/2016"), this);
             
         } catch (AccessException ex) {

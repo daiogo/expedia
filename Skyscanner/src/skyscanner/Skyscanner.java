@@ -14,14 +14,21 @@ import java.util.logging.Logger;
 
 public class Skyscanner {
 
+    private AdminGui adminGui;
+    private SkyscannerServant skyscannerServantReference;
+    private Registry namingServiceReference;
+    
     public Skyscanner() {
         
     }
     
     public void initialize() throws RemoteException, AlreadyBoundException {
-        Registry namingServiceReference = LocateRegistry.createRegistry(1099);
-        SkyscannerServant skyscannerServantReference = new SkyscannerServant();
+        namingServiceReference = LocateRegistry.createRegistry(1099);
+        skyscannerServantReference = new SkyscannerServant();
         namingServiceReference.bind("skyscanner", skyscannerServantReference);
+        adminGui = new AdminGui(this);
+        adminGui.setVisible(true);
+        adminGui.setLocationRelativeTo(null);
     }
     
     public static void main(String[] args) throws RemoteException, AlreadyBoundException {
