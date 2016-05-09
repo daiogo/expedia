@@ -9,6 +9,7 @@ import interfaces.SkyscannerInterface;
 import interfaces.TravellerInterface;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.sql.Date;
 import java.util.ArrayList;
 import messages.FlightSearch;
 import messages.HotelSearch;
@@ -19,10 +20,16 @@ import messages.HotelSearch;
  */
 public class SkyscannerServant extends UnicastRemoteObject implements SkyscannerInterface {
 
+    // Instantiate GUI here!
     private Database database;
     
     public SkyscannerServant() throws RemoteException {
         this.database = new Database();
+        database.getFlights().add(new Flight("JJ2020", "TAM", "Curitiba", "São Paulo", "01/01/2016", "11:30am", "12:30pm", 61.50, 100));
+        database.getFlights().add(new Flight("JJ2021", "TAM", "Curitiba", "Rio de Janeiro", "01/01/2016", "12:00pm", "13:20pm", 76.25, 100));
+        database.getFlights().add(new Flight("JJ2022", "TAM", "Rio de Janeiro", "Curitiba", "07/01/2016", "12:00pm", "13:20pm", 76.25, 100));
+        database.getFlights().add(new Flight("JJ2023", "TAM", "São Paulo", "Curitiba", "07/01/2016", "11:30am", "12:30pm", 61.50, 100));
+        database.getFlights().add(new Flight("JJ2024", "TAM", "São Paulo", "Curitiba", "07/01/2016", "15:30am", "16:30pm", 61.50, 100));
     }
 
     @Override
@@ -47,7 +54,8 @@ public class SkyscannerServant extends UnicastRemoteObject implements Skyscanner
                 ) {
                 departingFlights.add(flight);
             }
-            else if (flightSearch.getDestination().equals(flight.getOrigin()) &&
+            else if (flightSearch.isRoundTrip() &&
+                     flightSearch.getDestination().equals(flight.getOrigin()) &&
                      flightSearch.getOrigin().equals(flight.getDestination()) &&
                      flightSearch.getReturnDate().equals(flight.getDepartureDate())
                      ) {
@@ -60,7 +68,7 @@ public class SkyscannerServant extends UnicastRemoteObject implements Skyscanner
 
     @Override
     public void searchHotels(HotelSearch hotelSearch, TravellerInterface travellerInterface) throws RemoteException {
-
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

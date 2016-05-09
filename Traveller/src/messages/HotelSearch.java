@@ -6,7 +6,6 @@
 package messages;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  *
@@ -15,8 +14,8 @@ import java.util.Date;
 public class HotelSearch implements Serializable {
     private String city;
     private int numberOfRooms;
-    private Date checkInDate;
-    private Date checkOutDate;
+    private String checkInDate;
+    private String checkOutDate;
     
     public String getCity() {
         return city;
@@ -34,19 +33,19 @@ public class HotelSearch implements Serializable {
         this.numberOfRooms = numberOfRooms;
     }
 
-    public Date getCheckInDate() {
+    public String getCheckInDate() {
         return checkInDate;
     }
 
-    public void setCheckInDate(Date checkInDate) {
+    public void setCheckInDate(String checkInDate) {
         this.checkInDate = checkInDate;
     }
 
-    public Date getCheckOutDate() {
+    public String getCheckOutDate() {
         return checkOutDate;
     }
 
-    public void setCheckOutDate(Date checkOutDate) {
+    public void setCheckOutDate(String checkOutDate) {
         this.checkOutDate = checkOutDate;
     }
 }

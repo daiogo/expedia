@@ -5,22 +5,34 @@
  */
 package skyscanner;
 
-import java.util.Date;
+import java.io.Serializable;
 
 /**
  *
  * @author Diogo
  */
-public class Flight {
+public class Flight implements Serializable {
     private String flightNumber;
     private String airline;
     private String origin;
     private String destination;
-    private Date departureDate;
+    private String departureDate;
     private String departureTime;
     private String arrivalTime;
     private double airfare;
     private int availableSeats;
+
+    public Flight(String flightNumber, String airline, String origin, String destination, String departureDate, String departureTime, String arrivalTime, double airfare, int availableSeats) {
+        this.flightNumber = flightNumber;
+        this.airline = airline;
+        this.origin = origin;
+        this.destination = destination;
+        this.departureDate = departureDate;
+        this.departureTime = departureTime;
+        this.arrivalTime = arrivalTime;
+        this.airfare = airfare;
+        this.availableSeats = availableSeats;
+    }
 
     public String getFlightNumber() {
         return flightNumber;
@@ -54,11 +66,11 @@ public class Flight {
         this.destination = destination;
     }
 
-    public Date getDepartureDate() {
+    public String getDepartureDate() {
         return departureDate;
     }
 
-    public void setDepartureDate(Date departureDate) {
+    public void setDepartureDate(String departureDate) {
         this.departureDate = departureDate;
     }
 

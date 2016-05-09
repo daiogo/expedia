@@ -14,11 +14,8 @@ import java.util.logging.Logger;
 
 public class Skyscanner {
 
-    private AdminGui adminGui;
-    
     public Skyscanner() {
-        this.adminGui = new AdminGui(this);
-        adminGui.setVisible(true);
+        
     }
     
     public void initialize() throws RemoteException, AlreadyBoundException {
@@ -35,6 +32,5 @@ public class Skyscanner {
             Logger.getLogger(Skyscanner.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
     
 }

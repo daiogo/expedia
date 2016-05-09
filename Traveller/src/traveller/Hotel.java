@@ -3,21 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package skyscanner;
+package traveller;
 
-import java.util.Date;
+import java.io.Serializable;
 
 /**
  *
  * @author Diogo
  */
-public class Hotel {
+public class Hotel implements Serializable {
     private String hotelId;
     private String hotelName;
     private String city;
     private String address;
-    private Date checkInDate;
-    private Date checkOutDate;
+    private String checkInDate;
+    private String checkOutDate;
 
     public String getHotelId() {
         return hotelId;
@@ -51,19 +51,19 @@ public class Hotel {
         this.address = address;
     }
 
-    public Date getCheckInDate() {
+    public String getCheckInDate() {
         return checkInDate;
     }
 
-    public void setCheckInDate(Date checkInDate) {
+    public void setCheckInDate(String checkInDate) {
         this.checkInDate = checkInDate;
     }
 
-    public Date getCheckOutDate() {
+    public String getCheckOutDate() {
         return checkOutDate;
     }
 
-    public void setCheckOutDate(Date checkOutDate) {
+    public void setCheckOutDate(String checkOutDate) {
         this.checkOutDate = checkOutDate;
     }
     

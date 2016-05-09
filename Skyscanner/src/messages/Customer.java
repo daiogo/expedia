@@ -10,8 +10,8 @@ package messages;
  * @author Diogo
  */
 public class Customer {
-    private String name;
-    private int age;
+    protected String name;
+    protected int age;
 
     public String getName() {
         return name;

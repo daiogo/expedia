@@ -6,7 +6,6 @@
 package messages;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  *
@@ -16,8 +15,16 @@ public class FlightSearch implements Serializable {
     private String origin;
     private String destination;
     private boolean roundTrip;
-    private Date departureDate;
-    private Date returnDate;
+    private String departureDate;
+    private String returnDate;
+
+    public FlightSearch(String origin, String destination, boolean roundTrip, String departureDate, String returnDate) {
+        this.origin = origin;
+        this.destination = destination;
+        this.roundTrip = roundTrip;
+        this.departureDate = departureDate;
+        this.returnDate = returnDate;
+    }
 
     public String getOrigin() {
         return origin;
@@ -43,19 +50,19 @@ public class FlightSearch implements Serializable {
         this.roundTrip = roundTrip;
     }
 
-    public Date getDepartureDate() {
+    public String getDepartureDate() {
         return departureDate;
     }
 
-    public void setDepartureDate(Date departureDate) {
+    public void setDepartureDate(String departureDate) {
         this.departureDate = departureDate;
     }
 
-    public Date getReturnDate() {
+    public String getReturnDate() {
         return returnDate;
     }
 
-    public void setReturnDate(Date returnDate) {
+    public void setReturnDate(String returnDate) {
         this.returnDate = returnDate;
     }
 }
