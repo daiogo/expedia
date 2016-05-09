@@ -19,6 +19,14 @@ public class Booking implements Serializable {
     protected int securityCode;
     protected int numberOfInstallments;
 
+    public void setPaymentOptions(String subtotal, int cardNumber, String expirationDate, int securityCode, int numberOfInstallments) {
+        this.subtotal = subtotal;
+        this.cardNumber = cardNumber;
+        this.expirationDate = expirationDate;
+        this.securityCode = securityCode;
+        this.numberOfInstallments = numberOfInstallments;
+    }
+    
     public String getBookingId() {
         return bookingId;
     }

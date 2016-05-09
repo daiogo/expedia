@@ -6,6 +6,7 @@
 package messages;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 /**
  *
@@ -15,9 +16,16 @@ public class Hotel implements Serializable {
     private String hotelId;
     private String hotelName;
     private String city;
-    private String address;
-    private String checkInDate;
-    private String checkOutDate;
+    private int availableRooms;
+    private double pricePerNight;
+
+    public Hotel(String hotelName, String city, int availableRooms, double pricePerNight) {
+        this.hotelId = UUID.randomUUID().toString();
+        this.hotelName = hotelName;
+        this.city = city;
+        this.availableRooms = availableRooms;
+        this.pricePerNight = pricePerNight;
+    }
 
     public String getHotelId() {
         return hotelId;
@@ -43,28 +51,20 @@ public class Hotel implements Serializable {
         this.city = city;
     }
 
-    public String getAddress() {
-        return address;
+    public int getAvailableRooms() {
+        return availableRooms;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setAvailableRooms(int availableRooms) {
+        this.availableRooms = availableRooms;
+    }
+    
+    public double getPricePerNight() {
+        return pricePerNight;
     }
 
-    public String getCheckInDate() {
-        return checkInDate;
-    }
-
-    public void setCheckInDate(String checkInDate) {
-        this.checkInDate = checkInDate;
-    }
-
-    public String getCheckOutDate() {
-        return checkOutDate;
-    }
-
-    public void setCheckOutDate(String checkOutDate) {
-        this.checkOutDate = checkOutDate;
+    public void setPricePerNight(double pricePerNight) {
+        this.pricePerNight = pricePerNight;
     }
     
 }

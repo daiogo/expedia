@@ -17,13 +17,15 @@ public class FlightSearch implements Serializable {
     private boolean roundTrip;
     private String departureDate;
     private String returnDate;
+    private int numberOfPassengers;
 
-    public FlightSearch(String origin, String destination, boolean roundTrip, String departureDate, String returnDate) {
+    public FlightSearch(String origin, String destination, boolean roundTrip, String departureDate, String returnDate, int numberOfPassengers) {
         this.origin = origin;
         this.destination = destination;
         this.roundTrip = roundTrip;
         this.departureDate = departureDate;
         this.returnDate = returnDate;
+        this.numberOfPassengers = numberOfPassengers;
     }
 
     public String getOrigin() {
@@ -64,5 +66,13 @@ public class FlightSearch implements Serializable {
 
     public void setReturnDate(String returnDate) {
         this.returnDate = returnDate;
+    }
+
+    public int getNumberOfPassengers() {
+        return numberOfPassengers;
+    }
+
+    public void setNumberOfPassengers(int numberOfPassengers) {
+        this.numberOfPassengers = numberOfPassengers;
     }
 }

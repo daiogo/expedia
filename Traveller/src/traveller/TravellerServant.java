@@ -15,9 +15,15 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import messages.Customer;
 import messages.Flight;
+import messages.FlightBooking;
 import messages.FlightSearch;
 import messages.Hotel;
+import messages.HotelBooking;
+import messages.HotelSearch;
 
 /**
  *
@@ -26,6 +32,9 @@ import messages.Hotel;
 public class TravellerServant extends UnicastRemoteObject implements TravellerInterface {
     
     private SkyscannerInterface skyscannerReference;
+    private ArrayList<Flight> departingFlights;
+    private ArrayList<Flight> returningFlights;
+    private ArrayList<Hotel> hotels;
     
     public TravellerServant (Registry namingServiceReference) throws RemoteException {
         try {
@@ -37,7 +46,18 @@ public class TravellerServant extends UnicastRemoteObject implements TravellerIn
 
     public void run() throws RemoteException {
         try {
-            skyscannerReference.searchFlights(new FlightSearch("Curitiba", "São Paulo", true, "01/01/2016", "07/01/2016"), this);
+            ArrayList<Customer> passengers = new ArrayList();
+            passengers.add(new Customer("Diogo Freitas", 21));
+            ArrayList<Customer> guests = new ArrayList();
+            guests.add(new Customer("Diogo Freitas", 21));
+            
+            skyscannerReference.searchFlights(new FlightSearch("Curitiba", "São Paulo", true, "01/01/2016", "07/01/2016", 1), this);
+            skyscannerReference.searchHotels(new HotelSearch("São Paulo", 1, "01/01/2016", "07/01/2016"), this);
+            skyscannerReference.bookFlight(new FlightBooking("JJ2020", "JJ2023", "01/01/2016", "07/01/2016", true, passengers), this);
+            skyscannerReference.bookHotel(new HotelBooking(hotels.get(0).getHotelId(), "01/01/2016", "07/01/2016", 1, guests), this);
+            skyscannerReference.searchFlights(new FlightSearch("Curitiba", "São Paulo", true, "01/01/2016", "07/01/2016", 1), this);
+            skyscannerReference.searchHotels(new HotelSearch("São Paulo", 1, "01/01/2016", "07/01/2016"), this);
+            
         } catch (AccessException ex) {
             Logger.getLogger(TravellerServant.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -50,7 +70,10 @@ public class TravellerServant extends UnicastRemoteObject implements TravellerIn
 
     @Override
     public void getQueriedFlights(ArrayList<Flight> departingFlights, ArrayList<Flight> returningFlights) throws RemoteException {
-        System.out.println("----------Departing flights----------");
+        this.departingFlights = departingFlights;
+        this.returningFlights = returningFlights;
+        
+        System.out.println("------------Departing flights------------");
         for (Flight flight : departingFlights) {
             System.out.println("Flight number: " + flight.getFlightNumber());
             System.out.println("Airline: " + flight.getAirline());
@@ -63,7 +86,7 @@ public class TravellerServant extends UnicastRemoteObject implements TravellerIn
             System.out.println("-----------------------------------------");
         }
         
-        System.out.println("----------Returning flights----------");
+        System.out.println("------------Returning flights------------");
         for (Flight flight : returningFlights) {
             System.out.println("Flight number: " + flight.getFlightNumber());
             System.out.println("Airline: " + flight.getAirline());
@@ -79,6 +102,25 @@ public class TravellerServant extends UnicastRemoteObject implements TravellerIn
 
     @Override
     public void getQueriedHotels(ArrayList<Hotel> hotels) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.hotels = hotels;
+        
+        System.out.println("-----------------Hotels-----------------");
+        for (Hotel hotel : hotels) {
+            System.out.println("Hotel name: " + hotel.getHotelName());
+            System.out.println("City: " + hotel.getCity());
+            System.out.println("-----------------------------------------");
+        }
+    }
+
+    @Override
+    public void displayFlightBookingConfirmation(FlightBooking flightBooking) throws RemoteException {
+        System.out.println("---Flight booking confirmed!---");
+        //JOptionPane.showMessageDialog(new JFrame("Booking confirmation"), "Your booking is confirmed");
+    }
+
+    @Override
+    public void displayHotelBookingConfirmation(HotelBooking hotelBooking) throws RemoteException {
+        System.out.println("---Hotel booking confirmed!---");
+        //JOptionPane.showMessageDialog(new JFrame("Booking confirmation"), "Your booking is confirmed");
     }
 }

@@ -7,7 +7,9 @@ package interfaces;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import messages.FlightBooking;
 import messages.FlightSearch;
+import messages.HotelBooking;
 import messages.HotelSearch;
 
 /**
@@ -15,8 +17,8 @@ import messages.HotelSearch;
  * @author Diogo
  */
 public interface SkyscannerInterface extends Remote {
-    public void bookFlight(TravellerInterface travellerInterface) throws RemoteException;
-    public void bookHotel(TravellerInterface travellerInterface) throws RemoteException;
+    public void bookFlight(FlightBooking booking, TravellerInterface travellerInterface) throws RemoteException;
+    public void bookHotel(HotelBooking booking, TravellerInterface travellerInterface) throws RemoteException;
     public void searchFlights(FlightSearch flightSearch, TravellerInterface travellerInterface) throws RemoteException;
     public void searchHotels(HotelSearch hotelSearch, TravellerInterface travellerInterface) throws RemoteException;
     public void subscribe(String subscribeTo, TravellerInterface travellerInterface) throws RemoteException;

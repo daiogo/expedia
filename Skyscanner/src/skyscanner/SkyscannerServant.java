@@ -11,7 +11,10 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import messages.Flight;
+import messages.FlightBooking;
 import messages.FlightSearch;
+import messages.Hotel;
+import messages.HotelBooking;
 import messages.HotelSearch;
 
 /**
@@ -25,21 +28,57 @@ public class SkyscannerServant extends UnicastRemoteObject implements Skyscanner
     
     public SkyscannerServant() throws RemoteException {
         this.database = new Database();
-        database.getFlights().add(new Flight("JJ2020", "TAM", "Curitiba", "São Paulo", "01/01/2016", "11:30am", "12:30pm", 61.50, 100));
+        
+        // Dummy data
+        database.getFlights().add(new Flight("JJ2020", "TAM", "Curitiba", "São Paulo", "01/01/2016", "11:30am", "12:30pm", 61.50, 1));
         database.getFlights().add(new Flight("JJ2021", "TAM", "Curitiba", "Rio de Janeiro", "01/01/2016", "12:00pm", "13:20pm", 76.25, 100));
         database.getFlights().add(new Flight("JJ2022", "TAM", "Rio de Janeiro", "Curitiba", "07/01/2016", "12:00pm", "13:20pm", 76.25, 100));
-        database.getFlights().add(new Flight("JJ2023", "TAM", "São Paulo", "Curitiba", "07/01/2016", "11:30am", "12:30pm", 61.50, 100));
+        database.getFlights().add(new Flight("JJ2023", "TAM", "São Paulo", "Curitiba", "07/01/2016", "11:30am", "12:30pm", 61.50, 1));
         database.getFlights().add(new Flight("JJ2024", "TAM", "São Paulo", "Curitiba", "07/01/2016", "15:30am", "16:30pm", 61.50, 100));
+        
+        database.getHotels().add(new Hotel("Ibis", "Curitiba", 10, 150.00));
+        database.getHotels().add(new Hotel("Ibis", "São Paulo", 1, 200.00));
+        database.getHotels().add(new Hotel("Ibis", "Rio de Janeiro", 10, 250.00));
+        database.getHotels().add(new Hotel("Hilton", "São Paulo", 10, 500.00));
+        database.getHotels().add(new Hotel("Sheraton", "São Paulo", 150, 400.00));
+        database.getHotels().add(new Hotel("Sheraton", "Rio de Janeiro", 150, 400.00));
     }
 
     @Override
-    public void bookFlight(TravellerInterface travellerInterface) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void bookFlight(FlightBooking booking, TravellerInterface travellerInterface) throws RemoteException {
+        database.getFlightBookings().add(booking);
+        int index = 0;
+        
+        for (Flight flight : database.getFlights()) {
+            if (flight.getFlightNumber().equals(booking.getDepartingFlightNumber())) {
+                flight.setAvailableSeats(flight.getAvailableSeats() - booking.getPassengers().size());
+                database.getFlights().set(index, flight);
+            }
+                
+            if (booking.isRoundTrip() && flight.getFlightNumber().equals(booking.getReturningFlightNumber())) {
+                flight.setAvailableSeats(flight.getAvailableSeats() - booking.getPassengers().size());
+                database.getFlights().set(index, flight);
+            }
+            index++;
+        }
+        
+        travellerInterface.displayFlightBookingConfirmation(booking);
     }
 
     @Override
-    public void bookHotel(TravellerInterface travellerInterface) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void bookHotel(HotelBooking booking, TravellerInterface travellerInterface) throws RemoteException {
+        database.getHotelBookings().add(booking);
+        int index = 0;
+        
+        for (Hotel hotel : database.getHotels()) {
+            if (hotel.getHotelId().equals(booking.getHotelId())) {
+                hotel.setAvailableRooms(hotel.getAvailableRooms() - booking.getGuests().size());
+                database.getHotels().set(index, hotel);
+            }
+            index++;
+        }
+        
+        travellerInterface.displayHotelBookingConfirmation(booking);
     }
 
     @Override
@@ -50,14 +89,16 @@ public class SkyscannerServant extends UnicastRemoteObject implements Skyscanner
         for (Flight flight : database.getFlights()) {
             if (flightSearch.getOrigin().equals(flight.getOrigin()) &&
                 flightSearch.getDestination().equals(flight.getDestination()) &&
-                flightSearch.getDepartureDate().equals(flight.getDepartureDate())
+                flightSearch.getDepartureDate().equals(flight.getDepartureDate()) &&
+                flightSearch.getNumberOfPassengers() <= flight.getAvailableSeats()
                 ) {
                 departingFlights.add(flight);
             }
             else if (flightSearch.isRoundTrip() &&
                      flightSearch.getDestination().equals(flight.getOrigin()) &&
                      flightSearch.getOrigin().equals(flight.getDestination()) &&
-                     flightSearch.getReturnDate().equals(flight.getDepartureDate())
+                     flightSearch.getReturnDate().equals(flight.getDepartureDate()) &&
+                     flightSearch.getNumberOfPassengers() <= flight.getAvailableSeats()
                      ) {
                 returningFlights.add(flight);
             }
@@ -68,7 +109,17 @@ public class SkyscannerServant extends UnicastRemoteObject implements Skyscanner
 
     @Override
     public void searchHotels(HotelSearch hotelSearch, TravellerInterface travellerInterface) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<Hotel> hotels = new ArrayList();
+        
+        for (Hotel hotel : database.getHotels()) {
+            if (hotelSearch.getCity().equals(hotel.getCity()) &&
+                hotelSearch.getNumberOfRooms() <= hotel.getAvailableRooms()
+                ) {
+                hotels.add(hotel);
+            }
+        }
+        
+        travellerInterface.getQueriedHotels(hotels);
     }
 
     @Override

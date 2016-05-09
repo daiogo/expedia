@@ -16,6 +16,13 @@ public class HotelSearch implements Serializable {
     private int numberOfRooms;
     private String checkInDate;
     private String checkOutDate;
+
+    public HotelSearch(String city, int numberOfRooms, String checkInDate, String checkOutDate) {
+        this.city = city;
+        this.numberOfRooms = numberOfRooms;
+        this.checkInDate = checkInDate;
+        this.checkOutDate = checkOutDate;
+    }
     
     public String getCity() {
         return city;

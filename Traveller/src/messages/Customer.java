@@ -5,13 +5,20 @@
  */
 package messages;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Diogo
  */
-public class Customer {
+public class Customer implements Serializable {
     protected String name;
     protected int age;
+
+    public Customer(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
 
     public String getName() {
         return name;
