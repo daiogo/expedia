@@ -6,7 +6,9 @@
 package skyscanner;
 
 import java.util.ArrayList;
+import messages.Flight;
 import messages.FlightBooking;
+import messages.Hotel;
 import messages.HotelBooking;
 
 /**

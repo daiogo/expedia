@@ -8,8 +8,8 @@ package interfaces;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import traveller.Flight;
-import traveller.Hotel;
+import messages.Flight;
+import messages.Hotel;
 
 /**
  *

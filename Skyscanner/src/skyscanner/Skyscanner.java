@@ -24,7 +24,7 @@ public class Skyscanner {
         namingServiceReference.bind("skyscanner", skyscannerServantReference);
     }
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws RemoteException, AlreadyBoundException {
         try {
             Skyscanner s = new Skyscanner();
             s.initialize();

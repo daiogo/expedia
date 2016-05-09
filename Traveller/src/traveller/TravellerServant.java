@@ -15,7 +15,9 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import messages.Flight;
 import messages.FlightSearch;
+import messages.Hotel;
 
 /**
  *
@@ -34,7 +36,11 @@ public class TravellerServant extends UnicastRemoteObject implements TravellerIn
     }
 
     public void run() throws RemoteException {
-        skyscannerReference.searchFlights(new FlightSearch("Curitiba", "São Paulo", true, "01/01/2016", "07/01/2016"), this);
+        try {
+            skyscannerReference.searchFlights(new FlightSearch("Curitiba", "São Paulo", true, "01/01/2016", "07/01/2016"), this);
+        } catch (AccessException ex) {
+            Logger.getLogger(TravellerServant.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     @Override

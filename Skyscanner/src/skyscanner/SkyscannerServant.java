@@ -9,8 +9,8 @@ import interfaces.SkyscannerInterface;
 import interfaces.TravellerInterface;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.sql.Date;
 import java.util.ArrayList;
+import messages.Flight;
 import messages.FlightSearch;
 import messages.HotelSearch;
 
