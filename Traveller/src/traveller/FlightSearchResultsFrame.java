@@ -242,12 +242,18 @@ public class FlightSearchResultsFrame extends javax.swing.JFrame {
         Flight flight = departingFlights.get(i);
         String departureFlightNumber = flight.getFlightNumber();
         String departureDate = flight.getDepartureDate();
+        double airfare = flight.getAirfare();
         i = jTable2.getSelectedRow();
         flight = returningFlights.get(i);
         String returnFlightNumber = flight.getFlightNumber();
         String returnDate = flight.getDepartureDate();
+        double totalAirfare = airfare+ flight.getAirfare();
         
+        PaymentFrame paymentFrame = new PaymentFrame (this,Double.toString(totalAirfare) );
+        paymentFrame.setVisible(true);
         myTravellerServant.bookFlight(departureFlightNumber, departureDate, returnFlightNumber, returnDate);
+        
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
