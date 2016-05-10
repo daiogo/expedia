@@ -15,8 +15,8 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import messages.Customer;
 import messages.Flight;
 import messages.FlightBooking;
@@ -157,23 +157,30 @@ public class TravellerServant extends UnicastRemoteObject implements TravellerIn
             Logger.getLogger(TravellerServant.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
+    public void invokeLaterMessageDialog(String message){
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                JOptionPane.showMessageDialog(null, message);
+            }
+        });        
+    }
+    
     @Override
     public void displayFlightBookingConfirmation(FlightBooking flightBooking) throws RemoteException {
         System.out.println("---Flight booking confirmed!---");
-        JOptionPane.showMessageDialog(null,"Flight Booking Confirmed");
+        invokeLaterMessageDialog("Flight booking confirmed!");
     }
-
 
     @Override
     public void displayHotelBookingConfirmation(HotelBooking hotelBooking) throws RemoteException {
         System.out.println("---Hotel booking confirmed!---");
-        //JOptionPane.showMessageDialog(null, "Hotel Booked");
+        invokeLaterMessageDialog("Hotel booking confirmed!");
     }
 
     @Override
     public void displayFlightNotification(FlightSubscription subscription, Flight flight) throws RemoteException {
-        //JOptionPane.showMessageDialog(new JFrame("Notification"), "Your booking is confirmed");
+        invokeLaterMessageDialog("Your booking is confirmed");
     }
 
     @Override
