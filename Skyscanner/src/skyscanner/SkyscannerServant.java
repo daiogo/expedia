@@ -23,11 +23,14 @@ import messages.HotelSearch;
  */
 public class SkyscannerServant extends UnicastRemoteObject implements SkyscannerInterface {
 
-    // Instantiate GUI here!
+    private AdminGui adminGui;
     private Database database;
     
     public SkyscannerServant() throws RemoteException {
         this.database = new Database();
+        adminGui = new AdminGui(this);
+        adminGui.setLocationRelativeTo(null);
+        adminGui.setVisible(true);
         
         // Dummy data
         database.getFlights().add(new Flight("JJ2020", "TAM", "Curitiba", "São Paulo", "01/01/2016", "11:30am", "12:30pm", 61.50, 1));

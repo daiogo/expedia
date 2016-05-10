@@ -14,7 +14,7 @@ public class AdminGui extends javax.swing.JFrame {
     /**
      * Creates new form SkyscannerGui
      */
-    public AdminGui(Skyscanner mySkyscanner) {
+    public AdminGui(SkyscannerServant myServant) {
         initComponents();
     }
 
