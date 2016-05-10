@@ -8,8 +8,10 @@ package skyscanner;
 import java.util.ArrayList;
 import messages.Flight;
 import messages.FlightBooking;
+import messages.FlightSubscription;
 import messages.Hotel;
 import messages.HotelBooking;
+import messages.HotelSubscription;
 
 /**
  *
@@ -21,12 +23,16 @@ public class Database {
     private ArrayList<HotelBooking> hotelBookings;
     private ArrayList<Flight> flights;
     private ArrayList<Hotel> hotels;
+    private ArrayList<FlightSubscription> flightSubscriptions;
+    private ArrayList<HotelSubscription> hotelSubscriptions;
 
     public Database() {
         this.flightBookings = new ArrayList();
         this.hotelBookings = new ArrayList();
         this.flights = new ArrayList();
         this.hotels = new ArrayList();
+        this.flightSubscriptions = new ArrayList();
+        this.hotelSubscriptions = new ArrayList();
     }
 
     public ArrayList<FlightBooking> getFlightBookings() {
@@ -44,4 +50,13 @@ public class Database {
     public ArrayList<Hotel> getHotels() {
         return hotels;
     }
+
+    public ArrayList<FlightSubscription> getFlightSubscriptions() {
+        return flightSubscriptions;
+    }
+
+    public ArrayList<HotelSubscription> getHotelSubscriptions() {
+        return hotelSubscriptions;
+    }
+    
 }

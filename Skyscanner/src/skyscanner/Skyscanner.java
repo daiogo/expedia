@@ -14,7 +14,6 @@ import java.util.logging.Logger;
 
 public class Skyscanner {
 
-    private AdminGui adminGui;
     private SkyscannerServant skyscannerServantReference;
     private Registry namingServiceReference;
     
@@ -26,10 +25,6 @@ public class Skyscanner {
         namingServiceReference = LocateRegistry.createRegistry(1099);
         skyscannerServantReference = new SkyscannerServant();
         namingServiceReference.bind("skyscanner", skyscannerServantReference);
-        adminGui = new AdminGui(this);
-        adminGui.setLocationRelativeTo(null);
-        adminGui.setVisible(true);
-
     }
     
     public static void main(String[] args) throws RemoteException, AlreadyBoundException {

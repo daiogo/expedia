@@ -23,4 +23,6 @@ public interface TravellerInterface extends Remote {
     public void getQueriedHotels(ArrayList<Hotel> hotels) throws RemoteException;
     public void displayFlightBookingConfirmation(FlightBooking flightBooking) throws RemoteException;
     public void displayHotelBookingConfirmation(HotelBooking hotelBooking) throws RemoteException;
+    public void displayFlightNotification(Flight flight) throws RemoteException;
+    public void displayHotelNotification(Hotel hotel) throws RemoteException;
 }

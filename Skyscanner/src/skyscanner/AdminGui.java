@@ -5,17 +5,23 @@
  */
 package skyscanner;
 
+import messages.FlightSubscription;
+
 /**
  *
  * @author Diogo
  */
 public class AdminGui extends javax.swing.JFrame {
 
+    private SkyscannerServant myServant;
+    
     /**
      * Creates new form SkyscannerGui
+     * @param myServant
      */
-    public AdminGui(Skyscanner mySkyscanner) {
+    public AdminGui(SkyscannerServant myServant) {
         initComponents();
+        this.myServant = myServant;
     }
 
     private AdminGui() {
@@ -119,8 +125,12 @@ public class AdminGui extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addFlightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addFlightActionPerformed
+                
         AddFlightForm flightForm = new AddFlightForm(this, true);
         flightForm.setVisible(true);
+        
+        //myServant.getDatabase().getFlights().add(newFlight);
+        //myServant.publishFlightChange(newFlight);
     }//GEN-LAST:event_addFlightActionPerformed
 
     private void editHotelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editHotelActionPerformed
@@ -132,7 +142,8 @@ public class AdminGui extends javax.swing.JFrame {
     }//GEN-LAST:event_editFlightActionPerformed
 
     private void addHotelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addHotelActionPerformed
-        // TODO add your handling code here:
+        //myServant.getDatabase().getHotels().add(newHotel);
+        //myServant.publishHotelChange(newHotel);
     }//GEN-LAST:event_addHotelActionPerformed
 
     /**

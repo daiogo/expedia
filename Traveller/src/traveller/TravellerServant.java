@@ -159,6 +159,7 @@ public class TravellerServant extends UnicastRemoteObject implements TravellerIn
     @Override
     public void displayFlightBookingConfirmation(FlightBooking flightBooking) throws RemoteException {
         System.out.println("---Flight booking confirmed!---");
+        JOptionPane.showMessageDialog(null,"Flight Booking Confirmed");
     }
 
 
