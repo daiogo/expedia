@@ -30,7 +30,7 @@ public class SkyscannerServant extends UnicastRemoteObject implements Skyscanner
     
     public SkyscannerServant() throws RemoteException {
         this.database = new Database();
-        adminGui = new AdminGui(this);
+        adminGui = new AdminGui(this, database);
         adminGui.setLocationRelativeTo(null);
         adminGui.setVisible(true);
         

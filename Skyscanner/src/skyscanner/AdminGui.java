@@ -12,14 +12,16 @@ package skyscanner;
 public class AdminGui extends javax.swing.JFrame {
 
     private SkyscannerServant myServant;
+    private Database myDatabase;
     
     /**
      * Creates new form SkyscannerGui
      * @param myServant
      */
-    public AdminGui(SkyscannerServant myServant) {
+    public AdminGui(SkyscannerServant myServant, Database myDatabase) {
         initComponents();
         this.myServant = myServant;
+        this.myDatabase = myDatabase;
     }
 
     private AdminGui() {
@@ -81,33 +83,32 @@ public class AdminGui extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(82, 82, 82)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(addHotel)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(editHotel))
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(addFlight)
-                            .addGap(18, 18, 18)
-                            .addComponent(editFlight)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(64, 64, 64)
-                        .addComponent(jLabel2))
+                        .addComponent(addFlight, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(editFlight, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(43, 43, 43)
-                        .addComponent(jLabel1)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(addHotel, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(editHotel, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(72, 72, 72)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel1))))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addFlight)
@@ -125,19 +126,27 @@ public class AdminGui extends javax.swing.JFrame {
     private void addFlightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addFlightActionPerformed
                 
         AddFlightForm flightForm = new AddFlightForm(this, true, myServant);
+        flightForm.setLocationRelativeTo(null);
         flightForm.setVisible(true);
     }//GEN-LAST:event_addFlightActionPerformed
 
     private void editHotelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editHotelActionPerformed
         // TODO add your handling code here:
+        EditHotelFrame editHotelFrame = new EditHotelFrame(myServant,myDatabase);
+        editHotelFrame.setLocationRelativeTo(null);
+        editHotelFrame.setVisible(true);
     }//GEN-LAST:event_editHotelActionPerformed
 
     private void editFlightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editFlightActionPerformed
         // TODO add your handling code here:
+        EditFlightFrame editFlightFrame = new EditFlightFrame(myServant,myDatabase);
+        editFlightFrame.setLocationRelativeTo(null);
+        editFlightFrame.setVisible(true);
     }//GEN-LAST:event_editFlightActionPerformed
 
     private void addHotelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addHotelActionPerformed
         AddHotelForm hotelForm = new AddHotelForm(this, true, myServant);
+        hotelForm.setLocationRelativeTo(null);
         hotelForm.setVisible(true);
     }//GEN-LAST:event_addHotelActionPerformed
 
