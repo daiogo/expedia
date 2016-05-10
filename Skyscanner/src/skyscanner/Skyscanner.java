@@ -27,8 +27,9 @@ public class Skyscanner {
         skyscannerServantReference = new SkyscannerServant();
         namingServiceReference.bind("skyscanner", skyscannerServantReference);
         adminGui = new AdminGui(this);
-        adminGui.setVisible(true);
         adminGui.setLocationRelativeTo(null);
+        adminGui.setVisible(true);
+
     }
     
     public static void main(String[] args) throws RemoteException, AlreadyBoundException {

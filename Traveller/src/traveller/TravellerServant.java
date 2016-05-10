@@ -36,6 +36,7 @@ public class TravellerServant extends UnicastRemoteObject implements TravellerIn
     private ArrayList<Flight> returningFlights;
     private ArrayList<Hotel> hotels;
     private TravellerFrame travellerFrame;
+    private FlightSearchResultsFrame flightSearchResultsFrame;
     
     public TravellerServant (Registry namingServiceReference) throws RemoteException {
         try {
@@ -44,8 +45,8 @@ public class TravellerServant extends UnicastRemoteObject implements TravellerIn
             Logger.getLogger(TravellerServant.class.getName()).log(Level.SEVERE, null, ex);
         }
         travellerFrame = new TravellerFrame(this);
-        travellerFrame.setVisible(true);
         travellerFrame.setLocationRelativeTo(null);
+        travellerFrame.setVisible(true);
     }
     
     public void searchFlights (FlightSearch flightSearch) {
@@ -63,11 +64,11 @@ public class TravellerServant extends UnicastRemoteObject implements TravellerIn
             ArrayList<Customer> guests = new ArrayList();
             guests.add(new Customer("Diogo Freitas", 21));
             
-            searchFlights(new FlightSearch("Curitiba", "São Paulo", true, "01/01/2016", "07/01/2016", 1));
+            //searchFlights(new FlightSearch("Curitiba", "São Paulo", true, "01/01/2016", "07/01/2016", 1));
             skyscannerReference.searchHotels(new HotelSearch("São Paulo", 1, "01/01/2016", "07/01/2016"), this);
             //skyscannerReference.bookFlight(new FlightBooking("JJ2020", "JJ2023", "01/01/2016", "07/01/2016", true, passengers), this);
             skyscannerReference.bookHotel(new HotelBooking(hotels.get(0).getHotelId(), "01/01/2016", "07/01/2016", 1, guests), this);
-            searchFlights(new FlightSearch("Curitiba", "São Paulo", true, "01/01/2016", "07/01/2016", 1));
+            //searchFlights(new FlightSearch("Curitiba", "São Paulo", true, "01/01/2016", "07/01/2016", 1));
             skyscannerReference.searchHotels(new HotelSearch("São Paulo", 1, "01/01/2016", "07/01/2016"), this);
             
         } catch (AccessException ex) {
@@ -80,8 +81,22 @@ public class TravellerServant extends UnicastRemoteObject implements TravellerIn
         System.out.println("Message: " + message);
     }
 
+    /**
+     * Show Flight Search results creating a FlightSearchResultsFrame
+     * This method is called from Server
+     * @param departingFlights
+     * @param returningFlights
+     * @throws RemoteException
+     */
     @Override
     public void getQueriedFlights(ArrayList<Flight> departingFlights, ArrayList<Flight> returningFlights) throws RemoteException {
+        
+        flightSearchResultsFrame = new FlightSearchResultsFrame();
+        flightSearchResultsFrame.setDepartureFlightsTable(departingFlights);
+        flightSearchResultsFrame.setReturnFlightsTable(returningFlights);
+        flightSearchResultsFrame.setLocationRelativeTo(null);
+        flightSearchResultsFrame.setVisible(true);
+        
         this.departingFlights = departingFlights;
         this.returningFlights = returningFlights;
         
