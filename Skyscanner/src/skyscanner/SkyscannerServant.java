@@ -13,9 +13,11 @@ import java.util.ArrayList;
 import messages.Flight;
 import messages.FlightBooking;
 import messages.FlightSearch;
+import messages.FlightSubscription;
 import messages.Hotel;
 import messages.HotelBooking;
 import messages.HotelSearch;
+import messages.HotelSubscription;
 
 /**
  *
@@ -125,11 +127,49 @@ public class SkyscannerServant extends UnicastRemoteObject implements Skyscanner
         travellerInterface.getQueriedHotels(hotels);
     }
 
+//    @Override
+//    public void subscribe(String subscribeTo, TravellerInterface travellerInterface) throws RemoteException {
+//        travellerInterface.publish(subscribeTo);
+//    }
+    
+    //        for (FlightSubscription subscriptionRecord : database.getFlightSubscriptions()) {
+//            if (subscriptionRecord.) {
+//                
+//            }
+//        }
+
     @Override
-    public void subscribe(String subscribeTo, TravellerInterface travellerInterface) throws RemoteException {
-        travellerInterface.publish(subscribeTo);
+    public void subscribeToFlight(FlightSubscription subscription, TravellerInterface travellerInterface) throws RemoteException {
+        database.getFlightSubscriptions().add(subscription);
+    }
+
+    @Override
+    public void subscribeToHotel(HotelSubscription subscription, TravellerInterface travellerInterface) throws RemoteException {
+        database.getHotelSubscriptions().add(subscription);
     }
     
+    public Database getDatabase() {
+        return database;
+    }
     
+    public void publishFlightChange(Flight flight) throws RemoteException {
+        for (FlightSubscription subscriptionRecord : database.getFlightSubscriptions()) {
+            if (subscriptionRecord.getOrigin().equals(flight.getOrigin()) &&
+                subscriptionRecord.getDestination().equals(flight.getDestination())
+                ) {
+                subscriptionRecord.getSubscriber().displayFlightNotification(flight);
+            }
+        }
+    }
     
+    public void publishHotelChange(Hotel hotel) throws RemoteException {
+        for (HotelSubscription subscriptionRecord : database.getHotelSubscriptions()) {
+            if (subscriptionRecord.getCity().equals(hotel.getCity()) &&
+                subscriptionRecord.getNumberOfRooms() <= hotel.getAvailableRooms()
+                ) {
+                subscriptionRecord.getSubscriber().displayHotelNotification(hotel);
+            }
+        }
+    }
+
 }

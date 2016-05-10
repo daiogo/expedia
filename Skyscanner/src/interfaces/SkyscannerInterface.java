@@ -9,8 +9,10 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import messages.FlightBooking;
 import messages.FlightSearch;
+import messages.FlightSubscription;
 import messages.HotelBooking;
 import messages.HotelSearch;
+import messages.HotelSubscription;
 
 /**
  *
@@ -21,5 +23,7 @@ public interface SkyscannerInterface extends Remote {
     public void bookHotel(HotelBooking booking, TravellerInterface travellerInterface) throws RemoteException;
     public void searchFlights(FlightSearch flightSearch, TravellerInterface travellerInterface) throws RemoteException;
     public void searchHotels(HotelSearch hotelSearch, TravellerInterface travellerInterface) throws RemoteException;
-    public void subscribe(String subscribeTo, TravellerInterface travellerInterface) throws RemoteException;
+    public void subscribeToFlight(FlightSubscription subscription, TravellerInterface travellerInterface) throws RemoteException;
+    public void subscribeToHotel(HotelSubscription subscription, TravellerInterface travellerInterface) throws RemoteException;
+    
 }
