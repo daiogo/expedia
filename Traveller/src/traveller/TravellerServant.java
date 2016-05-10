@@ -168,4 +168,14 @@ public class TravellerServant extends UnicastRemoteObject implements TravellerIn
         System.out.println("---Hotel booking confirmed!---");
         //JOptionPane.showMessageDialog(null, "Hotel Booked");
     }
+
+    @Override
+    public void displayFlightNotification(Flight flight) throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void displayHotelNotification(Hotel hotel) throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
