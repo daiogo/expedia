@@ -127,17 +127,6 @@ public class SkyscannerServant extends UnicastRemoteObject implements Skyscanner
         travellerInterface.getQueriedHotels(hotels);
     }
 
-//    @Override
-//    public void subscribe(String subscribeTo, TravellerInterface travellerInterface) throws RemoteException {
-//        travellerInterface.publish(subscribeTo);
-//    }
-    
-    //        for (FlightSubscription subscriptionRecord : database.getFlightSubscriptions()) {
-//            if (subscriptionRecord.) {
-//                
-//            }
-//        }
-
     @Override
     public void subscribeToFlight(FlightSubscription subscription, TravellerInterface travellerInterface) throws RemoteException {
         database.getFlightSubscriptions().add(subscription);
@@ -152,12 +141,12 @@ public class SkyscannerServant extends UnicastRemoteObject implements Skyscanner
         return database;
     }
     
-    public void publishFlightChange(Flight flight) throws RemoteException {
+    public void publishFlightChange(Flight flight) throws RemoteException {        
         for (FlightSubscription subscriptionRecord : database.getFlightSubscriptions()) {
             if (subscriptionRecord.getOrigin().equals(flight.getOrigin()) &&
                 subscriptionRecord.getDestination().equals(flight.getDestination())
                 ) {
-                subscriptionRecord.getSubscriber().displayFlightNotification(flight);
+                subscriptionRecord.getSubscriber().displayFlightNotification(subscriptionRecord, flight);
             }
         }
     }
@@ -167,7 +156,7 @@ public class SkyscannerServant extends UnicastRemoteObject implements Skyscanner
             if (subscriptionRecord.getCity().equals(hotel.getCity()) &&
                 subscriptionRecord.getNumberOfRooms() <= hotel.getAvailableRooms()
                 ) {
-                subscriptionRecord.getSubscriber().displayHotelNotification(hotel);
+                subscriptionRecord.getSubscriber().displayHotelNotification(subscriptionRecord, hotel);
             }
         }
     }

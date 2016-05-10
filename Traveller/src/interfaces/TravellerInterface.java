@@ -10,8 +10,10 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import messages.Flight;
 import messages.FlightBooking;
+import messages.FlightSubscription;
 import messages.Hotel;
 import messages.HotelBooking;
+import messages.HotelSubscription;
 
 /**
  *
@@ -23,6 +25,6 @@ public interface TravellerInterface extends Remote {
     public void getQueriedHotels(ArrayList<Hotel> hotels) throws RemoteException;
     public void displayFlightBookingConfirmation(FlightBooking flightBooking) throws RemoteException;
     public void displayHotelBookingConfirmation(HotelBooking hotelBooking) throws RemoteException;
-    public void displayFlightNotification(Flight flight) throws RemoteException;
-    public void displayHotelNotification(Hotel hotel) throws RemoteException;
+    public void displayFlightNotification(FlightSubscription subscription, Flight flight) throws RemoteException;
+    public void displayHotelNotification(HotelSubscription subscription, Hotel hotel) throws RemoteException;
 }

@@ -21,9 +21,11 @@ import messages.Customer;
 import messages.Flight;
 import messages.FlightBooking;
 import messages.FlightSearch;
+import messages.FlightSubscription;
 import messages.Hotel;
 import messages.HotelBooking;
 import messages.HotelSearch;
+import messages.HotelSubscription;
 
 /**
  *
@@ -157,13 +159,13 @@ public class TravellerServant extends UnicastRemoteObject implements TravellerIn
     }
 
     @Override
-    public void displayFlightNotification(Flight flight) throws RemoteException {
+    public void displayFlightNotification(FlightSubscription subscription, Flight flight) throws RemoteException {
         
         //JOptionPane.showMessageDialog(new JFrame("Notification"), "Your booking is confirmed");
     }
 
     @Override
-    public void displayHotelNotification(Hotel hotel) throws RemoteException {
+    public void displayHotelNotification(HotelSubscription subscription, Hotel hotel) throws RemoteException {
         //JOptionPane.showMessageDialog(new JFrame("Notification"), "Your booking is confirmed");
     }
 }

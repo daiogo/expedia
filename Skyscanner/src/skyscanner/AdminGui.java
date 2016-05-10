@@ -5,8 +5,6 @@
  */
 package skyscanner;
 
-import messages.FlightSubscription;
-
 /**
  *
  * @author Diogo
@@ -126,11 +124,8 @@ public class AdminGui extends javax.swing.JFrame {
 
     private void addFlightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addFlightActionPerformed
                 
-        AddFlightForm flightForm = new AddFlightForm(this, true);
+        AddFlightForm flightForm = new AddFlightForm(this, true, myServant);
         flightForm.setVisible(true);
-        
-        //myServant.getDatabase().getFlights().add(newFlight);
-        //myServant.publishFlightChange(newFlight);
     }//GEN-LAST:event_addFlightActionPerformed
 
     private void editHotelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editHotelActionPerformed
@@ -142,8 +137,8 @@ public class AdminGui extends javax.swing.JFrame {
     }//GEN-LAST:event_editFlightActionPerformed
 
     private void addHotelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addHotelActionPerformed
-        //myServant.getDatabase().getHotels().add(newHotel);
-        //myServant.publishHotelChange(newHotel);
+        AddHotelForm hotelForm = new AddHotelForm(this, true, myServant);
+        hotelForm.setVisible(true);
     }//GEN-LAST:event_addHotelActionPerformed
 
     /**
