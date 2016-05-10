@@ -240,6 +240,19 @@ public class FlightSearchResultsFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         int i = jTable1.getSelectedRow();
         Flight flight = departingFlights.get(i);
+        double airfare = flight.getAirfare();
+        i = jTable2.getSelectedRow();
+        flight = returningFlights.get(i);
+        double totalAirfare = airfare+ flight.getAirfare();        
+        PaymentFrame paymentFrame = new PaymentFrame (this,Double.toString(totalAirfare) );
+        paymentFrame.setLocationRelativeTo(null);
+        paymentFrame.setVisible(true);
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    public void bookFlight(){
+        int i = jTable1.getSelectedRow();
+        Flight flight = departingFlights.get(i);
         String departureFlightNumber = flight.getFlightNumber();
         String departureDate = flight.getDepartureDate();
         double airfare = flight.getAirfare();
@@ -248,14 +261,9 @@ public class FlightSearchResultsFrame extends javax.swing.JFrame {
         String returnFlightNumber = flight.getFlightNumber();
         String returnDate = flight.getDepartureDate();
         double totalAirfare = airfare+ flight.getAirfare();
-        
-        PaymentFrame paymentFrame = new PaymentFrame (this,Double.toString(totalAirfare) );
-        paymentFrame.setVisible(true);
         myTravellerServant.bookFlight(departureFlightNumber, departureDate, returnFlightNumber, returnDate);
-        
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
-
+        dispose();
+    }
     /**
      * @param args the command line arguments
      */

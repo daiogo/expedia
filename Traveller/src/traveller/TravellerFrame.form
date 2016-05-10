@@ -314,7 +314,7 @@
                               </Group>
                               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="travellersFormattedField6" min="-2" pref="30" max="-2" attributes="0"/>
+                                  <Component id="nRooms" min="-2" pref="30" max="-2" attributes="0"/>
                                   <Component id="jLabel19" min="-2" pref="122" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -377,7 +377,7 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="locationField" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="travellersFormattedField6" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="nRooms" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Component id="jLabel19" alignment="0" min="-2" pref="23" max="-2" attributes="0"/>
@@ -431,6 +431,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="locationField">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="S&#xe3;o Paulo"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel8">
               <Properties>
@@ -447,13 +450,18 @@
                 <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
                   <Format format="dd/MM/yyyy" subtype="-1" type="1"/>
                 </Property>
+                <Property name="text" type="java.lang.String" value="01/01/2016"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkinDateFormattedFieldActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="checkoutDateFormattedField">
               <Properties>
                 <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
                   <Format format="dd/MM/yyyy" subtype="-1" type="1"/>
                 </Property>
+                <Property name="text" type="java.lang.String" value="07/01/2016"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="searchHotelsButton">
@@ -479,6 +487,7 @@
                 <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
                   <Format format="#0" subtype="-1" type="0"/>
                 </Property>
+                <Property name="text" type="java.lang.String" value="1"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel17">
@@ -510,12 +519,16 @@
                 <Property name="text" type="java.lang.String" value="Number of Rooms"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JFormattedTextField" name="travellersFormattedField6">
+            <Component class="javax.swing.JFormattedTextField" name="nRooms">
               <Properties>
                 <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
                   <Format format="#0" subtype="-1" type="0"/>
                 </Property>
+                <Property name="text" type="java.lang.String" value="1"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nRoomsActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -540,7 +553,6 @@
                               <Component id="cheaperFlightsRadioButton" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="interestFlightButton" alignment="0" min="-2" pref="397" max="-2" attributes="0"/>
-                          <Component id="jLabel27" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                   <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -558,7 +570,8 @@
                                   </Group>
                               </Group>
                           </Group>
-                          <Component id="fromField2" alignment="0" min="-2" pref="32" max="-2" attributes="0"/>
+                          <Component id="notificationExpiration0" alignment="0" min="-2" pref="111" max="-2" attributes="0"/>
+                          <Component id="jLabel27" alignment="0" min="-2" pref="196" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="55" max="32767" attributes="0"/>
                   </Group>
@@ -602,7 +615,7 @@
                       </Group>
                       <Component id="jLabel27" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="fromField2" min="-2" max="-2" attributes="0"/>
+                      <Component id="notificationExpiration0" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="interestFlightButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="49" max="32767" attributes="0"/>
@@ -673,10 +686,15 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel27">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Notification for how many seconds?"/>
+                <Property name="text" type="java.lang.String" value="Notification expiration"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="fromField2">
+            <Component class="javax.swing.JFormattedTextField" name="notificationExpiration0">
+              <Properties>
+                <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
+                  <Format format="dd/MM/yyyy" subtype="-1" type="1"/>
+                </Property>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>
@@ -695,6 +713,7 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="jLabel28" min="-2" pref="200" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="newHotelsRadioButton" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -723,10 +742,9 @@
                               </Group>
                           </Group>
                           <Component id="interestHotelButton" alignment="0" min="-2" pref="397" max="-2" attributes="0"/>
-                          <Component id="jLabel28" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="fromField3" alignment="0" min="-2" pref="32" max="-2" attributes="0"/>
+                          <Component id="notificationExpiration" alignment="0" min="-2" pref="111" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="55" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -762,10 +780,10 @@
                           <Component id="checkoutDateFormattedField1" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jLabel28" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel28" min="-2" pref="17" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="fromField3" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="15" max="32767" attributes="0"/>
+                      <Component id="notificationExpiration" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="37" max="32767" attributes="0"/>
                       <Component id="interestHotelButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -837,10 +855,15 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel28">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Notification for how many seconds?"/>
+                <Property name="text" type="java.lang.String" value="Notifications expiration"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="fromField3">
+            <Component class="javax.swing.JFormattedTextField" name="notificationExpiration">
+              <Properties>
+                <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
+                  <Format format="dd/MM/yyyy" subtype="-1" type="1"/>
+                </Property>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>
