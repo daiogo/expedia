@@ -78,7 +78,8 @@ public class SkyscannerServant extends UnicastRemoteObject implements Skyscanner
         for (Hotel hotel : database.getHotels()) {
             if (hotel.getHotelId().equals(booking.getHotelId())) {
                 hotel.setAvailableRooms(hotel.getAvailableRooms() - booking.getGuests().size());
-                database.getHotels().set(index, hotel);
+                if (hotel.getAvailableRooms() > 0)
+                    database.getHotels().set(index, hotel);
             }
             index++;
         }

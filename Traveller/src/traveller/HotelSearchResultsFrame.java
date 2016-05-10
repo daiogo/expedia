@@ -5,6 +5,10 @@
  */
 package traveller;
 
+import java.util.ArrayList;
+import messages.Flight;
+import messages.Hotel;
+
 /**
  *
  * @author diego
@@ -14,10 +18,49 @@ public class HotelSearchResultsFrame extends javax.swing.JFrame {
     /**
      * Creates new form FlightSearchFrame
      */
-    public HotelSearchResultsFrame() {
+    private ArrayList<Hotel> hotels;
+    private TravellerServant myTravellerServant;
+    
+    public HotelSearchResultsFrame(TravellerServant myTravellerServant, ArrayList<Hotel> hotels) {
         initComponents();
+        this.hotels = hotels;
+        this.myTravellerServant = myTravellerServant;
+        createTable();
     }
 
+    private void createTable(){
+        String[][] results = new String[hotels.size()][3];
+        
+        int i = 0;        
+        for (Hotel hotel : hotels) {
+            results[i][0] = hotel.getHotelName();
+            results[i][1] = hotel.getCity();            
+            results[i][2] = Double.toString(hotel.getPricePerNight());
+            i++;
+        }
+        
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            results,
+            new String [] {
+                "Name", "City", "Price"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,8 +74,6 @@ public class HotelSearchResultsFrame extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
-        travellersFormattedField = new javax.swing.JFormattedTextField();
-        jLabel1 = new javax.swing.JLabel();
 
         jTextField1.setText("jTextField1");
 
@@ -46,7 +87,7 @@ public class HotelSearchResultsFrame extends javax.swing.JFrame {
                 {null, null, null}
             },
             new String [] {
-                "Code", "City", "Price"
+                "Name", "City", "Price"
             }
         ) {
             Class[] types = new Class [] {
@@ -73,24 +114,15 @@ public class HotelSearchResultsFrame extends javax.swing.JFrame {
             }
         });
 
-        travellersFormattedField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
-
-        jLabel1.setText("Flight Code:");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(6, 6, 6)
-                        .addComponent(travellersFormattedField, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -99,10 +131,7 @@ public class HotelSearchResultsFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(travellersFormattedField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                .addComponent(jButton1)
                 .addContainerGap())
         );
 
@@ -111,8 +140,23 @@ public class HotelSearchResultsFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        int i = jTable1.getSelectedRow();
+        Hotel hotel = hotels.get(i);
+        double price = hotel.getPricePerNight();       
+        PaymentFrame2 paymentFrame = new PaymentFrame2 (this,Double.toString(price) );
+        paymentFrame.setLocationRelativeTo(null);
+        paymentFrame.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    public void bookHotel(){
+        int i = jTable1.getSelectedRow();
+        Hotel hotel = hotels.get(i);
+        double price = hotel.getPricePerNight();       
+        String id = hotel.getHotelId();
+        myTravellerServant.bookHotel(id);
+        dispose();
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -146,17 +190,15 @@ public class HotelSearchResultsFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new HotelSearchResultsFrame().setVisible(true);
+                
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JFormattedTextField travellersFormattedField;
     // End of variables declaration//GEN-END:variables
 }

@@ -18,7 +18,7 @@ public class Traveller {
     public static void main(String[] args) throws RemoteException {
         Registry namingServiceReference = LocateRegistry.getRegistry(1099);
         TravellerServant travellerServantReference = new TravellerServant(namingServiceReference);
-        travellerServantReference.run();
+        
     }
     
 }
