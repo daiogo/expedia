@@ -9,6 +9,9 @@ import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import messages.Flight;
+import messages.FlightSubscription;
+import static messages.FlightSubscription.SubscriptionType.NEW_ITEM;
+import static messages.FlightSubscription.SubscriptionType.PRICE_DROP;
 
 /**
  *
@@ -191,11 +194,22 @@ public class AddFlightForm extends javax.swing.JDialog {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         newFlight = new Flight(txtFlightNumber.getText(), txtAirline.getText(), txtOrigin.getText(), txtDestination.getText(), txtDepartureDate.getText(), txtDepartureTime.getText(), txtArrivalTime.getText(), Double.valueOf(txtAirfare.getText()), Integer.valueOf(txtAvailableSeats.getText()));
         myServant.getDatabase().getFlights().add(newFlight);
-        try {
-            myServant.publishFlightChange(newFlight);
-        } catch (RemoteException ex) {
-            Logger.getLogger(AddFlightForm.class.getName()).log(Level.SEVERE, null, ex);
+        
+        for (FlightSubscription subscription : myServant.getDatabase().getFlightSubscriptions()) {
+            if (newFlight.getOrigin().equals(subscription.getOrigin()) &&
+                newFlight.getDestination().equals(subscription.getDestination()) &&
+                subscription.getType().equals(NEW_ITEM)
+                ) {
+                try {
+                    subscription.getSubscriber().displayFlightNotification(subscription, newFlight);
+                } catch (RemoteException ex) {
+                    Logger.getLogger(AddFlightForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
+        
+        
+        
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 

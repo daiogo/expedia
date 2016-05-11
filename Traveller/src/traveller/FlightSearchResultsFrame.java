@@ -261,7 +261,7 @@ public class FlightSearchResultsFrame extends javax.swing.JFrame {
         String returnFlightNumber = flight.getFlightNumber();
         String returnDate = flight.getDepartureDate();
         double totalAirfare = airfare+ flight.getAirfare();
-        myTravellerServant.bookFlight(departureFlightNumber, departureDate, returnFlightNumber, returnDate);
+        myTravellerServant.bookFlight(departureFlightNumber, returnFlightNumber, departureDate, returnDate);
         dispose();
     }
     /**

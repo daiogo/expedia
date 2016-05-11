@@ -8,10 +8,15 @@ package skyscanner;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import messages.Flight;
+import messages.FlightSubscription;
+import static messages.FlightSubscription.SubscriptionType.PRICE_DROP;
 
 /**
  *
@@ -37,18 +42,32 @@ public class EditFlightFrame extends javax.swing.JFrame {
                 int row = table.rowAtPoint(p);
                 if (me.getClickCount() == 2) {
                     System.out.println("double click row: " +row);
-                    editRow (row);
+                    try {
+                        editRow(row);
+                    } catch (RemoteException ex) {
+                        Logger.getLogger(EditFlightFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             }
         });
     }
 
-    private void editRow (int row){
-        String priceString = JOptionPane.showInputDialog ( "New Price: " ); 
-        double price = Double.parseDouble(priceString);
-        jTable1.setValueAt(price, row, 7);
+    private void editRow(int row) throws RemoteException {
+        String priceString = JOptionPane.showInputDialog ( "New Price: " );
+        double newPrice = Double.parseDouble(priceString);
+        jTable1.setValueAt(newPrice, row, 7);
         ArrayList<Flight> flights = myDatabase.getFlights();
-        flights.get(row).setAirfare(price);
+        double oldPrice = flights.get(row).getAirfare();
+        flights.get(row).setAirfare(newPrice);
+
+        for (FlightSubscription subscription : myDatabase.getFlightSubscriptions()) {
+            if (flights.get(row).getOrigin().equals(subscription.getOrigin()) &&
+                flights.get(row).getDestination().equals(subscription.getDestination()) &&
+                subscription.getType().equals(PRICE_DROP) &&
+                newPrice < oldPrice) {
+                subscription.getSubscriber().displayFlightNotification(subscription, flights.get(row));
+            }
+        }
     }
     
     private void createTable(){
@@ -175,7 +194,7 @@ public class EditFlightFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+    
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 

@@ -60,8 +60,8 @@ public class TravellerServant extends UnicastRemoteObject implements TravellerIn
     
     public void searchFlights (FlightSearch flightSearch) {
         try {
+            // Simulates always for a single guest, regardless of input
             passengers.add(new Customer("Diogo Freitas", 21));
-            guests.add(new Customer("Diogo Freitas", 21));
             skyscannerReference.searchFlights(flightSearch,this);
         } catch (RemoteException ex) {
             Logger.getLogger(TravellerServant.class.getName()).log(Level.SEVERE, null, ex);
@@ -146,13 +146,16 @@ public class TravellerServant extends UnicastRemoteObject implements TravellerIn
             System.out.println("Hotel name: " + hotel.getHotelName());
             System.out.println("City: " + hotel.getCity());
             System.out.println("Price: " + hotel.getPricePerNight());
+            System.out.println("Rooms: " + hotel.getAvailableRooms());
             System.out.println("-----------------------------------------");
         }
     }
     
     public void bookHotel(String hotelId){
         try {
-            skyscannerReference.bookHotel(new HotelBooking(hotelId, hotelCheckin,hotelCheckout, 1, guests), this);
+            // Simulates always for a single guest, regardless of input
+            guests.add(new Customer("Diogo Freitas", 21));
+            skyscannerReference.bookHotel(new HotelBooking(hotelId, hotelCheckin, hotelCheckout, 1, guests), this);
         } catch (RemoteException ex) {
             Logger.getLogger(TravellerServant.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -180,11 +183,17 @@ public class TravellerServant extends UnicastRemoteObject implements TravellerIn
 
     @Override
     public void displayFlightNotification(FlightSubscription subscription, Flight flight) throws RemoteException {
-        invokeLaterMessageDialog("Your booking is confirmed");
+        System.out.println("---Flight offer!---");
+        invokeLaterMessageDialog("You have a new flight offer!");
     }
 
     @Override
     public void displayHotelNotification(HotelSubscription subscription, Hotel hotel) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("---Hotel offer!---");
+        invokeLaterMessageDialog("You have a new hotel offer!");
+    }
+    
+    public void registerFlightInterest(FlightSubscription subscription) throws RemoteException {
+        skyscannerReference.subscribeToFlight(subscription, this);
     }
 }

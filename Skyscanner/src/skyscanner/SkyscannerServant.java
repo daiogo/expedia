@@ -78,8 +78,7 @@ public class SkyscannerServant extends UnicastRemoteObject implements Skyscanner
         for (Hotel hotel : database.getHotels()) {
             if (hotel.getHotelId().equals(booking.getHotelId())) {
                 hotel.setAvailableRooms(hotel.getAvailableRooms() - booking.getGuests().size());
-                if (hotel.getAvailableRooms() > 0)
-                    database.getHotels().set(index, hotel);
+                database.getHotels().set(index, hotel);
             }
             index++;
         }
@@ -98,6 +97,8 @@ public class SkyscannerServant extends UnicastRemoteObject implements Skyscanner
                 flightSearch.getDepartureDate().equals(flight.getDepartureDate()) &&
                 flightSearch.getNumberOfPassengers() <= flight.getAvailableSeats()
                 ) {
+                                System.out.println("Flight: " + flight.getFlightNumber());
+                System.out.println("Available seats: " + flight.getAvailableSeats());
                 departingFlights.add(flight);
             }
             else if (flightSearch.isRoundTrip() &&
@@ -106,6 +107,8 @@ public class SkyscannerServant extends UnicastRemoteObject implements Skyscanner
                      flightSearch.getReturnDate().equals(flight.getDepartureDate()) &&
                      flightSearch.getNumberOfPassengers() <= flight.getAvailableSeats()
                      ) {
+                System.out.println("Flight: " + flight.getFlightNumber());
+                System.out.println("Available seats: " + flight.getAvailableSeats());
                 returningFlights.add(flight);
             }
         }
@@ -147,6 +150,8 @@ public class SkyscannerServant extends UnicastRemoteObject implements Skyscanner
             if (subscriptionRecord.getOrigin().equals(flight.getOrigin()) &&
                 subscriptionRecord.getDestination().equals(flight.getDestination())
                 ) {
+
+
                 subscriptionRecord.getSubscriber().displayFlightNotification(subscriptionRecord, flight);
             }
         }

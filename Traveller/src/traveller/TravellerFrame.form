@@ -547,33 +547,32 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="newFlightsRadioButton" min="-2" pref="127" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="cheaperFlightsRadioButton" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="interestFlightButton" alignment="0" min="-2" pref="397" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel21" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="fromField1" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="departDateFormattedField1" alignment="0" pref="111" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel20" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="jLabel22" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="toField1" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="returnDateFormattedField1" alignment="0" min="-2" pref="114" max="-2" attributes="0"/>
+                          <Component id="txtExpiration" alignment="0" min="-2" pref="111" max="-2" attributes="0"/>
+                          <Component id="jLabel27" alignment="0" min="-2" pref="196" max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="interestFlightButton" alignment="0" max="32767" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                      <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel21" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtOrigin" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="txtDepartureDate" alignment="0" pref="111" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel20" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="jLabel22" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="txtDestination" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="txtReturnDate" alignment="0" min="-2" pref="114" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
                               </Group>
+                              <Component id="cheaperFlightsRadioButton" alignment="1" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="notificationExpiration0" alignment="0" min="-2" pref="111" max="-2" attributes="0"/>
-                          <Component id="jLabel27" alignment="0" min="-2" pref="196" max="-2" attributes="0"/>
+                          <Component id="newFlightsRadioButton" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="55" max="32767" attributes="0"/>
+                      <EmptySpace pref="230" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -590,35 +589,36 @@
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="fromField1" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtOrigin" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="jLabel20" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="toField1" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtDestination" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="jLabel21" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="txtDepartureDate" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtReturnDate" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="jLabel22" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="departDateFormattedField1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="returnDateFormattedField1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Component id="jLabel27" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="notificationExpiration0" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtExpiration" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="interestFlightButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="49" max="32767" attributes="0"/>
+                      <EmptySpace pref="53" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -638,11 +638,17 @@
                 <Property name="text" type="java.lang.String" value="New Flights"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="fromField1">
+            <Component class="javax.swing.JTextField" name="txtOrigin">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Curitiba"/>
+              </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="toField1">
+            <Component class="javax.swing.JTextField" name="txtDestination">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="S&#xe3;o Paulo"/>
+              </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="toField1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtDestinationActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel11">
@@ -660,19 +666,24 @@
                 <Property name="text" type="java.lang.String" value="Depart Date"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JFormattedTextField" name="departDateFormattedField1">
+            <Component class="javax.swing.JFormattedTextField" name="txtDepartureDate">
               <Properties>
                 <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
                   <Format format="dd/MM/yyyy" subtype="-1" type="1"/>
                 </Property>
+                <Property name="text" type="java.lang.String" value="01/01/2016"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JFormattedTextField" name="returnDateFormattedField1">
+            <Component class="javax.swing.JFormattedTextField" name="txtReturnDate">
               <Properties>
                 <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
                   <Format format="dd/MM/yyyy" subtype="-1" type="1"/>
                 </Property>
+                <Property name="text" type="java.lang.String" value="07/01/2016"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtReturnDateActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel22">
               <Properties>
@@ -683,17 +694,21 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Register Interest"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="interestFlightButtonActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel27">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Notification expiration"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JFormattedTextField" name="notificationExpiration0">
+            <Component class="javax.swing.JFormattedTextField" name="txtExpiration">
               <Properties>
                 <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
                   <Format format="dd/MM/yyyy" subtype="-1" type="1"/>
                 </Property>
+                <Property name="text" type="java.lang.String" value="1"/>
               </Properties>
             </Component>
           </SubComponents>
