@@ -195,5 +195,6 @@ public class TravellerServant extends UnicastRemoteObject implements TravellerIn
     
     public void registerFlightInterest(FlightSubscription subscription) throws RemoteException {
         skyscannerReference.subscribeToFlight(subscription, this);
+        invokeLaterMessageDialog("Flight Interest Registered");
     }
 }

@@ -474,7 +474,7 @@ public class TravellerFrame extends javax.swing.JFrame {
         jLabel27.setText("Notification expiration");
 
         txtExpiration.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
-        txtExpiration.setText("1");
+        txtExpiration.setText("10/12/2016");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -499,10 +499,12 @@ public class TravellerFrame extends javax.swing.JFrame {
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel22)
                                     .addComponent(txtDestination)
-                                    .addComponent(txtReturnDate, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addComponent(cheaperFlightsRadioButton))
-                    .addComponent(newFlightsRadioButton))
-                .addContainerGap(230, Short.MAX_VALUE))
+                                    .addComponent(txtReturnDate, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(newFlightsRadioButton)
+                        .addGap(64, 64, 64)
+                        .addComponent(cheaperFlightsRadioButton)))
+                .addContainerGap(153, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -572,6 +574,7 @@ public class TravellerFrame extends javax.swing.JFrame {
         jLabel28.setText("Notifications expiration");
 
         notificationExpiration.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
+        notificationExpiration.setText("10/12/2017");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -583,7 +586,7 @@ public class TravellerFrame extends javax.swing.JFrame {
                     .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(newHotelsRadioButton)
-                        .addGap(18, 18, 18)
+                        .addGap(34, 34, 34)
                         .addComponent(cheaperHotelsRadioButton))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -592,7 +595,7 @@ public class TravellerFrame extends javax.swing.JFrame {
                         .addGap(24, 24, 24)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(travellersFormattedField7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(checkinDateFormattedField1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -634,7 +637,7 @@ public class TravellerFrame extends javax.swing.JFrame {
                 .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(notificationExpiration, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
                 .addComponent(interestHotelButton)
                 .addContainerGap())
         );
@@ -755,7 +758,7 @@ public class TravellerFrame extends javax.swing.JFrame {
             cheaperOrNewFlight = SubscriptionType.PRICE_DROP;
         
         try {
-            myTravellerServant.registerFlightInterest(new FlightSubscription(myTravellerServant, txtOrigin.getText(), txtDestination.getText(), txtDepartureDate.getText(), txtReturnDate.getText(), Integer.parseInt(txtExpiration.getText()), cheaperOrNewFlight));
+            myTravellerServant.registerFlightInterest(new FlightSubscription(myTravellerServant, txtOrigin.getText(), txtDestination.getText(), txtDepartureDate.getText(), txtReturnDate.getText(), txtExpiration.getText(), cheaperOrNewFlight));
         } catch (RemoteException ex) {
             Logger.getLogger(TravellerFrame.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -19,10 +19,10 @@ public class FlightSubscription implements Serializable {
     private String destination;
     private String departureDate;
     private String returnDate;
-    private int notificationTimeSpan;
+    private String notificationTimeSpan;
     private SubscriptionType type;
 
-    public FlightSubscription(TravellerInterface subscriber, String origin, String destination, String departureDate, String returnDate, int notificationTimeSpan, SubscriptionType type) {
+    public FlightSubscription(TravellerInterface subscriber, String origin, String destination, String departureDate, String returnDate, String notificationTimeSpan, SubscriptionType type) {
         this.subscriber = subscriber;
         this.origin = origin;
         this.destination = destination;
@@ -52,7 +52,7 @@ public class FlightSubscription implements Serializable {
         return returnDate;
     }
 
-    public int getNotificationTimeSpan() {
+    public String getNotificationTimeSpan() {
         return notificationTimeSpan;
     }
 
