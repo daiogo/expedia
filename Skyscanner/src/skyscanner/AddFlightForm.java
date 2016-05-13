@@ -10,8 +10,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import messages.Flight;
 import messages.FlightSubscription;
-import static messages.FlightSubscription.SubscriptionType.NEW_ITEM;
-import static messages.FlightSubscription.SubscriptionType.PRICE_DROP;
+import static messages.HotelSubscription.SubscriptionType.NEW_ITEM;
+import static messages.HotelSubscription.SubscriptionType.PRICE_DROP;
 
 /**
  *

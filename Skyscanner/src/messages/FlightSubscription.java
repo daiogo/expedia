@@ -7,13 +7,13 @@ package messages;
 
 import interfaces.TravellerInterface;
 import java.io.Serializable;
+import messages.HotelSubscription.SubscriptionType;
 
 /**
  *
  * @author Diogo
  */
 public class FlightSubscription implements Serializable {
-    public enum SubscriptionType {PRICE_DROP, NEW_ITEM}
     private TravellerInterface subscriber;
     private String origin;
     private String destination;

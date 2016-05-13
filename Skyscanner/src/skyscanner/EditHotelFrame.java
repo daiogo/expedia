@@ -8,10 +8,16 @@ package skyscanner;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import messages.FlightSubscription;
 import messages.Hotel;
+import messages.HotelSubscription;
+import static messages.HotelSubscription.SubscriptionType.PRICE_DROP;
 
 /**
  *
@@ -37,19 +43,33 @@ public class EditHotelFrame extends javax.swing.JFrame {
                 Point p = me.getPoint();
                 int row = table.rowAtPoint(p);
                 if (me.getClickCount() == 2) {
-                    //System.out.println("double click row: " +row);
-                    editRow(row);
+                    try {
+                        //System.out.println("double click row: " +row);
+                        editRow(row);
+                    } catch (RemoteException ex) {
+                        Logger.getLogger(EditHotelFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             }
         });
     }
 
-    private void editRow (int row){
+    private void editRow (int row) throws RemoteException {
         String priceString = JOptionPane.showInputDialog ( "New Price: " ); 
-        double price = Double.parseDouble(priceString);
-        jTable1.setValueAt(price, row, 2);
+        double newPrice = Double.parseDouble(priceString);
+        jTable1.setValueAt(newPrice, row, 2);
         ArrayList<Hotel> hotels = myDatabase.getHotels();
-        hotels.get(row).setPricePerNight(price);
+        double oldPrice = hotels.get(row).getPricePerNight();
+        hotels.get(row).setPricePerNight(newPrice);
+        
+        
+        for (HotelSubscription subscription : myDatabase.getHotelSubscriptions()) {
+            if (hotels.get(row).getCity().equals(subscription.getCity()) &&
+                subscription.getType().equals(PRICE_DROP) &&
+                newPrice < oldPrice) {
+                subscription.getSubscriber().displayHotelNotification(subscription, hotels.get(row));
+            }
+        }
     }
         
     private void createTable(){

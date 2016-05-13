@@ -10,8 +10,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import messages.FlightSearch;
 import messages.FlightSubscription;
-import messages.FlightSubscription.SubscriptionType;
+import messages.HotelSubscription.SubscriptionType;
 import messages.HotelSearch;
+import messages.HotelSubscription;
 
 /**
  *
@@ -112,17 +113,17 @@ public class TravellerFrame extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         newHotelsRadioButton = new javax.swing.JRadioButton();
         cheaperHotelsRadioButton = new javax.swing.JRadioButton();
-        checkinDateFormattedField1 = new javax.swing.JFormattedTextField();
+        txtCheckInDate = new javax.swing.JFormattedTextField();
         jLabel23 = new javax.swing.JLabel();
-        travellersFormattedField7 = new javax.swing.JFormattedTextField();
-        checkoutDateFormattedField1 = new javax.swing.JFormattedTextField();
+        txtNumberOfRooms = new javax.swing.JFormattedTextField();
+        txtCheckOutDate = new javax.swing.JFormattedTextField();
         jLabel24 = new javax.swing.JLabel();
-        locationField1 = new javax.swing.JTextField();
+        txtCity = new javax.swing.JTextField();
         jLabel25 = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
         interestHotelButton = new javax.swing.JButton();
         jLabel28 = new javax.swing.JLabel();
-        notificationExpiration = new javax.swing.JFormattedTextField();
+        txtNotificationExpiration = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -555,26 +556,36 @@ public class TravellerFrame extends javax.swing.JFrame {
 
         cheaperHotelsRadioButton.setText("Cheaper Hotel Rooms");
 
-        checkinDateFormattedField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
+        txtCheckInDate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
+        txtCheckInDate.setText("01/01/2016");
 
         jLabel23.setText("Number of Rooms");
 
-        travellersFormattedField7.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        txtNumberOfRooms.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        txtNumberOfRooms.setText("1");
 
-        checkoutDateFormattedField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
+        txtCheckOutDate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
+        txtCheckOutDate.setText("07/01/2016");
 
         jLabel24.setText("Location");
+
+        txtCity.setText("Curitiba");
 
         jLabel25.setText("Check-in");
 
         jLabel26.setText("Check-out");
 
         interestHotelButton.setText("Register Interest");
+        interestHotelButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                interestHotelButtonActionPerformed(evt);
+            }
+        });
 
         jLabel28.setText("Notifications expiration");
 
-        notificationExpiration.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
-        notificationExpiration.setText("10/12/2017");
+        txtNotificationExpiration.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
+        txtNotificationExpiration.setText("10/12/2017");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -591,21 +602,21 @@ public class TravellerFrame extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel24)
-                            .addComponent(locationField1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtCity, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(24, 24, 24)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(travellersFormattedField7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNumberOfRooms, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(checkinDateFormattedField1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCheckInDate, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel25))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(checkoutDateFormattedField1, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCheckOutDate, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel26)))
                     .addComponent(interestHotelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(notificationExpiration, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNotificationExpiration, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(55, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -622,8 +633,8 @@ public class TravellerFrame extends javax.swing.JFrame {
                         .addComponent(jLabel24)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(locationField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(travellersFormattedField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNumberOfRooms, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -631,12 +642,12 @@ public class TravellerFrame extends javax.swing.JFrame {
                     .addComponent(jLabel25, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(checkinDateFormattedField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(checkoutDateFormattedField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCheckInDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCheckOutDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(notificationExpiration, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtNotificationExpiration, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
                 .addComponent(interestHotelButton)
                 .addContainerGap())
@@ -764,6 +775,21 @@ public class TravellerFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_interestFlightButtonActionPerformed
 
+    private void interestHotelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_interestHotelButtonActionPerformed
+        SubscriptionType cheaperOrNewHotel;
+        
+        if (newHotelsRadioButton.isSelected())
+            cheaperOrNewHotel = SubscriptionType.NEW_ITEM;
+        else
+            cheaperOrNewHotel = SubscriptionType.PRICE_DROP;
+        
+        try {
+            myTravellerServant.registerHotelInterest(new HotelSubscription(myTravellerServant, txtCity.getText(), Integer.parseInt(txtNumberOfRooms.getText()), txtCheckInDate.getText(), txtCheckOutDate.getText(), txtExpiration.getText(), cheaperOrNewHotel));
+        } catch (RemoteException ex) {
+            Logger.getLogger(TravellerFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_interestHotelButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -805,9 +831,7 @@ public class TravellerFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButton cheaperFlightsRadioButton;
     private javax.swing.JRadioButton cheaperHotelsRadioButton;
     private javax.swing.JFormattedTextField checkinDateFormattedField;
-    private javax.swing.JFormattedTextField checkinDateFormattedField1;
     private javax.swing.JFormattedTextField checkoutDateFormattedField;
-    private javax.swing.JFormattedTextField checkoutDateFormattedField1;
     private javax.swing.JFormattedTextField departDateFormattedField;
     private javax.swing.JTextField fromField;
     private javax.swing.JButton interestFlightButton;
@@ -846,11 +870,9 @@ public class TravellerFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField locationField;
-    private javax.swing.JTextField locationField1;
     private javax.swing.JFormattedTextField nRooms;
     private javax.swing.JRadioButton newFlightsRadioButton;
     private javax.swing.JRadioButton newHotelsRadioButton;
-    private javax.swing.JFormattedTextField notificationExpiration;
     private javax.swing.JRadioButton oneWayRadioButton;
     private javax.swing.JFormattedTextField returnDateFormattedField;
     private javax.swing.JRadioButton returnRadioButton;
@@ -863,10 +885,14 @@ public class TravellerFrame extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField travellersFormattedField3;
     private javax.swing.JFormattedTextField travellersFormattedField4;
     private javax.swing.JFormattedTextField travellersFormattedField5;
-    private javax.swing.JFormattedTextField travellersFormattedField7;
+    private javax.swing.JFormattedTextField txtCheckInDate;
+    private javax.swing.JFormattedTextField txtCheckOutDate;
+    private javax.swing.JTextField txtCity;
     private javax.swing.JFormattedTextField txtDepartureDate;
     private javax.swing.JTextField txtDestination;
     private javax.swing.JFormattedTextField txtExpiration;
+    private javax.swing.JFormattedTextField txtNotificationExpiration;
+    private javax.swing.JFormattedTextField txtNumberOfRooms;
     private javax.swing.JTextField txtOrigin;
     private javax.swing.JFormattedTextField txtReturnDate;
     // End of variables declaration//GEN-END:variables

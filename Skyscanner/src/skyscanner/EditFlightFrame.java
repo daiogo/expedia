@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import messages.Flight;
 import messages.FlightSubscription;
-import static messages.FlightSubscription.SubscriptionType.PRICE_DROP;
+import static messages.HotelSubscription.SubscriptionType.PRICE_DROP;
 
 /**
  *

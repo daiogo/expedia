@@ -8,7 +8,9 @@ package skyscanner;
 import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static messages.HotelSubscription.SubscriptionType.NEW_ITEM;
 import messages.Hotel;
+import messages.HotelSubscription;
 
 /**
  *
@@ -134,11 +136,20 @@ public class AddHotelForm extends javax.swing.JDialog {
     private void btnCreateHotelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateHotelActionPerformed
         newHotel = new Hotel(txtHotelName.getText(), txtCity.getText(), Integer.valueOf(txtAvailableRooms.getText()), Double.valueOf(txtPrice.getText()));
         myServant.getDatabase().getHotels().add(newHotel);
-        try {
-            myServant.publishHotelChange(newHotel);
-        } catch (RemoteException ex) {
-            Logger.getLogger(AddFlightForm.class.getName()).log(Level.SEVERE, null, ex);
+        
+        for (HotelSubscription subscription : myServant.getDatabase().getHotelSubscriptions()) {
+            if (newHotel.getCity().equals(subscription.getCity()) &&
+                newHotel.getAvailableRooms() >= subscription.getNumberOfRooms() &&
+                subscription.getType().equals(NEW_ITEM)
+                ) {
+                try {
+                    subscription.getSubscriber().displayHotelNotification(subscription, newHotel);
+                } catch (RemoteException ex) {
+                    Logger.getLogger(AddFlightForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
+        
         dispose();
     }//GEN-LAST:event_btnCreateHotelActionPerformed
 

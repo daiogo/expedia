@@ -50,7 +50,7 @@ public class SkyscannerServant extends UnicastRemoteObject implements Skyscanner
     }
 
     @Override
-    public void bookFlight(FlightBooking booking, TravellerInterface travellerInterface) throws RemoteException {
+    public synchronized void bookFlight(FlightBooking booking, TravellerInterface travellerInterface) throws RemoteException {
         database.getFlightBookings().add(booking);
         int index = 0;
         
@@ -71,7 +71,7 @@ public class SkyscannerServant extends UnicastRemoteObject implements Skyscanner
     }
 
     @Override
-    public void bookHotel(HotelBooking booking, TravellerInterface travellerInterface) throws RemoteException {
+    public synchronized void bookHotel(HotelBooking booking, TravellerInterface travellerInterface) throws RemoteException {
         database.getHotelBookings().add(booking);
         int index = 0;
         
@@ -87,7 +87,7 @@ public class SkyscannerServant extends UnicastRemoteObject implements Skyscanner
     }
 
     @Override
-    public void searchFlights(FlightSearch flightSearch, TravellerInterface travellerInterface) throws RemoteException {
+    public synchronized void searchFlights(FlightSearch flightSearch, TravellerInterface travellerInterface) throws RemoteException {
         ArrayList<Flight> departingFlights = new ArrayList();
         ArrayList<Flight> returningFlights = new ArrayList();
         
@@ -97,7 +97,7 @@ public class SkyscannerServant extends UnicastRemoteObject implements Skyscanner
                 flightSearch.getDepartureDate().equals(flight.getDepartureDate()) &&
                 flightSearch.getNumberOfPassengers() <= flight.getAvailableSeats()
                 ) {
-                                System.out.println("Flight: " + flight.getFlightNumber());
+                System.out.println("Flight: " + flight.getFlightNumber());
                 System.out.println("Available seats: " + flight.getAvailableSeats());
                 departingFlights.add(flight);
             }
@@ -117,7 +117,7 @@ public class SkyscannerServant extends UnicastRemoteObject implements Skyscanner
     }
 
     @Override
-    public void searchHotels(HotelSearch hotelSearch, TravellerInterface travellerInterface) throws RemoteException {
+    public synchronized void searchHotels(HotelSearch hotelSearch, TravellerInterface travellerInterface) throws RemoteException {
         ArrayList<Hotel> hotels = new ArrayList();
         
         for (Hotel hotel : database.getHotels()) {
@@ -132,12 +132,12 @@ public class SkyscannerServant extends UnicastRemoteObject implements Skyscanner
     }
 
     @Override
-    public void subscribeToFlight(FlightSubscription subscription, TravellerInterface travellerInterface) throws RemoteException {
+    public synchronized void subscribeToFlight(FlightSubscription subscription, TravellerInterface travellerInterface) throws RemoteException {
         database.getFlightSubscriptions().add(subscription);
     }
 
     @Override
-    public void subscribeToHotel(HotelSubscription subscription, TravellerInterface travellerInterface) throws RemoteException {
+    public synchronized void subscribeToHotel(HotelSubscription subscription, TravellerInterface travellerInterface) throws RemoteException {
         database.getHotelSubscriptions().add(subscription);
     }
     
@@ -145,7 +145,7 @@ public class SkyscannerServant extends UnicastRemoteObject implements Skyscanner
         return database;
     }
     
-    public void publishFlightChange(Flight flight) throws RemoteException {        
+    public synchronized void publishFlightChange(Flight flight) throws RemoteException {        
         for (FlightSubscription subscriptionRecord : database.getFlightSubscriptions()) {
             if (subscriptionRecord.getOrigin().equals(flight.getOrigin()) &&
                 subscriptionRecord.getDestination().equals(flight.getDestination())
@@ -157,7 +157,7 @@ public class SkyscannerServant extends UnicastRemoteObject implements Skyscanner
         }
     }
     
-    public void publishHotelChange(Hotel hotel) throws RemoteException {
+    public synchronized void publishHotelChange(Hotel hotel) throws RemoteException {
         for (HotelSubscription subscriptionRecord : database.getHotelSubscriptions()) {
             if (subscriptionRecord.getCity().equals(hotel.getCity()) &&
                 subscriptionRecord.getNumberOfRooms() <= hotel.getAvailableRooms()

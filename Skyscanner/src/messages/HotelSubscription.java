@@ -19,10 +19,10 @@ public class HotelSubscription implements Serializable {
     private int numberOfRooms;
     private String checkInDate;
     private String checkOutDate;
-    private int notificationTimeSpan;
+    private String notificationTimeSpan;
     private SubscriptionType type;
 
-    public HotelSubscription(TravellerInterface subscriber, String city, int numberOfRooms, String checkInDate, String checkOutDate, int notificationTimeSpan, SubscriptionType type) {
+    public HotelSubscription(TravellerInterface subscriber, String city, int numberOfRooms, String checkInDate, String checkOutDate, String notificationTimeSpan, SubscriptionType type) {
         this.subscriber = subscriber;
         this.city = city;
         this.numberOfRooms = numberOfRooms;
@@ -52,7 +52,7 @@ public class HotelSubscription implements Serializable {
         return checkOutDate;
     }
 
-    public int getNotificationTimeSpan() {
+    public String getNotificationTimeSpan() {
         return notificationTimeSpan;
     }
 

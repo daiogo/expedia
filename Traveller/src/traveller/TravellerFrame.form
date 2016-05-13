@@ -740,27 +740,27 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel24" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="locationField1" alignment="0" min="-2" pref="99" max="-2" attributes="0"/>
+                                  <Component id="txtCity" alignment="0" min="-2" pref="99" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="travellersFormattedField7" min="-2" pref="30" max="-2" attributes="0"/>
+                                  <Component id="txtNumberOfRooms" min="-2" pref="30" max="-2" attributes="0"/>
                                   <Component id="jLabel23" min="-2" pref="164" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="checkinDateFormattedField1" alignment="0" min="-2" pref="111" max="-2" attributes="0"/>
+                                  <Component id="txtCheckInDate" alignment="0" min="-2" pref="111" max="-2" attributes="0"/>
                                   <Component id="jLabel25" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="checkoutDateFormattedField1" alignment="0" min="-2" pref="114" max="-2" attributes="0"/>
+                                  <Component id="txtCheckOutDate" alignment="0" min="-2" pref="114" max="-2" attributes="0"/>
                                   <Component id="jLabel26" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Component id="interestHotelButton" alignment="0" min="-2" pref="397" max="-2" attributes="0"/>
-                          <Component id="notificationExpiration" alignment="0" min="-2" pref="111" max="-2" attributes="0"/>
+                          <Component id="txtNotificationExpiration" alignment="0" min="-2" pref="111" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="55" max="32767" attributes="0"/>
                   </Group>
@@ -781,8 +781,8 @@
                               <Component id="jLabel24" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="locationField1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="travellersFormattedField7" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtCity" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtNumberOfRooms" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Component id="jLabel23" alignment="0" min="-2" pref="23" max="-2" attributes="0"/>
@@ -794,13 +794,13 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="checkinDateFormattedField1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="checkoutDateFormattedField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtCheckInDate" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtCheckOutDate" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jLabel28" min="-2" pref="17" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="notificationExpiration" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtNotificationExpiration" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="55" max="32767" attributes="0"/>
                       <Component id="interestHotelButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -823,11 +823,12 @@
                 <Property name="text" type="java.lang.String" value="Cheaper Hotel Rooms"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JFormattedTextField" name="checkinDateFormattedField1">
+            <Component class="javax.swing.JFormattedTextField" name="txtCheckInDate">
               <Properties>
                 <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
                   <Format format="dd/MM/yyyy" subtype="-1" type="1"/>
                 </Property>
+                <Property name="text" type="java.lang.String" value="01/01/2016"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel23">
@@ -835,18 +836,20 @@
                 <Property name="text" type="java.lang.String" value="Number of Rooms"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JFormattedTextField" name="travellersFormattedField7">
+            <Component class="javax.swing.JFormattedTextField" name="txtNumberOfRooms">
               <Properties>
                 <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
                   <Format format="#0" subtype="-1" type="0"/>
                 </Property>
+                <Property name="text" type="java.lang.String" value="1"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JFormattedTextField" name="checkoutDateFormattedField1">
+            <Component class="javax.swing.JFormattedTextField" name="txtCheckOutDate">
               <Properties>
                 <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
                   <Format format="dd/MM/yyyy" subtype="-1" type="1"/>
                 </Property>
+                <Property name="text" type="java.lang.String" value="07/01/2016"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel24">
@@ -854,7 +857,10 @@
                 <Property name="text" type="java.lang.String" value="Location"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="locationField1">
+            <Component class="javax.swing.JTextField" name="txtCity">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Curitiba"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel25">
               <Properties>
@@ -870,13 +876,16 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Register Interest"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="interestHotelButtonActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel28">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Notifications expiration"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JFormattedTextField" name="notificationExpiration">
+            <Component class="javax.swing.JFormattedTextField" name="txtNotificationExpiration">
               <Properties>
                 <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
                   <Format format="dd/MM/yyyy" subtype="-1" type="1"/>
