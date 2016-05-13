@@ -60,8 +60,10 @@ public class TravellerServant extends UnicastRemoteObject implements TravellerIn
     
     public void searchFlights (FlightSearch flightSearch) {
         try {
-            // Simulates always for a single passenger, regardless of input
-            passengers.add(new Customer("Diogo Freitas", 21));
+            passengers.clear();
+            for(int i = 0; i< flightSearch.getNumberOfPassengers(); i++ ){
+                passengers.add(new Customer("Diogo Freitas", 21));
+            }
             skyscannerReference.searchFlights(flightSearch,this);
         } catch (RemoteException ex) {
             Logger.getLogger(TravellerServant.class.getName()).log(Level.SEVERE, null, ex);
@@ -125,6 +127,10 @@ public class TravellerServant extends UnicastRemoteObject implements TravellerIn
 
     public void searchHotels(HotelSearch hotelSearch){
         try {
+            guests.clear();
+            for(int i = 0; i < hotelSearch.getNumberOfRooms(); i++){
+                guests.add(new Customer("Diego Lee", 23));
+            }
             skyscannerReference.searchHotels(hotelSearch, this);
             hotelCheckin = hotelSearch.getCheckInDate();
             hotelCheckout = hotelSearch.getCheckOutDate();
@@ -153,9 +159,7 @@ public class TravellerServant extends UnicastRemoteObject implements TravellerIn
     
     public void bookHotel(String hotelId){
         try {
-            // Simulates always for a single guest, regardless of input
-            guests.add(new Customer("Diogo Freitas", 21));
-            skyscannerReference.bookHotel(new HotelBooking(hotelId, hotelCheckin, hotelCheckout, 1, guests), this);
+            skyscannerReference.bookHotel(new HotelBooking(hotelId, hotelCheckin, hotelCheckout, guests.size(), guests), this);
         } catch (RemoteException ex) {
             Logger.getLogger(TravellerServant.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -170,15 +174,27 @@ public class TravellerServant extends UnicastRemoteObject implements TravellerIn
     }
     
     @Override
-    public void displayFlightBookingConfirmation(FlightBooking flightBooking) throws RemoteException {
-        System.out.println("---Flight booking confirmed!---");
-        invokeLaterMessageDialog("Flight booking confirmed!");
+    public void displayFlightBookingConfirmation(FlightBooking flightBooking, boolean confirmation) throws RemoteException {
+        if(confirmation){
+            System.out.println("---Flight booking confirmed!---");
+            invokeLaterMessageDialog("Flight booking confirmed!");
+        } else {
+            System.out.println("---No more seats available!---");
+            invokeLaterMessageDialog("No more seats available!");
+        }
+        
     }
 
     @Override
-    public void displayHotelBookingConfirmation(HotelBooking hotelBooking) throws RemoteException {
-        System.out.println("---Hotel booking confirmed!---");
-        invokeLaterMessageDialog("Hotel booking confirmed!");
+    public void displayHotelBookingConfirmation(HotelBooking hotelBooking, boolean confirmation) throws RemoteException {
+        if(confirmation){
+            System.out.println("---Hotel booking confirmed!---");
+            invokeLaterMessageDialog("Hotel booking confirmed!");
+        } else {
+            System.out.println("---No more rooms available!---");
+            invokeLaterMessageDialog("No more rooms available!");
+        }
+        
     }
 
     @Override

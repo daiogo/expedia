@@ -36,15 +36,22 @@ public class SkyscannerServant extends UnicastRemoteObject implements Skyscanner
         
         // Dummy data
         database.getFlights().add(new Flight("JJ2020", "TAM", "Curitiba", "São Paulo", "01/01/2016", "11:30am", "12:30pm", 61.50, 1));
-        database.getFlights().add(new Flight("JJ2021", "TAM", "Curitiba", "Rio de Janeiro", "01/01/2016", "12:00pm", "13:20pm", 76.25, 100));
+        database.getFlights().add(new Flight("JO2030", "GOL", "Curitiba", "São Paulo", "01/01/2016", "14:30am", "16:30pm", 161.50, 1));
+        database.getFlights().add(new Flight("JJ2040", "TAM", "Curitiba", "São Paulo", "01/01/2016", "17:30am", "19:30pm", 542.50, 1));
+        database.getFlights().add(new Flight("JA2045", "AZUL", "Curitiba", "São Paulo", "01/01/2016", "17:50am", "19:30pm", 52.50, 1));
+        database.getFlights().add(new Flight("JA2046", "AZUL", "Curitiba", "São Paulo", "01/01/2016", "18:50am", "20:30pm", 92.50, 1));
+        database.getFlights().add(new Flight("JJ2021", "TAM", "Curitiba", "Rio de Janeiro", "01/01/2016", "12:00pm", "13:20pm", 100.25, 100));
         database.getFlights().add(new Flight("JJ2022", "TAM", "Rio de Janeiro", "Curitiba", "07/01/2016", "12:00pm", "13:20pm", 76.25, 100));
-        database.getFlights().add(new Flight("JJ2023", "TAM", "São Paulo", "Curitiba", "07/01/2016", "11:30am", "12:30pm", 61.50, 1));
-        database.getFlights().add(new Flight("JJ2024", "TAM", "São Paulo", "Curitiba", "07/01/2016", "15:30am", "16:30pm", 61.50, 100));
+        database.getFlights().add(new Flight("JJ2023", "GOL", "São Paulo", "Curitiba", "07/01/2016", "11:30am", "12:30pm", 200.50, 1));
+        database.getFlights().add(new Flight("JJ2051", "TAM", "São Paulo", "Curitiba", "07/01/2016", "11:30am", "12:30pm", 230.50, 1));
+        database.getFlights().add(new Flight("JJ2089", "GOL", "São Paulo", "Curitiba", "07/01/2016", "14:30am", "15:30pm", 200.50, 1));
+        database.getFlights().add(new Flight("JJ2099", "GOL", "São Paulo", "Curitiba", "07/01/2016", "16:30am", "18:30pm", 200.50, 1));
+        database.getFlights().add(new Flight("JJ2025", "TAM", "São Paulo", "Rio de Janeiro", "07/01/2016", "17:30am", "18:30pm", 111.50, 100));
         
-        database.getHotels().add(new Hotel("Ibis", "Curitiba", 10, 150.00));
+        database.getHotels().add(new Hotel("Ibis", "Curitiba", 1, 150.00));
         database.getHotels().add(new Hotel("Ibis", "São Paulo", 1, 200.00));
-        database.getHotels().add(new Hotel("Ibis", "Rio de Janeiro", 10, 250.00));
-        database.getHotels().add(new Hotel("Hilton", "São Paulo", 10, 500.00));
+        database.getHotels().add(new Hotel("Ibis", "Rio de Janeiro", 1, 250.00));
+        database.getHotels().add(new Hotel("Hilton", "São Paulo", 1, 500.00));
         database.getHotels().add(new Hotel("Sheraton", "São Paulo", 150, 400.00));
         database.getHotels().add(new Hotel("Sheraton", "Rio de Janeiro", 150, 400.00));
     }
@@ -53,21 +60,31 @@ public class SkyscannerServant extends UnicastRemoteObject implements Skyscanner
     public synchronized void bookFlight(FlightBooking booking, TravellerInterface travellerInterface) throws RemoteException {
         database.getFlightBookings().add(booking);
         int index = 0;
+        boolean foundDepartureFlight = false;
+        boolean foundReturnFlight = false;
         
         for (Flight flight : database.getFlights()) {
             if (flight.getFlightNumber().equals(booking.getDepartingFlightNumber()) && flight.getAvailableSeats() >= booking.getPassengers().size()) {
                 flight.setAvailableSeats(flight.getAvailableSeats() - booking.getPassengers().size());
                 database.getFlights().set(index, flight);
+                foundDepartureFlight = true;
             }
                 
             if (booking.isRoundTrip() && flight.getFlightNumber().equals(booking.getReturningFlightNumber())) {
                 flight.setAvailableSeats(flight.getAvailableSeats() - booking.getPassengers().size());
                 database.getFlights().set(index, flight);
+                foundReturnFlight = true;
             }
             index++;
         }
         
-        travellerInterface.displayFlightBookingConfirmation(booking);
+        if( !foundDepartureFlight || !foundReturnFlight){
+            travellerInterface.displayFlightBookingConfirmation(booking, false);
+        } else {
+            travellerInterface.displayFlightBookingConfirmation(booking, true); 
+        }
+        
+        
     }
 
     @Override
@@ -79,15 +96,17 @@ public class SkyscannerServant extends UnicastRemoteObject implements Skyscanner
             if (hotel.getHotelId().equals(booking.getHotelId()) && hotel.getAvailableRooms() >= booking.getNumberOfRooms()) {
                 hotel.setAvailableRooms(hotel.getAvailableRooms() - booking.getGuests().size());
                 database.getHotels().set(index, hotel);
+                travellerInterface.displayHotelBookingConfirmation(booking, true);
+                return;
             }
             index++;
         }
+        travellerInterface.displayHotelBookingConfirmation(booking, false);
         
-        travellerInterface.displayHotelBookingConfirmation(booking);
     }
 
     @Override
-    public synchronized void searchFlights(FlightSearch flightSearch, TravellerInterface travellerInterface) throws RemoteException {
+    public void searchFlights(FlightSearch flightSearch, TravellerInterface travellerInterface) throws RemoteException {
         ArrayList<Flight> departingFlights = new ArrayList();
         ArrayList<Flight> returningFlights = new ArrayList();
         
@@ -117,7 +136,7 @@ public class SkyscannerServant extends UnicastRemoteObject implements Skyscanner
     }
 
     @Override
-    public synchronized void searchHotels(HotelSearch hotelSearch, TravellerInterface travellerInterface) throws RemoteException {
+    public void searchHotels(HotelSearch hotelSearch, TravellerInterface travellerInterface) throws RemoteException {
         ArrayList<Hotel> hotels = new ArrayList();
         
         for (Hotel hotel : database.getHotels()) {
@@ -144,7 +163,7 @@ public class SkyscannerServant extends UnicastRemoteObject implements Skyscanner
     public Database getDatabase() {
         return database;
     }
-    
+    /*
     public synchronized void publishFlightChange(Flight flight) throws RemoteException {        
         for (FlightSubscription subscriptionRecord : database.getFlightSubscriptions()) {
             if (subscriptionRecord.getOrigin().equals(flight.getOrigin()) &&
@@ -166,5 +185,6 @@ public class SkyscannerServant extends UnicastRemoteObject implements Skyscanner
             }
         }
     }
+    */
 
 }

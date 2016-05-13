@@ -23,8 +23,8 @@ public interface TravellerInterface extends Remote {
     public void publish(String message) throws RemoteException;
     public void getQueriedFlights(ArrayList<Flight> departingFlights, ArrayList<Flight> returningFlights) throws RemoteException;
     public void getQueriedHotels(ArrayList<Hotel> hotels) throws RemoteException;
-    public void displayFlightBookingConfirmation(FlightBooking flightBooking) throws RemoteException;
-    public void displayHotelBookingConfirmation(HotelBooking hotelBooking) throws RemoteException;
+    public void displayFlightBookingConfirmation(FlightBooking flightBooking, boolean confirmation) throws RemoteException;
+    public void displayHotelBookingConfirmation(HotelBooking hotelBooking, boolean confirmation) throws RemoteException;
     public void displayFlightNotification(FlightSubscription subscription, Flight flight) throws RemoteException;
     public void displayHotelNotification(HotelSubscription subscription, Hotel hotel) throws RemoteException;
 }
