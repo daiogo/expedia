@@ -60,7 +60,7 @@ public class TravellerServant extends UnicastRemoteObject implements TravellerIn
     
     public void searchFlights (FlightSearch flightSearch) {
         try {
-            // Simulates always for a single guest, regardless of input
+            // Simulates always for a single passenger, regardless of input
             passengers.add(new Customer("Diogo Freitas", 21));
             skyscannerReference.searchFlights(flightSearch,this);
         } catch (RemoteException ex) {

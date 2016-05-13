@@ -55,7 +55,7 @@ public class SkyscannerServant extends UnicastRemoteObject implements Skyscanner
         int index = 0;
         
         for (Flight flight : database.getFlights()) {
-            if (flight.getFlightNumber().equals(booking.getDepartingFlightNumber())) {
+            if (flight.getFlightNumber().equals(booking.getDepartingFlightNumber()) && flight.getAvailableSeats() >= booking.getPassengers().size()) {
                 flight.setAvailableSeats(flight.getAvailableSeats() - booking.getPassengers().size());
                 database.getFlights().set(index, flight);
             }
@@ -76,7 +76,7 @@ public class SkyscannerServant extends UnicastRemoteObject implements Skyscanner
         int index = 0;
         
         for (Hotel hotel : database.getHotels()) {
-            if (hotel.getHotelId().equals(booking.getHotelId())) {
+            if (hotel.getHotelId().equals(booking.getHotelId()) && hotel.getAvailableRooms() >= booking.getNumberOfRooms()) {
                 hotel.setAvailableRooms(hotel.getAvailableRooms() - booking.getGuests().size());
                 database.getHotels().set(index, hotel);
             }
