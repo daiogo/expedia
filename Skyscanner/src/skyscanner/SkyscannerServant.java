@@ -9,7 +9,14 @@ import interfaces.SkyscannerInterface;
 import interfaces.TravellerInterface;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.chrono.ChronoLocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 import messages.Flight;
 import messages.FlightBooking;
 import messages.FlightSearch;
@@ -54,6 +61,20 @@ public class SkyscannerServant extends UnicastRemoteObject implements Skyscanner
         database.getHotels().add(new Hotel("Hilton", "São Paulo", 1, 500.00));
         database.getHotels().add(new Hotel("Sheraton", "São Paulo", 150, 400.00));
         database.getHotels().add(new Hotel("Sheraton", "Rio de Janeiro", 150, 400.00));
+        
+        TimerTask timerTask = new MyTimerTask();
+        Timer timer = new Timer(true);
+        timer.scheduleAtFixedRate(timerTask, 0, Long.MAX_VALUE);
+    }
+    
+    public class MyTimerTask extends TimerTask {
+
+        @Override
+        public void run() {
+            System.out.println("Removing expired interests");
+            removeExpiredInterests();
+        }
+    
     }
 
     @Override
@@ -163,6 +184,19 @@ public class SkyscannerServant extends UnicastRemoteObject implements Skyscanner
     public Database getDatabase() {
         return database;
     }
+    
+    public void removeExpiredInterests() {
+        int i = 0;
+        for(FlightSubscription subscription : database.getFlightSubscriptions()){
+            LocalDate now = LocalDate.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate expirationDate = LocalDate.parse(subscription.getNotificationTimeSpan(), formatter);            
+            if(now.isAfter(expirationDate)){
+                database.getFlightSubscriptions().remove(subscription);
+            }
+        }
+    }
+            
     /*
     public synchronized void publishFlightChange(Flight flight) throws RemoteException {        
         for (FlightSubscription subscriptionRecord : database.getFlightSubscriptions()) {
@@ -186,5 +220,6 @@ public class SkyscannerServant extends UnicastRemoteObject implements Skyscanner
         }
     }
     */
+   
 
 }
