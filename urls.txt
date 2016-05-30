@@ -1,0 +1,4 @@
+http://localhost:3000/search/flight?origin=Curitiba&destination=S%C3%A3o%20Paulo&departureYear=2016&departureMonth=06&departureDay=01&numberOfPassengers=1
+
+
+http://localhost:3000/search/hotel/?city=Rio%20de%20Janeiro&numberOfGuests=1

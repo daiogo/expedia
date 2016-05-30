@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var shortid = require('shortid');
 var flightSchema = require('./flight');
 var hotelSchema = require('./hotel');
 
@@ -9,18 +10,15 @@ mongoose.connect('mongodb://localhost:27017/test');
 var Flight = mongoose.model('Flight', flightSchema, 'flights');
 var Hotel = mongoose.model('Hotel', hotelSchema, 'hotels');
 
-var flight = new Flight({
-	flightNumber: 'JJ0011',
-	airline: 'LATAM',
-	origin: 'Rio de Janeiro',
-	destination: 'Curitiba',
-	departureDate: '2016-06-01T12:00:00Z',
-	arrivalDate: '2016-06-01T13:30:00Z',
-	airfare: '200.30',
-	availableSeats: 100
+var hotel = new Hotel({
+	hotelId: shortid.generate(),
+	hotelName: 'Ibis',
+	city: 'Curitiba',
+	pricePerNight: '70.00',
+	availableRooms: 10
 });
 
-flight.save(function(error) {
+hotel.save(function(error) {
 	if (error) {
 		console.log(error);
 		process.exit(1);
@@ -29,7 +27,7 @@ flight.save(function(error) {
 
 });
 
-Flight.find(function(error, docs) {
+Hotel.find(function(error, docs) {
 	if (error) {
 		console.log(error);
 		process.exit(1);

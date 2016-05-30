@@ -46,12 +46,11 @@ module.exports = function() {
 			}
 
 			var searchResults = require('util').inspect(docs);
-			//console.log(searchResults);
 			res.send(searchResults);
 		});
 	});
 
-	// Search flight
+	// Search hotel
 	app.get('/search/hotel/', function(req, res) {
 
 		var hotelQuery = {
@@ -59,13 +58,12 @@ module.exports = function() {
 			availableRooms: { $gte: req.query.numberOfGuests }
 		}
 
-		Flight.find(departFlightQuery, function(error, docs) {
+		Hotel.find(hotelQuery, function(error, docs) {
 			if (error) {
 				console.log(error);
 			}
 
 			var searchResults = require('util').inspect(docs);
-			//console.log(searchResults);
 			res.send(searchResults);
 		});
 	});
@@ -77,7 +75,7 @@ module.exports = function() {
 
 	// Book hotel
 	app.post('book/hotel/', function(req, res) {
-		
+
 	});
 
 	app.get('/user/:user', function(req, res) {
