@@ -1,6 +1,1 @@
-/Traveller/nbproject/private/
-/Traveller/build/
-/Traveller/dist/
-/Skyscanner/nbproject/private/
-/Skyscanner/build/
-/Skyscanner/dist/
+/node_modules/*
