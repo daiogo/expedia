@@ -7,6 +7,9 @@ package traveller;
 
 import interfaces.SkyscannerInterface;
 import interfaces.TravellerInterface;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.rmi.AccessException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -26,6 +29,7 @@ import messages.Hotel;
 import messages.HotelBooking;
 import messages.HotelSearch;
 import messages.HotelSubscription;
+import org.apache.http.client.utils.URIBuilder;
 
 /**
  *
@@ -43,8 +47,9 @@ public class TravellerServant extends UnicastRemoteObject implements TravellerIn
     String hotelCheckin;
     String hotelCheckout;
     HttpConnector httpConnector = new HttpConnector();
+    URIBuilder uRIBuilder;
     
-    public TravellerServant (Registry namingServiceReference) throws RemoteException {
+    public TravellerServant (Registry namingServiceReference) throws RemoteException, URISyntaxException {
         try {
             this.skyscannerReference = (SkyscannerInterface) namingServiceReference.lookup("skyscanner");
         } catch (NotBoundException | AccessException ex) {
@@ -56,10 +61,11 @@ public class TravellerServant extends UnicastRemoteObject implements TravellerIn
         
         passengers = new ArrayList();
         guests = new ArrayList();
+        uRIBuilder = new URIBuilder("http://example.com");
         
     }
     
-    public void searchFlights (FlightSearch flightSearch) {
+    public void searchFlights (FlightSearch flightSearch) throws URISyntaxException, MalformedURLException {
         try {
             passengers.clear();
             for(int i = 0; i< flightSearch.getNumberOfPassengers(); i++ ){
@@ -69,6 +75,10 @@ public class TravellerServant extends UnicastRemoteObject implements TravellerIn
         } catch (RemoteException ex) {
             Logger.getLogger(TravellerServant.class.getName()).log(Level.SEVERE, null, ex);
         }
+//        uRIBuilder.addParameter("t", "search");
+//        uRIBuilder.addParameter("q", "apples");
+//
+//        URL url = uRIBuilder.build().toURL();   
     } 
     
     @Override
