@@ -105,6 +105,129 @@ var flightsArray = [
 		airfare: '55.50',
 		availableSeats: 2
 	})
+	,
+	new Flight({
+		flightNumber: shortid.generate(),
+		airline: 'GOL',
+		origin: 'Curitiba',
+		destination: 'São Paulo',
+		departureDate: new Date(2016, 6, 8, 10, 0, 0),
+		arrivalDate: new Date(2016, 6, 8, 11, 0, 0),
+		airfare: '65.50',
+		availableSeats: 2
+	})
+	,
+	new Flight({
+		flightNumber: shortid.generate(),
+		airline: 'Azul',
+		origin: 'Curitiba',
+		destination: 'São Paulo',
+		departureDate: new Date(2016, 6, 8, 10, 0, 0),
+		arrivalDate: new Date(2016, 6, 8, 11, 0, 0),
+		airfare: '45.50',
+		availableSeats: 2
+	})
+	,
+	new Flight({
+		flightNumber: shortid.generate(),
+		airline: 'TAM',
+		origin: 'São Paulo',
+		destination: 'Curitiba',
+		departureDate: new Date(2016, 6, 18, 10, 0, 0),
+		arrivalDate: new Date(2016, 6, 18, 11, 0, 0),
+		airfare: '55.50',
+		availableSeats: 2
+	})
+	,
+	new Flight({
+		flightNumber: shortid.generate(),
+		airline: 'GOL',
+		origin: 'São Paulo',
+		destination: 'Curitiba',
+		departureDate: new Date(2016, 6, 18, 10, 0, 0),
+		arrivalDate: new Date(2016, 6, 18, 11, 0, 0),
+		airfare: '65.50',
+		availableSeats: 2
+	})
+	,
+	new Flight({
+		flightNumber: shortid.generate(),
+		airline: 'Azul',
+		origin: 'São Paulo',
+		destination: 'Curitiba',
+		departureDate: new Date(2016, 6, 18, 10, 0, 0),
+		arrivalDate: new Date(2016, 6, 18, 11, 0, 0),
+		airfare: '45.50',
+		availableSeats: 2
+	})
+	,
+	new Flight({
+		flightNumber: shortid.generate(),
+		airline: 'TAM',
+		origin: 'Curitiba',
+		destination: 'Rio de Janeiro',
+		departureDate: new Date(2016, 6, 8, 10, 0, 0),
+		arrivalDate: new Date(2016, 6, 8, 11, 30, 0),
+		airfare: '55.50',
+		availableSeats: 2
+	})
+	,
+	new Flight({
+		flightNumber: shortid.generate(),
+		airline: 'GOL',
+		origin: 'Curitiba',
+		destination: 'Rio de Janeiro',
+		departureDate: new Date(2016, 6, 8, 10, 0, 0),
+		arrivalDate: new Date(2016, 6, 8, 11, 30, 0),
+		airfare: '65.50',
+		availableSeats: 2
+	})
+	,
+	new Flight({
+		flightNumber: shortid.generate(),
+		airline: 'Azul',
+		origin: 'Curitiba',
+		destination: 'Rio de Janeiro',
+		departureDate: new Date(2016, 6, 8, 10, 0, 0),
+		arrivalDate: new Date(2016, 6, 8, 11, 30, 0),
+		airfare: '45.50',
+		availableSeats: 2
+	})
+	,
+	new Flight({
+		flightNumber: shortid.generate(),
+		airline: 'TAM',
+		origin: 'Rio de Janeiro',
+		destination: 'Curitiba',
+		departureDate: new Date(2016, 6, 18, 10, 0, 0),
+		arrivalDate: new Date(2016, 6, 18, 11, 30, 0),
+		airfare: '55.50',
+		availableSeats: 2
+	})
+	,
+	new Flight({
+		flightNumber: shortid.generate(),
+		airline: 'GOL',
+		origin: 'Rio de Janeiro',
+		destination: 'Curitiba',
+		departureDate: new Date(2016, 6, 18, 10, 0, 0),
+		arrivalDate: new Date(2016, 6, 18, 11, 30, 0),
+		airfare: '65.50',
+		availableSeats: 2
+	})
+	,
+	new Flight({
+		flightNumber: shortid.generate(),
+		airline: 'Azul',
+		origin: 'Rio de Janeiro',
+		destination: 'Curitiba',
+		departureDate: new Date(2016, 6, 18, 10, 0, 0),
+		arrivalDate: new Date(2016, 6, 18, 11, 30, 0),
+		airfare: '45.50',
+		availableSeats: 2
+	})
+	,
+	
 ];
 
 flightsArray.forEach(function(flightDoc) {
