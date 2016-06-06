@@ -1,5 +1,6 @@
 var express = require('express');
 var mongoose = require('mongoose');
+var bodyparser = require('body-parser');
 var flightSchema = require('./flight');
 var hotelSchema = require('./hotel');
 
@@ -12,9 +13,10 @@ var Hotel = mongoose.model('Hotel', hotelSchema, 'hotels');
 
 module.exports = function() {
 	var app = express();
+	app.use(bodyparser.json());
 
 	// Search flight
-	app.get('/search/flight/', function(req, res) {
+	app.get('/search/flight', function(req, res) {
 
 		var start = new Date(req.query.departureYear, req.query.departureMonth - 1, req.query.departureDay, 0, 0, 0);
 		var end = new Date(req.query.departureYear, req.query.departureMonth - 1, req.query.departureDay, 23, 59, 59);
@@ -51,7 +53,7 @@ module.exports = function() {
 	});
 
 	// Search hotel
-	app.get('/search/hotel/', function(req, res) {
+	app.get('/search/hotel', function(req, res) {
 
 		var hotelQuery = {
 			city: req.query.city,
@@ -69,13 +71,19 @@ module.exports = function() {
 	});
 
 	// Book flight
-	app.post('book/flight/', function(req, res) {
+	app.post('/book/flight', function(req, res) {
 
 	});
 
 	// Book hotel
-	app.post('book/hotel/', function(req, res) {
+	app.post('/book/hotel', function(req, res) {
+		console.log("GOT IT!");
+		Hotel.update(
+			{ city: req.body.hotelId }, 
+			{ $inc: { availableRooms: 0 - req.body.numberOfGuests } }
+		);
 
+		res.send("CONFIRMED!");
 	});
 
 	app.get('/user/:user', function(req, res) {
