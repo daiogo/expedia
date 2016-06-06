@@ -18,8 +18,8 @@ module.exports = function() {
 	// Search flight
 	app.get('/search/flight', function(req, res) {
 
-		var start = new Date(req.query.departureYear, req.query.departureMonth - 1, req.query.departureDay, 0, 0, 0);
-		var end = new Date(req.query.departureYear, req.query.departureMonth - 1, req.query.departureDay, 23, 59, 59);
+		var start = new Date(req.query.departureYear, req.query.departureMonth, req.query.departureDay, 0, 0, 0);
+		var end = new Date(req.query.departureYear, req.query.departureMonth, req.query.departureDay, 23, 59, 59);
 		//console.log('Start: ' + start);
 		//console.log('End: ' + end);
 
@@ -31,8 +31,8 @@ module.exports = function() {
 		}
 
 		if (req.query.roundTrip) {
-			start = new Date(req.query.returnYear, req.query.returnMonth - 1, req.query.returnDay, 0, 0, 0);
-			end = new Date(req.query.returnYear, req.query.returnMonth - 1, req.query.returnDay, 23, 59, 59);
+			start = new Date(req.query.returnYear, req.query.returnMonth, req.query.returnDay, 0, 0, 0);
+			end = new Date(req.query.returnYear, req.query.returnMonth, req.query.returnDay, 23, 59, 59);
 		
 			var returnFlightQuery = {
 				origin: req.query.destination,
@@ -72,22 +72,69 @@ module.exports = function() {
 
 	// Book flight
 	app.post('/book/flight', function(req, res) {
+		var departingFlightStatus = false;
+		var returnFlightStatus = false;
+
+		Flight.findOne( { flightNumber: req.body.departingFlightNumber }, function(error, doc) {
+			if (error) {
+				console.log(error);
+			}
+
+			if (doc.availableSeats >= req.body.numberOfPassengers) {
+				doc.availableSeats -= req.body.numberOfPassengers;
+				doc.save();
+				departingFlightStatus = true;
+			} else {
+				console.log('Departing flight is full!');
+			}
+
+			if (req.body.roundTrip == 'true') {
+				Flight.findOne( { flightNumber: req.body.returningFlightNumber }, function(error, doc) {
+					if (error) {
+						console.log(error);
+					}
+
+					if (doc.availableSeats >= req.body.numberOfPassengers) {
+						doc.availableSeats -= req.body.numberOfPassengers;
+						doc.save();
+						returnFlightStatus = true;
+					} else {
+						console.log('Return flight is full!');
+					}
+
+					if (departingFlightStatus && returnFlightStatus) {
+						res.send("CONFIRMED!");
+					} else {
+						res.send("NO MORE SEATS!");
+					}
+
+				});
+			} else {
+				if (departingFlightStatus) {
+					res.send("CONFIRMED!");
+				} else {
+					res.send("NO MORE SEATS!");
+				}
+			}
+		});
 
 	});
 
 	// Book hotel
 	app.post('/book/hotel', function(req, res) {
-		console.log("GOT IT!");
-		Hotel.update(
-			{ hotelId: req.body.hotelId },
-			{ $inc: { availableRooms: -req.body.numberOfGuests } }
-		);
+		Hotel.findOne( { hotelId: req.body.hotelId }, function(error, doc) {
+			if (error) {
+				console.log(error);
+			}
 
-		res.send("CONFIRMED!");
-	});
-
-	app.get('/user/:user', function(req, res) {
-		res.send('Page for user ' + req.params.user + ' with option ' + req.query.option);
+			if (doc.availableRooms > req.body.numberOfGuests) {
+				doc.availableRooms -= req.body.numberOfGuests;
+				doc.save();
+				res.send("CONFIRMED!");
+			} else {
+				res.send("NO MORE ROOMS!");
+			}
+		});		
 	});
 
 	return app;
