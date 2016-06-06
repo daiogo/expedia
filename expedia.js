@@ -79,8 +79,8 @@ module.exports = function() {
 	app.post('/book/hotel', function(req, res) {
 		console.log("GOT IT!");
 		Hotel.update(
-			{ city: req.body.hotelId }, 
-			{ $inc: { availableRooms: 0 - req.body.numberOfGuests } }
+			{ hotelId: req.body.hotelId },
+			{ $inc: { availableRooms: -req.body.numberOfGuests } }
 		);
 
 		res.send("CONFIRMED!");
