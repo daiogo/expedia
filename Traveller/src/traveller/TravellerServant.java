@@ -164,9 +164,7 @@ public class TravellerServant extends UnicastRemoteObject {
             
             URIBuilder uRIBuilder = new URIBuilder(_URL_ + "/search/hotel");
             uRIBuilder.addParameter("city", hotelSearch.getCity());
-            uRIBuilder.addParameter("checkInDate", hotelSearch.getCheckInDate());
-            uRIBuilder.addParameter("checkOutDate", ""+ hotelSearch.getCheckOutDate());
-            uRIBuilder.addParameter("numberOfRooms", ""+hotelSearch.getNumberOfRooms());
+            uRIBuilder.addParameter("numberOfGuests", String.valueOf(hotelSearch.getNumberOfRooms()));
 
             
             String urlString = uRIBuilder.build().toString();
