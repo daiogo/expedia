@@ -32,6 +32,10 @@ public class FlightSearch implements Serializable {
         return origin;
     }
 
+    public boolean getRoundTrip(){
+        return roundTrip;
+    }
+    
     public void setOrigin(String origin) {
         this.origin = origin;
     }

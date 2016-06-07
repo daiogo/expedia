@@ -10,10 +10,7 @@ import interfaces.TravellerInterface;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.rmi.AccessException;
-import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -37,6 +34,7 @@ import org.apache.http.client.utils.URIBuilder;
  */
 public class TravellerServant extends UnicastRemoteObject implements TravellerInterface {
     
+    private static final String _URL_ = "http://localhost:3000/";
     private SkyscannerInterface skyscannerReference;
     private ArrayList<Hotel> hotels;
     private TravellerFrame travellerFrame;
@@ -47,38 +45,43 @@ public class TravellerServant extends UnicastRemoteObject implements TravellerIn
     String hotelCheckin;
     String hotelCheckout;
     HttpConnector httpConnector = new HttpConnector();
-    URIBuilder uRIBuilder;
+
     
-    public TravellerServant (Registry namingServiceReference) throws RemoteException, URISyntaxException {
-        try {
-            this.skyscannerReference = (SkyscannerInterface) namingServiceReference.lookup("skyscanner");
-        } catch (NotBoundException | AccessException ex) {
-            Logger.getLogger(TravellerServant.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public TravellerServant () throws RemoteException {
+
         travellerFrame = new TravellerFrame(this);
         travellerFrame.setLocationRelativeTo(null);
         travellerFrame.setVisible(true);
         
         passengers = new ArrayList();
         guests = new ArrayList();
-        uRIBuilder = new URIBuilder("http://example.com");
         
     }
     
-    public void searchFlights (FlightSearch flightSearch) throws URISyntaxException, MalformedURLException {
+    public void searchFlights (FlightSearch flightSearch){
         try {
             passengers.clear();
             for(int i = 0; i< flightSearch.getNumberOfPassengers(); i++ ){
                 passengers.add(new Customer("Diogo Freitas", 21));
             }
-            skyscannerReference.searchFlights(flightSearch,this);
-        } catch (RemoteException ex) {
+            //skyscannerReference.searchFlights(flightSearch,this);
+            
+            URIBuilder uRIBuilder = new URIBuilder(_URL_ + "/search/flights");
+            uRIBuilder.addParameter("origin", flightSearch.getOrigin());
+            uRIBuilder.addParameter("destination", flightSearch.getDestination());
+            uRIBuilder.addParameter("roundTrip", ""+flightSearch.getRoundTrip());
+            uRIBuilder.addParameter("departureDate", flightSearch.getDepartureDate());
+            uRIBuilder.addParameter("returnDate", flightSearch.getReturnDate());
+            uRIBuilder.addParameter("numberOfPassengers", ""+passengers.size());
+            
+            String urlString = uRIBuilder.build().toString();
+            System.out.println(urlString);
+            String response = httpConnector.sendGet(urlString);
+            System.out.println("Response:" + response);
+            
+        } catch (URISyntaxException ex) {
             Logger.getLogger(TravellerServant.class.getName()).log(Level.SEVERE, null, ex);
         }
-//        uRIBuilder.addParameter("t", "search");
-//        uRIBuilder.addParameter("q", "apples");
-//
-//        URL url = uRIBuilder.build().toURL();   
     } 
     
     @Override
@@ -137,17 +140,34 @@ public class TravellerServant extends UnicastRemoteObject implements TravellerIn
     }
 
     public void searchHotels(HotelSearch hotelSearch){
+
         try {
             guests.clear();
             for(int i = 0; i < hotelSearch.getNumberOfRooms(); i++){
                 guests.add(new Customer("Diego Lee", 23));
             }
-            skyscannerReference.searchHotels(hotelSearch, this);
+            //skyscannerReference.searchHotels(hotelSearch, this);
             hotelCheckin = hotelSearch.getCheckInDate();
             hotelCheckout = hotelSearch.getCheckOutDate();
-        } catch (RemoteException ex) {
+            
+            URIBuilder uRIBuilder = new URIBuilder(_URL_ + "/search/hotels");
+            uRIBuilder.addParameter("city", hotelSearch.getCity());
+            uRIBuilder.addParameter("checkInDate", hotelSearch.getCheckInDate());
+            uRIBuilder.addParameter("checkOutDate", ""+ hotelSearch.getCheckOutDate());
+            uRIBuilder.addParameter("numberOfRooms", ""+hotelSearch.getNumberOfRooms());
+
+            /*
+            String urlString = uRIBuilder.build().toString();
+            System.out.println(urlString);
+            String response = httpConnector.sendGet(urlString);
+            System.out.println("Response:" + response);
+            */
+            
+        } catch (URISyntaxException ex) {
             Logger.getLogger(TravellerServant.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        
     }
     
     @Override
