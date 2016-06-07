@@ -58,13 +58,6 @@ module.exports = function() {
 		var departingFlightStatus = false;
 		var returnFlightStatus = false;
 
-		console.log("depart fno: " + req.body.departingFlightNumber);
-		console.log("return fno: " + req.body.returningFlightNumber);
-		console.log("numberOfPassengers: " + req.body.numberOfPassengers);
-		console.log("round: " + req.body.roundTrip);
-		
-
-
 		Flight.findOne( { flightNumber: req.body.departingFlightNumber }, function(error, doc) {
 			if (error) {
 				console.log(error);
@@ -75,7 +68,7 @@ module.exports = function() {
 				doc.save();
 				departingFlightStatus = true;
 			} else {
-				console.log('Departing flight is full!');
+				departingFlightStatus = false;
 			}
 
 			if (req.body.roundTrip == 'true') {
@@ -89,21 +82,21 @@ module.exports = function() {
 						doc.save();
 						returnFlightStatus = true;
 					} else {
-						console.log('Return flight is full!');
+						returnFlightStatus = false;
 					}
 
 					if (departingFlightStatus && returnFlightStatus) {
-						res.send("CONFIRMED!");
+						res.send("Your booking for the flights " + req.body.departingFlightNumber + " and " + req.body.returningFlightNumber + " is confirmed.");
 					} else {
-						res.send("NO MORE SEATS!");
+						res.send("Unfortunately the flights " + req.body.departingFlightNumber + " and " + req.body.returningFlightNumber + " are fully booked.");
 					}
 
 				});
 			} else {
 				if (departingFlightStatus) {
-					res.send("CONFIRMED!");
+					res.send("Your booking for flight " + req.body.departingFlightNumber + " is confirmed.");
 				} else {
-					res.send("NO MORE SEATS!");
+					res.send("Unfortunately the flight " + req.body.departingFlightNumber + " is fully booked.");
 				}
 			}
 		});
@@ -120,9 +113,9 @@ module.exports = function() {
 			if (doc.availableRooms > req.body.numberOfGuests) {
 				doc.availableRooms -= req.body.numberOfGuests;
 				doc.save();
-				res.send("CONFIRMED!");
+				res.send("Your booking for hotel " + doc.hotelName + " is confirmed.");
 			} else {
-				res.send("NO MORE ROOMS!");
+				res.send("Unfortunately there are no more rooms available at " + doc.hotelName + ".");
 			}
 		});		
 	});

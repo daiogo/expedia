@@ -17,19 +17,10 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import messages.Customer;
 import messages.Flight;
-import messages.FlightBooking;
 import messages.FlightSearch;
 import messages.Hotel;
-import messages.HotelBooking;
 import messages.HotelSearch;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
 import org.json.*;
 
 
@@ -40,16 +31,16 @@ import org.json.*;
 public class TravellerServant extends UnicastRemoteObject {
     
     private static final String _URL_ = "http://localhost:3000/";
-    private ArrayList<Hotel> hotels;
     private TravellerFrame travellerFrame;
     private FlightSearchResultsFrame flightSearchResultsFrame;
     private HotelSearchResultsFrame hotelSearchResultsFrame;
     private FlightSearch currentFlightSearch;
+    private HotelSearch currentHotelSearch;
     ArrayList<Customer> passengers;
     ArrayList<Customer> guests;
     String hotelCheckin;
     String hotelCheckout;
-    HttpConnector httpConnector = new HttpConnector();
+    private HttpConnector httpConnector;
 
     
     public TravellerServant () throws RemoteException {
@@ -61,6 +52,8 @@ public class TravellerServant extends UnicastRemoteObject {
         passengers = new ArrayList();
         guests = new ArrayList();
         
+        httpConnector = new HttpConnector();
+        
     }
     
     public void searchFlights (FlightSearch flightSearch) {
@@ -68,21 +61,19 @@ public class TravellerServant extends UnicastRemoteObject {
         
         try {
             passengers.clear();
-            for(int i = 0; i< flightSearch.getNumberOfPassengers(); i++ ){
+            for(int i = 0; i< flightSearch.getNumberOfPassengers(); i++ ) {
                 passengers.add(new Customer("Diogo Freitas", 21));
             }
-            //skyscannerReference.searchFlights(flightSearch,this);
             
-            URIBuilder uRIBuilder = new URIBuilder(_URL_ + "/search/flight");
-            uRIBuilder.addParameter("origin", flightSearch.getOrigin());
-            uRIBuilder.addParameter("destination", flightSearch.getDestination());
-            uRIBuilder.addParameter("departureDate", flightSearch.getDepartureDate());
-            uRIBuilder.addParameter("numberOfPassengers", ""+passengers.size());
+            URIBuilder uriBuilder = new URIBuilder(_URL_ + "/search/flight");
+            uriBuilder.addParameter("origin", flightSearch.getOrigin());
+            uriBuilder.addParameter("destination", flightSearch.getDestination());
+            uriBuilder.addParameter("departureDate", flightSearch.getDepartureDate());
+            uriBuilder.addParameter("numberOfPassengers", ""+passengers.size());
             
-            String urlString = uRIBuilder.build().toString();
+            String urlString = uriBuilder.build().toString();
             //System.out.println(urlString);
             String response = httpConnector.sendGet(urlString);
-            //String response = httpConnector.sendGet("http://localhost:3000/search/flight?origin=Curitiba&destination=São Paulo&departureDate=08/06/2016&numberOfPassengers=1");
             //System.out.println("Response:" + response);
             
             ArrayList<Flight> departingFlights = new ArrayList<>();
@@ -107,15 +98,15 @@ public class TravellerServant extends UnicastRemoteObject {
             }
 
             ArrayList<Flight> returningFlights = new ArrayList<>();;
-            if(flightSearch.getRoundTrip()){
-                uRIBuilder = new URIBuilder(_URL_ + "/search/flight");
-                uRIBuilder.addParameter("destination", flightSearch.getOrigin());
-                uRIBuilder.addParameter("origin", flightSearch.getDestination());
-                uRIBuilder.addParameter("departureDate", flightSearch.getReturnDate());
-                uRIBuilder.addParameter("numberOfPassengers", ""+passengers.size());
+            if (flightSearch.getRoundTrip()) {
+                uriBuilder = new URIBuilder(_URL_ + "/search/flight");
+                uriBuilder.addParameter("destination", flightSearch.getOrigin());
+                uriBuilder.addParameter("origin", flightSearch.getDestination());
+                uriBuilder.addParameter("departureDate", flightSearch.getReturnDate());
+                uriBuilder.addParameter("numberOfPassengers", ""+passengers.size());
                 
 
-                urlString = uRIBuilder.build().toString();
+                urlString = uriBuilder.build().toString();
                 //System.out.println(urlString);
                 response = httpConnector.sendGet(urlString);
                 //System.out.println("Response:" + response);
@@ -150,30 +141,17 @@ public class TravellerServant extends UnicastRemoteObject {
         }
     } 
     
-    public void bookFlight(String departureFlightNumber, String returnFlightNumber, String departureDate, String returnDate) throws UnsupportedEncodingException, IOException {
-        String bookFlightURL = _URL_ + "/book/flight";
-
-        HttpClient httpclient;
-        ArrayList<NameValuePair> postParameters;
-        httpclient = new DefaultHttpClient();
-
-        HttpPost httppost = new HttpPost(bookFlightURL);
-        String jsonFlight = "{ \"departingFlightNumber\":\"" + departureFlightNumber + "\", \"returningFlightNumber\":\"" + returnFlightNumber + "\", \"roundTrip\":\"" + String.valueOf(currentFlightSearch.getRoundTrip()) + "\", \"numberOfPassengers\": " + currentFlightSearch.getNumberOfPassengers() +" }";
-        httppost.setEntity(new StringEntity(jsonFlight));
-        httppost.setHeader("Accept", "application/json");
-        httppost.setHeader("Content-type", "application/json; charset=UTF-8");
-
-    //    try {
-        HttpResponse response = httpclient.execute(httppost);
-        String result = EntityUtils.toString(response.getEntity());
-            System.out.println("RESPONSE:" + result);
-    //    } catch (IOException e) {
-    //        
-    //    }
+    public void bookFlight(String departureFlightNumber, String returnFlightNumber, String departureDate, String returnDate) throws UnsupportedEncodingException, IOException, Exception {
+        String url = _URL_ + "/book/flight";
+        String postData = "{ \"departingFlightNumber\":\"" + departureFlightNumber + "\", \"returningFlightNumber\":\"" + returnFlightNumber + "\", \"roundTrip\":\"" + currentFlightSearch.getRoundTrip() + "\", \"numberOfPassengers\": " + currentFlightSearch.getNumberOfPassengers() +" }";
+        
+        String response = httpConnector.sendPost(url, postData);
+        this.displayBookingConfirmation(response);
     }
 
-    public void searchHotels(HotelSearch hotelSearch){
-
+    public void searchHotels(HotelSearch hotelSearch) {
+        currentHotelSearch = hotelSearch;
+        
         try {
             guests.clear();
             for(int i = 0; i < hotelSearch.getNumberOfRooms(); i++){
@@ -183,11 +161,11 @@ public class TravellerServant extends UnicastRemoteObject {
             hotelCheckin = hotelSearch.getCheckInDate();
             hotelCheckout = hotelSearch.getCheckOutDate();
             
-            URIBuilder uRIBuilder = new URIBuilder(_URL_ + "/search/hotel");
-            uRIBuilder.addParameter("city", hotelSearch.getCity());
-            uRIBuilder.addParameter("numberOfGuests", String.valueOf(hotelSearch.getNumberOfRooms()));
+            URIBuilder uriBuilder = new URIBuilder(_URL_ + "/search/hotel");
+            uriBuilder.addParameter("city", hotelSearch.getCity());
+            uriBuilder.addParameter("numberOfGuests", String.valueOf(hotelSearch.getNumberOfRooms()));
             
-            String urlString = uRIBuilder.build().toString();
+            String urlString = uriBuilder.build().toString();
             System.out.println(urlString);
             String response = httpConnector.sendGet(urlString);
             System.out.println("Response:" + response);
@@ -215,14 +193,12 @@ public class TravellerServant extends UnicastRemoteObject {
         }        
     }
     
-    public void bookHotel(String hotelId){
-        /*
-        try {
-            skyscannerReference.bookHotel(new HotelBooking(hotelId, hotelCheckin, hotelCheckout, guests.size(), guests), this);
-        } catch (RemoteException ex) {
-            Logger.getLogger(TravellerServant.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        */
+    public void bookHotel(String hotelId) throws Exception {
+        String url = _URL_ + "/book/hotel";
+        String postData = "{ \"hotelId\":\"" + hotelId + "\", \"numberOfGuests\":\"" + currentHotelSearch.getNumberOfRooms() + "\" }";
+        
+        String response = httpConnector.sendPost(url, postData);
+        this.displayBookingConfirmation(response);
     }
     
     public void invokeLaterMessageDialog(String message){
@@ -233,23 +209,8 @@ public class TravellerServant extends UnicastRemoteObject {
         });        
     }
 
-    public void displayFlightBookingConfirmation(FlightBooking flightBooking, boolean confirmation) throws RemoteException {
-        if(confirmation){
-            System.out.println("---Flight booking confirmed!---");
-            invokeLaterMessageDialog("Flight booking confirmed!");
-        } else {
-            System.out.println("---No more seats available!---");
-            invokeLaterMessageDialog("No more seats available!");
-        }
+    public void displayBookingConfirmation(String message) throws RemoteException {
+        invokeLaterMessageDialog(message);
     }
 
-    public void displayHotelBookingConfirmation(HotelBooking hotelBooking, boolean confirmation) throws RemoteException {
-        if(confirmation){
-            System.out.println("---Hotel booking confirmed!---");
-            invokeLaterMessageDialog("Hotel booking confirmed!");
-        } else {
-            System.out.println("---No more rooms available!---");
-            invokeLaterMessageDialog("No more rooms available!");
-        }
-    }
 }

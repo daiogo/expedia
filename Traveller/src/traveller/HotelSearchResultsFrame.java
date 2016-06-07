@@ -6,7 +6,6 @@
 package traveller;
 
 import java.util.ArrayList;
-import messages.Flight;
 import messages.Hotel;
 
 /**
@@ -168,7 +167,7 @@ public class HotelSearchResultsFrame extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    public void bookHotel(){
+    public void bookHotel() throws Exception{
         int i = jTable1.getSelectedRow();
         Hotel hotel = hotels.get(i);
         double price = hotel.getPricePerNight();       

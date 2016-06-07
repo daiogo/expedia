@@ -248,13 +248,15 @@ public class FlightSearchResultsFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        int i = jTable1.getSelectedRow();
-        Flight flight = departingFlights.get(i);
-        double airfare = flight.getAirfare();
-        i = jTable2.getSelectedRow();
-        flight = returningFlights.get(i);
-        double totalAirfare = airfare+ flight.getAirfare();        
-        PaymentFrame paymentFrame = new PaymentFrame (this,Double.toString(totalAirfare) );
+        int departureIndex = jTable1.getSelectedRow();
+        double airfare = departingFlights.get(departureIndex).getAirfare();
+        
+        if (returningFlights.size() > 0) {
+            int returnIndex = jTable2.getSelectedRow();
+            airfare += returningFlights.get(returnIndex).getAirfare();
+        }
+        
+        PaymentFrame paymentFrame = new PaymentFrame (this,Double.toString(airfare) );
         paymentFrame.setLocationRelativeTo(null);
         paymentFrame.setVisible(true);
         
@@ -265,18 +267,24 @@ public class FlightSearchResultsFrame extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    public void bookFlight() throws IOException{
-        int i = jTable1.getSelectedRow();
-        Flight flight = departingFlights.get(i);
-        String departureFlightNumber = flight.getFlightNumber();
-        String departureDate = flight.getDepartureDate();
-        double airfare = flight.getAirfare();
-        i = jTable2.getSelectedRow();
-        flight = returningFlights.get(i);
-        String returnFlightNumber = flight.getFlightNumber();
-        String returnDate = flight.getDepartureDate();
-        double totalAirfare = airfare+ flight.getAirfare();
-        myTravellerServant.bookFlight(departureFlightNumber, returnFlightNumber, departureDate, returnDate);
+    public void bookFlight() throws IOException, Exception {
+        int departureIndex = jTable1.getSelectedRow();
+        Flight departureFlight = departingFlights.get(departureIndex);
+        String departureFlightNumber = departureFlight.getFlightNumber();
+        String departureDate = departureFlight.getDepartureDate();
+        
+        if (returningFlights.size() > 0) {
+            int returnIndex = jTable2.getSelectedRow();
+            Flight returnFlight = returningFlights.get(returnIndex);
+            String returnFlightNumber = returnFlight.getFlightNumber();
+            String returnDate = returnFlight.getDepartureDate();
+            // Books return flights
+            myTravellerServant.bookFlight(departureFlightNumber, returnFlightNumber, departureDate, returnDate);
+        } else {
+            // Books one way flights
+            myTravellerServant.bookFlight(departureFlightNumber, "", departureDate, "");
+        }
+        
         dispose();
     }
     /**
