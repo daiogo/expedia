@@ -5,9 +5,9 @@
  */
 package traveller;
 
-import java.net.MalformedURLException;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
@@ -22,7 +22,14 @@ import messages.FlightSearch;
 import messages.Hotel;
 import messages.HotelBooking;
 import messages.HotelSearch;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
 import org.json.*;
 
 
@@ -37,6 +44,7 @@ public class TravellerServant extends UnicastRemoteObject {
     private TravellerFrame travellerFrame;
     private FlightSearchResultsFrame flightSearchResultsFrame;
     private HotelSearchResultsFrame hotelSearchResultsFrame;
+    private FlightSearch currentFlightSearch;
     ArrayList<Customer> passengers;
     ArrayList<Customer> guests;
     String hotelCheckin;
@@ -55,7 +63,9 @@ public class TravellerServant extends UnicastRemoteObject {
         
     }
     
-    public void searchFlights (FlightSearch flightSearch){
+    public void searchFlights (FlightSearch flightSearch) {
+        currentFlightSearch = flightSearch;
+        
         try {
             passengers.clear();
             for(int i = 0; i< flightSearch.getNumberOfPassengers(); i++ ){
@@ -140,15 +150,26 @@ public class TravellerServant extends UnicastRemoteObject {
         }
     } 
     
-    public void bookFlight(String departureFlightNumber, String returnFlightNumber, String departureDate, String returnDate){
-        /*
-        try {
-            skyscannerReference.bookFlight(new FlightBooking( departureFlightNumber,
-                    returnFlightNumber, departureDate, returnDate, true, passengers), this);
-        } catch (RemoteException ex) {
-            Logger.getLogger(TravellerServant.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        */
+    public void bookFlight(String departureFlightNumber, String returnFlightNumber, String departureDate, String returnDate) throws UnsupportedEncodingException, IOException {
+        String bookFlightURL = _URL_ + "/book/flight";
+
+        HttpClient httpclient;
+        ArrayList<NameValuePair> postParameters;
+        httpclient = new DefaultHttpClient();
+
+        HttpPost httppost = new HttpPost(bookFlightURL);
+        String jsonFlight = "{ \"departingFlightNumber\":\"" + departureFlightNumber + "\", \"returningFlightNumber\":\"" + returnFlightNumber + "\", \"roundTrip\":\"" + String.valueOf(currentFlightSearch.getRoundTrip()) + "\", \"numberOfPassengers\": " + currentFlightSearch.getNumberOfPassengers() +" }";
+        httppost.setEntity(new StringEntity(jsonFlight));
+        httppost.setHeader("Accept", "application/json");
+        httppost.setHeader("Content-type", "application/json; charset=UTF-8");
+
+    //    try {
+        HttpResponse response = httpclient.execute(httppost);
+        String result = EntityUtils.toString(response.getEntity());
+            System.out.println("RESPONSE:" + result);
+    //    } catch (IOException e) {
+    //        
+    //    }
     }
 
     public void searchHotels(HotelSearch hotelSearch){

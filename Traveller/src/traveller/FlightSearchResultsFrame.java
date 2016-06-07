@@ -5,6 +5,7 @@
  */
 package traveller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import messages.Flight;
 
@@ -264,7 +265,7 @@ public class FlightSearchResultsFrame extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    public void bookFlight(){
+    public void bookFlight() throws IOException{
         int i = jTable1.getSelectedRow();
         Flight flight = departingFlights.get(i);
         String departureFlightNumber = flight.getFlightNumber();

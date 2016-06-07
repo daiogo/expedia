@@ -58,6 +58,13 @@ module.exports = function() {
 		var departingFlightStatus = false;
 		var returnFlightStatus = false;
 
+		console.log("depart fno: " + req.body.departingFlightNumber);
+		console.log("return fno: " + req.body.returningFlightNumber);
+		console.log("numberOfPassengers: " + req.body.numberOfPassengers);
+		console.log("round: " + req.body.roundTrip);
+		
+
+
 		Flight.findOne( { flightNumber: req.body.departingFlightNumber }, function(error, doc) {
 			if (error) {
 				console.log(error);
