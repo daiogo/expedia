@@ -100,8 +100,10 @@ var flightsArray = [
 		airline: 'TAM',
 		origin: 'Curitiba',
 		destination: 'São Paulo',
-		departureDate: new Date(2016, 6, 8, 10, 0, 0),
-		arrivalDate: new Date(2016, 6, 8, 11, 0, 0),
+		departureDate: '08/06/2016',
+		arrivalDate: '08/06/2016',
+		departureTime: '10:00am',
+		arrivalTime: '11:00am',
 		airfare: '55.50',
 		availableSeats: 2
 	})
@@ -111,8 +113,10 @@ var flightsArray = [
 		airline: 'GOL',
 		origin: 'Curitiba',
 		destination: 'São Paulo',
-		departureDate: new Date(2016, 6, 8, 10, 0, 0),
-		arrivalDate: new Date(2016, 6, 8, 11, 0, 0),
+		departureDate: '08/06/2016',
+		arrivalDate: '08/06/2016',
+		departureTime: '10:00am',
+		arrivalTime: '11:00am',
 		airfare: '65.50',
 		availableSeats: 2
 	})
@@ -122,8 +126,10 @@ var flightsArray = [
 		airline: 'Azul',
 		origin: 'Curitiba',
 		destination: 'São Paulo',
-		departureDate: new Date(2016, 6, 8, 10, 0, 0),
-		arrivalDate: new Date(2016, 6, 8, 11, 0, 0),
+		departureDate: '08/06/2016',
+		arrivalDate: '08/06/2016',
+		departureTime: '10:00am',
+		arrivalTime: '11:00am',
 		airfare: '45.50',
 		availableSeats: 2
 	})
@@ -133,8 +139,10 @@ var flightsArray = [
 		airline: 'TAM',
 		origin: 'São Paulo',
 		destination: 'Curitiba',
-		departureDate: new Date(2016, 6, 18, 10, 0, 0),
-		arrivalDate: new Date(2016, 6, 18, 11, 0, 0),
+		departureDate: '18/06/2016',
+		arrivalDate: '18/06/2016',
+		departureTime: '10:00am',
+		arrivalTime: '11:00am',
 		airfare: '55.50',
 		availableSeats: 2
 	})
@@ -144,8 +152,10 @@ var flightsArray = [
 		airline: 'GOL',
 		origin: 'São Paulo',
 		destination: 'Curitiba',
-		departureDate: new Date(2016, 6, 18, 10, 0, 0),
-		arrivalDate: new Date(2016, 6, 18, 11, 0, 0),
+		departureDate: '18/06/2016',
+		arrivalDate: '18/06/2016',
+		departureTime: '10:00am',
+		arrivalTime: '11:00am',
 		airfare: '65.50',
 		availableSeats: 2
 	})
@@ -155,8 +165,10 @@ var flightsArray = [
 		airline: 'Azul',
 		origin: 'São Paulo',
 		destination: 'Curitiba',
-		departureDate: new Date(2016, 6, 18, 10, 0, 0),
-		arrivalDate: new Date(2016, 6, 18, 11, 0, 0),
+		departureDate: '18/06/2016',
+		arrivalDate: '18/06/2016',
+		departureTime: '10:00am',
+		arrivalTime: '11:00am',
 		airfare: '45.50',
 		availableSeats: 2
 	})
@@ -166,9 +178,11 @@ var flightsArray = [
 		airline: 'TAM',
 		origin: 'Curitiba',
 		destination: 'Rio de Janeiro',
-		departureDate: new Date(2016, 6, 8, 10, 0, 0),
-		arrivalDate: new Date(2016, 6, 8, 11, 30, 0),
-		airfare: '55.50',
+		departureDate: '08/06/2016',
+		arrivalDate: '08/06/2016',
+		departureTime: '10:00am',
+		arrivalTime: '11:30am',
+		airfare: '75.50',
 		availableSeats: 2
 	})
 	,
@@ -177,9 +191,11 @@ var flightsArray = [
 		airline: 'GOL',
 		origin: 'Curitiba',
 		destination: 'Rio de Janeiro',
-		departureDate: new Date(2016, 6, 8, 10, 0, 0),
-		arrivalDate: new Date(2016, 6, 8, 11, 30, 0),
-		airfare: '65.50',
+		departureDate: '08/06/2016',
+		arrivalDate: '08/06/2016',
+		departureTime: '10:00am',
+		arrivalTime: '11:30am',
+		airfare: '95.50',
 		availableSeats: 2
 	})
 	,
@@ -188,9 +204,11 @@ var flightsArray = [
 		airline: 'Azul',
 		origin: 'Curitiba',
 		destination: 'Rio de Janeiro',
-		departureDate: new Date(2016, 6, 8, 10, 0, 0),
-		arrivalDate: new Date(2016, 6, 8, 11, 30, 0),
-		airfare: '45.50',
+		departureDate: '08/06/2016',
+		arrivalDate: '08/06/2016',
+		departureTime: '10:00am',
+		arrivalTime: '11:30am',
+		airfare: '85.50',
 		availableSeats: 2
 	})
 	,
@@ -199,9 +217,11 @@ var flightsArray = [
 		airline: 'TAM',
 		origin: 'Rio de Janeiro',
 		destination: 'Curitiba',
-		departureDate: new Date(2016, 6, 18, 10, 0, 0),
-		arrivalDate: new Date(2016, 6, 18, 11, 30, 0),
-		airfare: '55.50',
+		departureDate: '18/06/2016',
+		arrivalDate: '18/06/2016',
+		departureTime: '10:00am',
+		arrivalTime: '11:30am',
+		airfare: '75.50',
 		availableSeats: 2
 	})
 	,
@@ -210,9 +230,11 @@ var flightsArray = [
 		airline: 'GOL',
 		origin: 'Rio de Janeiro',
 		destination: 'Curitiba',
-		departureDate: new Date(2016, 6, 18, 10, 0, 0),
-		arrivalDate: new Date(2016, 6, 18, 11, 30, 0),
-		airfare: '65.50',
+		departureDate: '18/06/2016',
+		arrivalDate: '18/06/2016',
+		departureTime: '10:00am',
+		arrivalTime: '11:30am',
+		airfare: '95.50',
 		availableSeats: 2
 	})
 	,
@@ -221,9 +243,11 @@ var flightsArray = [
 		airline: 'Azul',
 		origin: 'Rio de Janeiro',
 		destination: 'Curitiba',
-		departureDate: new Date(2016, 6, 18, 10, 0, 0),
-		arrivalDate: new Date(2016, 6, 18, 11, 30, 0),
-		airfare: '45.50',
+		departureDate: '18/06/2016',
+		arrivalDate: '18/06/2016',
+		departureTime: '10:00am',
+		arrivalTime: '11:30am',
+		airfare: '85.50',
 		availableSeats: 2
 	})
 	,

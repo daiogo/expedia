@@ -18,28 +18,11 @@ module.exports = function() {
 	// Search flight
 	app.get('/search/flight', function(req, res) {
 
-		var start = new Date(req.query.departureYear, req.query.departureMonth, req.query.departureDay, 0, 0, 0);
-		var end = new Date(req.query.departureYear, req.query.departureMonth, req.query.departureDay, 23, 59, 59);
-		//console.log('Start: ' + start);
-		//console.log('End: ' + end);
-
 		var departFlightQuery = {
 			origin: req.query.origin,
 			destination: req.query.destination,
-			departureDate: { $gte: start, $lte: end},
+			departureDate: req.query.departureDate,
 			availableSeats: { $gte: req.query.numberOfPassengers }
-		}
-
-		if (req.query.roundTrip) {
-			start = new Date(req.query.returnYear, req.query.returnMonth, req.query.returnDay, 0, 0, 0);
-			end = new Date(req.query.returnYear, req.query.returnMonth, req.query.returnDay, 23, 59, 59);
-		
-			var returnFlightQuery = {
-				origin: req.query.destination,
-				destination: req.query.origin,
-				returnDate: { $gte: start, $lte: end},
-				availableSeats: { $gte: req.query.numberOfPassengers }
-			}
 		}
 
 		Flight.find(departFlightQuery, function(error, docs) {
