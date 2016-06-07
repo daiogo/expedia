@@ -5,8 +5,6 @@
  */
 package traveller;
 
-import interfaces.SkyscannerInterface;
-import interfaces.TravellerInterface;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -21,21 +19,18 @@ import messages.Customer;
 import messages.Flight;
 import messages.FlightBooking;
 import messages.FlightSearch;
-import messages.FlightSubscription;
 import messages.Hotel;
 import messages.HotelBooking;
 import messages.HotelSearch;
-import messages.HotelSubscription;
 import org.apache.http.client.utils.URIBuilder;
 
 /**
  *
  * @author Diogo
  */
-public class TravellerServant extends UnicastRemoteObject implements TravellerInterface {
+public class TravellerServant extends UnicastRemoteObject {
     
     private static final String _URL_ = "http://localhost:3000/";
-    private SkyscannerInterface skyscannerReference;
     private ArrayList<Hotel> hotels;
     private TravellerFrame travellerFrame;
     private FlightSearchResultsFrame flightSearchResultsFrame;
@@ -69,9 +64,7 @@ public class TravellerServant extends UnicastRemoteObject implements TravellerIn
             URIBuilder uRIBuilder = new URIBuilder(_URL_ + "/search/flights");
             uRIBuilder.addParameter("origin", flightSearch.getOrigin());
             uRIBuilder.addParameter("destination", flightSearch.getDestination());
-            uRIBuilder.addParameter("roundTrip", ""+flightSearch.getRoundTrip());
             uRIBuilder.addParameter("departureDate", flightSearch.getDepartureDate());
-            uRIBuilder.addParameter("returnDate", flightSearch.getReturnDate());
             uRIBuilder.addParameter("numberOfPassengers", ""+passengers.size());
             
             String urlString = uRIBuilder.build().toString();
@@ -79,64 +72,33 @@ public class TravellerServant extends UnicastRemoteObject implements TravellerIn
             String response = httpConnector.sendGet(urlString);
             System.out.println("Response:" + response);
             
+            if(flightSearch.getRoundTrip()){
+                uRIBuilder = new URIBuilder(_URL_ + "/search/flights");
+                uRIBuilder.addParameter("destination", flightSearch.getOrigin());
+                uRIBuilder.addParameter("origin", flightSearch.getDestination());
+                uRIBuilder.addParameter("departureDate", flightSearch.getReturnDate());
+                uRIBuilder.addParameter("numberOfPassengers", ""+passengers.size());
+
+                urlString = uRIBuilder.build().toString();
+                System.out.println(urlString);
+                response = httpConnector.sendGet(urlString);
+                System.out.println("Response:" + response);
+            }
+            
         } catch (URISyntaxException ex) {
             Logger.getLogger(TravellerServant.class.getName()).log(Level.SEVERE, null, ex);
         }
     } 
     
-    @Override
-    public void publish(String message) throws RemoteException {
-        System.out.println("Message: " + message);
-    }
-
     public void bookFlight(String departureFlightNumber, String returnFlightNumber, String departureDate, String returnDate){
+        /*
         try {
             skyscannerReference.bookFlight(new FlightBooking( departureFlightNumber,
                     returnFlightNumber, departureDate, returnDate, true, passengers), this);
         } catch (RemoteException ex) {
             Logger.getLogger(TravellerServant.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-    
-    /**
-     * Show Flight Search results creating a FlightSearchResultsFrame
-     * This method is called from Server
-     * @param departingFlights
-     * @param returningFlights
-     * @throws RemoteException
-     */
-    @Override
-    public void getQueriedFlights(ArrayList<Flight> departingFlights, ArrayList<Flight> returningFlights) throws RemoteException {
-        
-        flightSearchResultsFrame = new FlightSearchResultsFrame(this,departingFlights,returningFlights);
-        flightSearchResultsFrame.setLocationRelativeTo(null);
-        flightSearchResultsFrame.setVisible(true);
-        
-        System.out.println("------------Departing flights------------");
-        for (Flight flight : departingFlights) {
-            System.out.println("Flight number: " + flight.getFlightNumber());
-            System.out.println("Airline: " + flight.getAirline());
-            System.out.println("Origin: " + flight.getOrigin());
-            System.out.println("Destination: " + flight.getDestination());
-            System.out.println("Departure date: " + flight.getDepartureDate());
-            System.out.println("Departure time: " + flight.getDepartureTime());
-            System.out.println("Arrival time: " + flight.getArrivalTime());
-            System.out.println("Airfare: " + flight.getAirfare());
-            System.out.println("-----------------------------------------");
-        }
-        
-        System.out.println("------------Returning flights------------");
-        for (Flight flight : returningFlights) {
-            System.out.println("Flight number: " + flight.getFlightNumber());
-            System.out.println("Airline: " + flight.getAirline());
-            System.out.println("Origin: " + flight.getOrigin());
-            System.out.println("Destination: " + flight.getDestination());
-            System.out.println("Departure date: " + flight.getDepartureDate());
-            System.out.println("Departure time: " + flight.getDepartureTime());
-            System.out.println("Arrival time: " + flight.getArrivalTime());
-            System.out.println("Airfare: " + flight.getAirfare());
-            System.out.println("-----------------------------------------");
-        }
+        */
     }
 
     public void searchHotels(HotelSearch hotelSearch){
@@ -165,35 +127,17 @@ public class TravellerServant extends UnicastRemoteObject implements TravellerIn
             
         } catch (URISyntaxException ex) {
             Logger.getLogger(TravellerServant.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
-    }
-    
-    @Override
-    public void getQueriedHotels(ArrayList<Hotel> hotels) throws RemoteException {
-        this.hotels = hotels;
-        
-        hotelSearchResultsFrame = new HotelSearchResultsFrame(this, hotels);
-        hotelSearchResultsFrame.setLocationRelativeTo(null);
-        hotelSearchResultsFrame.setVisible(true);
-        
-        System.out.println("-----------------Hotels-----------------");
-        for (Hotel hotel : hotels) {
-            System.out.println("Hotel name: " + hotel.getHotelName());
-            System.out.println("City: " + hotel.getCity());
-            System.out.println("Price: " + hotel.getPricePerNight());
-            System.out.println("Rooms: " + hotel.getAvailableRooms());
-            System.out.println("-----------------------------------------");
-        }
+        }        
     }
     
     public void bookHotel(String hotelId){
+        /*
         try {
             skyscannerReference.bookHotel(new HotelBooking(hotelId, hotelCheckin, hotelCheckout, guests.size(), guests), this);
         } catch (RemoteException ex) {
             Logger.getLogger(TravellerServant.class.getName()).log(Level.SEVERE, null, ex);
         }
+        */
     }
     
     public void invokeLaterMessageDialog(String message){
@@ -203,8 +147,7 @@ public class TravellerServant extends UnicastRemoteObject implements TravellerIn
             }
         });        
     }
-    
-    @Override
+
     public void displayFlightBookingConfirmation(FlightBooking flightBooking, boolean confirmation) throws RemoteException {
         if(confirmation){
             System.out.println("---Flight booking confirmed!---");
@@ -213,10 +156,8 @@ public class TravellerServant extends UnicastRemoteObject implements TravellerIn
             System.out.println("---No more seats available!---");
             invokeLaterMessageDialog("No more seats available!");
         }
-        
     }
 
-    @Override
     public void displayHotelBookingConfirmation(HotelBooking hotelBooking, boolean confirmation) throws RemoteException {
         if(confirmation){
             System.out.println("---Hotel booking confirmed!---");
@@ -225,28 +166,5 @@ public class TravellerServant extends UnicastRemoteObject implements TravellerIn
             System.out.println("---No more rooms available!---");
             invokeLaterMessageDialog("No more rooms available!");
         }
-        
-    }
-
-    @Override
-    public void displayFlightNotification(FlightSubscription subscription, Flight flight) throws RemoteException {
-        System.out.println("---Flight offer!---");
-        invokeLaterMessageDialog("You have a new flight offer!");
-    }
-
-    @Override
-    public void displayHotelNotification(HotelSubscription subscription, Hotel hotel) throws RemoteException {
-        System.out.println("---Hotel offer!---");
-        invokeLaterMessageDialog("You have a new hotel offer!");
-    }
-    
-    public void registerFlightInterest(FlightSubscription subscription) throws RemoteException {
-        skyscannerReference.subscribeToFlight(subscription, this);
-        invokeLaterMessageDialog("Flight Interest Registered");
-    }
-    
-    public void registerHotelInterest(HotelSubscription subscription) throws RemoteException {
-        skyscannerReference.subscribeToHotel(subscription, this);
-        invokeLaterMessageDialog("Hotel Interest Registered");
     }
 }

@@ -9,10 +9,7 @@ import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import messages.FlightSearch;
-import messages.FlightSubscription;
-import messages.HotelSubscription.SubscriptionType;
 import messages.HotelSearch;
-import messages.HotelSubscription;
 
 /**
  *
@@ -764,6 +761,7 @@ public class TravellerFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_txtReturnDateActionPerformed
 
     private void interestFlightButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_interestFlightButtonActionPerformed
+        /*
         SubscriptionType cheaperOrNewFlight;
         
         if (newFlightsRadioButton.isSelected())
@@ -771,14 +769,17 @@ public class TravellerFrame extends javax.swing.JFrame {
         else
             cheaperOrNewFlight = SubscriptionType.PRICE_DROP;
         
+        
         try {
             myTravellerServant.registerFlightInterest(new FlightSubscription(myTravellerServant, txtOrigin.getText(), txtDestination.getText(), txtDepartureDate.getText(), txtReturnDate.getText(), txtExpiration.getText(), cheaperOrNewFlight));
         } catch (RemoteException ex) {
             Logger.getLogger(TravellerFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
+        */
     }//GEN-LAST:event_interestFlightButtonActionPerformed
 
     private void interestHotelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_interestHotelButtonActionPerformed
+        /*
         SubscriptionType cheaperOrNewHotel;
         
         if (newHotelsRadioButton.isSelected())
@@ -791,6 +792,7 @@ public class TravellerFrame extends javax.swing.JFrame {
         } catch (RemoteException ex) {
             Logger.getLogger(TravellerFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
+        */
     }//GEN-LAST:event_interestHotelButtonActionPerformed
 
     /**
