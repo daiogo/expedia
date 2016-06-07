@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import messages.Customer;
+import messages.Flight;
 import messages.FlightBooking;
 import messages.FlightSearch;
 import messages.Hotel;
@@ -73,25 +74,29 @@ public class TravellerServant extends UnicastRemoteObject {
             String response = httpConnector.sendGet(urlString);
             //String response = httpConnector.sendGet("http://localhost:3000/search/flight?origin=Curitiba&destination=São Paulo&departureDate=08/06/2016&numberOfPassengers=1");
             //System.out.println("Response:" + response);
-            //response = response.replace("[", "");
-            //response = response.replace("]", "");
+            
+            ArrayList<Flight> departingFlights = new ArrayList<>();
             JSONArray flights = new JSONArray(response);
             int n = flights.length();
+            Flight f;
             for (int i = 0; i < n; ++i) {
                 final JSONObject flight = flights.getJSONObject(i);
-                System.out.println(flight.getString("airline"));
-                System.out.println(flight.getString("origin"));
-                System.out.println(flight.getString("destination"));
-                System.out.println(flight.getString("departureDate"));
-                System.out.println(flight.getString("arrivalDate"));
-                System.out.println(flight.getString("departureDate"));
-                System.out.println(flight.getString("departureTime"));
-                System.out.println(flight.getString("arrivalTime"));
-                System.out.println(flight.getString("airfare"));
-                System.out.println(flight.getInt("availableSeats"));
+                String flightNumber = (flight.getString("flightNumber"));
+                String airline = (flight.getString("airline"));
+                String origin = (flight.getString("origin"));
+                String destination = (flight.getString("destination"));
+                String departureDate = (flight.getString("departureDate"));
+                String arrivalDate = (flight.getString("arrivalDate"));
+                departureDate = (flight.getString("departureDate"));
+                String departureTime = (flight.getString("departureTime"));
+                String arrivalTime = (flight.getString("arrivalTime"));
+                String airfare = (flight.getString("airfare"));
+                int availableSeats = (flight.getInt("availableSeats"));
+                f = new Flight(flightNumber, airline, origin, destination, departureDate, departureTime, arrivalTime, Double.parseDouble(airfare), availableSeats);
+                departingFlights.add(f);
             }
 
-            
+            ArrayList<Flight> returningFlights = new ArrayList<>();;
             if(flightSearch.getRoundTrip()){
                 uRIBuilder = new URIBuilder(_URL_ + "/search/flight");
                 uRIBuilder.addParameter("destination", flightSearch.getOrigin());
@@ -109,19 +114,26 @@ public class TravellerServant extends UnicastRemoteObject {
                 n = flights.length();
                 for (int i = 0; i < n; ++i) {
                     final JSONObject flight = flights.getJSONObject(i);
-                    System.out.println(flight.getString("airline"));
-                    System.out.println(flight.getString("origin"));
-                    System.out.println(flight.getString("destination"));
-                    System.out.println(flight.getString("departureDate"));
-                    System.out.println(flight.getString("arrivalDate"));
-                    System.out.println(flight.getString("departureDate"));
-                    System.out.println(flight.getString("departureTime"));
-                    System.out.println(flight.getString("arrivalTime"));
-                    System.out.println(flight.getString("airfare"));
-                    System.out.println(flight.getInt("availableSeats"));
+                    String flightNumber = (flight.getString("flightNumber"));
+                    String airline = (flight.getString("airline"));
+                    String origin = (flight.getString("origin"));
+                    String destination = (flight.getString("destination"));
+                    String departureDate = (flight.getString("departureDate"));
+                    String arrivalDate = (flight.getString("arrivalDate"));
+                    departureDate = (flight.getString("departureDate"));
+                    String departureTime = (flight.getString("departureTime"));
+                    String arrivalTime = (flight.getString("arrivalTime"));
+                    String airfare = (flight.getString("airfare"));
+                    int availableSeats = (flight.getInt("availableSeats"));
+                    f = new Flight(flightNumber, airline, origin, destination, departureDate, departureTime, arrivalTime, Double.parseDouble(airfare), availableSeats);
+                    returningFlights.add(f);
                 }
                 
             }
+
+            flightSearchResultsFrame = new FlightSearchResultsFrame(this,departingFlights,returningFlights);
+            flightSearchResultsFrame.setLocationRelativeTo(null);
+            flightSearchResultsFrame.setVisible(true);
             
         } catch (URISyntaxException ex) {
             Logger.getLogger(TravellerServant.class.getName()).log(Level.SEVERE, null, ex);
