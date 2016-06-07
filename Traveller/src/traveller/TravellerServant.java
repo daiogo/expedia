@@ -186,13 +186,29 @@ public class TravellerServant extends UnicastRemoteObject {
             URIBuilder uRIBuilder = new URIBuilder(_URL_ + "/search/hotel");
             uRIBuilder.addParameter("city", hotelSearch.getCity());
             uRIBuilder.addParameter("numberOfGuests", String.valueOf(hotelSearch.getNumberOfRooms()));
-
             
             String urlString = uRIBuilder.build().toString();
             System.out.println(urlString);
             String response = httpConnector.sendGet(urlString);
             System.out.println("Response:" + response);
             
+            ArrayList<Hotel> hotelsQueried = new ArrayList<>();
+            JSONArray hotels = new JSONArray(response);
+            int n = hotels.length();
+            Hotel h;
+            for (int i = 0; i < n; ++i) {
+                final JSONObject hotel = hotels.getJSONObject(i);
+                String hotelId = (hotel.getString("hotelId"));
+                String hotelName = (hotel.getString("hotelName"));
+                String city = (hotel.getString("city"));
+                int availableRooms = (hotel.getInt("availableRooms"));
+                String pricePerNight = (hotel.getString("pricePerNight"));
+                h = new Hotel(hotelName, city, availableRooms , Double.parseDouble(pricePerNight));
+                hotelsQueried.add(h);
+            }
+            hotelSearchResultsFrame = new HotelSearchResultsFrame(this, hotelsQueried);
+            hotelSearchResultsFrame.setLocationRelativeTo(null);
+            hotelSearchResultsFrame.setVisible(true);
             
         } catch (URISyntaxException ex) {
             Logger.getLogger(TravellerServant.class.getName()).log(Level.SEVERE, null, ex);
