@@ -18,11 +18,19 @@ var flightSchema = {
 		required: true
 	},
 	departureDate: {
-		type: Date,
+		type: String,
 		required: true
 	},
 	arrivalDate: {
-		type: Date,
+		type: String,
+		required: true
+	},
+	departureTime: {
+		type: String,
+		required: true
+	},
+	arrivalTime: {
+		type: String,
 		required: true
 	},
 	airfare: {
