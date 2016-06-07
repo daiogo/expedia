@@ -1,8 +1,8 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyparser = require('body-parser');
-var flightSchema = require('./flight');
-var hotelSchema = require('./hotel');
+var flightSchema = require('./db/schemas/flight');
+var hotelSchema = require('./db/schemas/hotel');
 
 // Connects to mongoose
 mongoose.connect('mongodb://localhost:27017/test');

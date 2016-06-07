@@ -17,9 +17,9 @@ public class HotelSearchResultsFrame extends javax.swing.JFrame {
      * Creates new form FlightSearchFrame
      */
     private ArrayList<Hotel> hotels;
-    private TravellerServant myTravellerServant;
+    private Traveller myTravellerServant;
     
-    public HotelSearchResultsFrame(TravellerServant myTravellerServant, ArrayList<Hotel> hotels) {
+    public HotelSearchResultsFrame(Traveller myTravellerServant, ArrayList<Hotel> hotels) {
         initComponents();
         this.hotels = hotels;
         this.myTravellerServant = myTravellerServant;

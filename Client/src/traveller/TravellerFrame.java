@@ -14,9 +14,9 @@ public class TravellerFrame extends javax.swing.JFrame {
     /**
      * Creates new form TravellerFrame
      */
-    private TravellerServant myTravellerServant;
+    private Traveller myTravellerServant;
     
-    public TravellerFrame(TravellerServant myTravellerServant) {
+    public TravellerFrame(Traveller myTravellerServant) {
         initComponents();
         buttonGroup17.add(oneWayRadioButton);
         buttonGroup17.add(returnRadioButton);

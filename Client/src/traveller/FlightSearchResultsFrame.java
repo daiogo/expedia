@@ -19,9 +19,9 @@ public class FlightSearchResultsFrame extends javax.swing.JFrame {
      */
     private ArrayList<Flight> departingFlights;
     private ArrayList<Flight> returningFlights;
-    private TravellerServant myTravellerServant;
+    private Traveller myTravellerServant;
     
-    public FlightSearchResultsFrame(TravellerServant myTravellerServant, ArrayList<Flight> departingFlights,ArrayList<Flight> returningFlights) {
+    public FlightSearchResultsFrame(Traveller myTravellerServant, ArrayList<Flight> departingFlights,ArrayList<Flight> returningFlights) {
         initComponents();
         this.myTravellerServant = myTravellerServant;
         this.returningFlights = returningFlights;

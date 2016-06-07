@@ -19,7 +19,7 @@ import org.json.*;
  *
  * @author Diogo
  */
-public class TravellerServant {
+public class Traveller {
     
     private static final String _URL_ = "http://localhost:3000/";
     private TravellerFrame travellerFrame;
@@ -31,8 +31,7 @@ public class TravellerServant {
     private String hotelCheckOut;
     private HttpConnector httpConnector;
 
-    
-    public TravellerServant() {
+    public Traveller() {
         httpConnector = new HttpConnector();
         travellerFrame = new TravellerFrame(this);
         travellerFrame.setLocationRelativeTo(null);

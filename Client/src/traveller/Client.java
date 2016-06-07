@@ -11,10 +11,10 @@ import java.rmi.RemoteException;
  *
  * @author Diogo
  */
-public class Traveller {
+public class Client {
 
     public static void main(String[] args) throws RemoteException {
-        TravellerServant travellerServant = new TravellerServant();
+        Traveller traveller = new Traveller();
         
     }
     

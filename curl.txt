@@ -1,6 +1,0 @@
-curl -i -X POST -H "Content-Type:application/json" http://localhost:3000/book/hotel -d '{ "hotelId":"Hk_ZHvfE", "numberOfGuests": 1}'
-
-curl -i -X GET -H "Content-Type:application/json" http://localhost:3000/search/hotel -d '{ "city":"Curitiba", "numberOfGuests": 1}'
-
-
-curl -i -X POST -H "Content-Type:application/json" http://localhost:3000/book/flight -d '{ "departingFlightNumber":"B1UL8ftGE", "returningFlightNumber":"Skt8IfKG4", "roundTrip":"true", "numberOfPassengers": 1}'

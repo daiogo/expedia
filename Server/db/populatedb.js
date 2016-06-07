@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var shortid = require('shortid');
-var flightSchema = require('./flight');
-var hotelSchema = require('./hotel');
+var flightSchema = require('./schemas/flight');
+var hotelSchema = require('./schemas/hotel');
 
 // Connects to mongoose
 mongoose.connect('mongodb://localhost:27017/test');
