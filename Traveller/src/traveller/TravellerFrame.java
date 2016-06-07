@@ -290,7 +290,7 @@ public class TravellerFrame extends javax.swing.JFrame {
         jLabel9.setText("Check-out");
 
         checkinDateFormattedField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
-        checkinDateFormattedField.setText("01/01/2016");
+        checkinDateFormattedField.setText("01/09/2016");
         checkinDateFormattedField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkinDateFormattedFieldActionPerformed(evt);
@@ -298,7 +298,12 @@ public class TravellerFrame extends javax.swing.JFrame {
         });
 
         checkoutDateFormattedField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
-        checkoutDateFormattedField.setText("07/01/2016");
+        checkoutDateFormattedField.setText("07/09/2016");
+        checkoutDateFormattedField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkoutDateFormattedFieldActionPerformed(evt);
+            }
+        });
 
         searchHotelsButton.setText("Search Hotels");
         searchHotelsButton.addActionListener(new java.awt.event.ActionListener() {
@@ -794,6 +799,10 @@ public class TravellerFrame extends javax.swing.JFrame {
         }
         */
     }//GEN-LAST:event_interestHotelButtonActionPerformed
+
+    private void checkoutDateFormattedFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkoutDateFormattedFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkoutDateFormattedFieldActionPerformed
 
     /**
      * @param args the command line arguments
