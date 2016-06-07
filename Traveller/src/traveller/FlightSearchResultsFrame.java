@@ -7,7 +7,6 @@ package traveller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import messages.Flight;
 
 /**
  *

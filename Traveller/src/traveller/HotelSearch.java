@@ -3,15 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package messages;
-
-import java.io.Serializable;
+package traveller;
 
 /**
  *
  * @author Diogo
  */
-public class HotelSearch implements Serializable {
+public class HotelSearch {
     private String city;
     private int numberOfRooms;
     private String checkInDate;

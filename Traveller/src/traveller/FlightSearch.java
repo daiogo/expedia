@@ -3,15 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package messages;
-
-import java.io.Serializable;
+package traveller;
 
 /**
  *
  * @author Diogo
  */
-public class FlightSearch implements Serializable {
+public class FlightSearch {
     private String origin;
     private String destination;
     private boolean roundTrip;

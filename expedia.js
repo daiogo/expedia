@@ -110,7 +110,7 @@ module.exports = function() {
 				console.log(error);
 			}
 
-			if (doc.availableRooms > req.body.numberOfGuests) {
+			if (doc.availableRooms >= req.body.numberOfGuests) {
 				doc.availableRooms -= req.body.numberOfGuests;
 				doc.save();
 				res.send("Your booking for hotel " + doc.hotelName + " is confirmed.");

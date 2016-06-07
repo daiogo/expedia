@@ -6,6 +6,8 @@
 package traveller;
 
 import java.awt.event.WindowEvent;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -55,13 +57,21 @@ public class PaymentFrame2 extends javax.swing.JFrame {
 
         jLabel1.setText("Card Number");
 
+        jTextField1.setText("0123456789101112");
+
         jLabel3.setText("Expiration Date");
 
+        jTextField2.setText("06/2020");
+
         jLabel4.setText("Security Code");
+
+        jTextField3.setText("123");
 
         jLabel5.setText("Airfare");
 
         jLabel6.setText("Installments");
+
+        jTextField5.setText("1");
 
         jButton1.setText("Confirm");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -140,9 +150,13 @@ public class PaymentFrame2 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        myHotelSearchResultsFrame.bookHotel();
-        dispose();
+        try {
+            // TODO add your handling code here:
+            myHotelSearchResultsFrame.bookHotel();
+            dispose();
+        } catch (Exception ex) {
+            Logger.getLogger(PaymentFrame2.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

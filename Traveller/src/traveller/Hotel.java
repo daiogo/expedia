@@ -3,24 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package messages;
-
-import java.io.Serializable;
-import java.util.UUID;
+package traveller;
 
 /**
  *
  * @author Diogo
  */
-public class Hotel implements Serializable {
+public class Hotel {
     private String hotelId;
     private String hotelName;
     private String city;
     private int availableRooms;
     private double pricePerNight;
     
-    public Hotel(String hotelName, String city, int availableRooms, double pricePerNight) {
-        this.hotelId = UUID.randomUUID().toString();
+    public Hotel(String hotelId, String hotelName, String city, int availableRooms, double pricePerNight) {
+        this.hotelId = hotelId;
         this.hotelName = hotelName;
         this.city = city;
         this.availableRooms = availableRooms;

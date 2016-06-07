@@ -6,7 +6,6 @@
 package traveller;
 
 import java.util.ArrayList;
-import messages.Hotel;
 
 /**
  *

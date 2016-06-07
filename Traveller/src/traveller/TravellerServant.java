@@ -8,18 +8,9 @@ package traveller;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
-import messages.Customer;
-import messages.Flight;
-import messages.FlightSearch;
-import messages.Hotel;
-import messages.HotelSearch;
 import org.apache.http.client.utils.URIBuilder;
 import org.json.*;
 
@@ -28,7 +19,7 @@ import org.json.*;
  *
  * @author Diogo
  */
-public class TravellerServant extends UnicastRemoteObject {
+public class TravellerServant {
     
     private static final String _URL_ = "http://localhost:3000/";
     private TravellerFrame travellerFrame;
@@ -36,40 +27,28 @@ public class TravellerServant extends UnicastRemoteObject {
     private HotelSearchResultsFrame hotelSearchResultsFrame;
     private FlightSearch currentFlightSearch;
     private HotelSearch currentHotelSearch;
-    ArrayList<Customer> passengers;
-    ArrayList<Customer> guests;
-    String hotelCheckin;
-    String hotelCheckout;
+    private String hotelCheckIn;
+    private String hotelCheckOut;
     private HttpConnector httpConnector;
 
     
-    public TravellerServant () throws RemoteException {
-
+    public TravellerServant() {
+        httpConnector = new HttpConnector();
         travellerFrame = new TravellerFrame(this);
         travellerFrame.setLocationRelativeTo(null);
-        travellerFrame.setVisible(true);
-        
-        passengers = new ArrayList();
-        guests = new ArrayList();
-        
-        httpConnector = new HttpConnector();
-        
+        travellerFrame.setVisible(true);        
     }
     
     public void searchFlights (FlightSearch flightSearch) {
         currentFlightSearch = flightSearch;
         
         try {
-            passengers.clear();
-            for(int i = 0; i< flightSearch.getNumberOfPassengers(); i++ ) {
-                passengers.add(new Customer("Diogo Freitas", 21));
-            }
             
             URIBuilder uriBuilder = new URIBuilder(_URL_ + "/search/flight");
             uriBuilder.addParameter("origin", flightSearch.getOrigin());
             uriBuilder.addParameter("destination", flightSearch.getDestination());
             uriBuilder.addParameter("departureDate", flightSearch.getDepartureDate());
-            uriBuilder.addParameter("numberOfPassengers", ""+passengers.size());
+            uriBuilder.addParameter("numberOfPassengers", String.valueOf(flightSearch.getNumberOfPassengers()));
             
             String urlString = uriBuilder.build().toString();
             //System.out.println(urlString);
@@ -103,7 +82,7 @@ public class TravellerServant extends UnicastRemoteObject {
                 uriBuilder.addParameter("destination", flightSearch.getOrigin());
                 uriBuilder.addParameter("origin", flightSearch.getDestination());
                 uriBuilder.addParameter("departureDate", flightSearch.getReturnDate());
-                uriBuilder.addParameter("numberOfPassengers", ""+passengers.size());
+                uriBuilder.addParameter("numberOfPassengers", String.valueOf(flightSearch.getNumberOfPassengers()));
                 
 
                 urlString = uriBuilder.build().toString();
@@ -137,7 +116,7 @@ public class TravellerServant extends UnicastRemoteObject {
             flightSearchResultsFrame.setVisible(true);
             
         } catch (URISyntaxException ex) {
-            Logger.getLogger(TravellerServant.class.getName()).log(Level.SEVERE, null, ex);
+            this.displayBookingConfirmation("ERROR | Invalid search");
         }
     } 
     
@@ -153,13 +132,8 @@ public class TravellerServant extends UnicastRemoteObject {
         currentHotelSearch = hotelSearch;
         
         try {
-            guests.clear();
-            for(int i = 0; i < hotelSearch.getNumberOfRooms(); i++){
-                guests.add(new Customer("Diego Lee", 23));
-            }
-            //skyscannerReference.searchHotels(hotelSearch, this);
-            hotelCheckin = hotelSearch.getCheckInDate();
-            hotelCheckout = hotelSearch.getCheckOutDate();
+            hotelCheckIn = hotelSearch.getCheckInDate();
+            hotelCheckOut = hotelSearch.getCheckOutDate();
             
             URIBuilder uriBuilder = new URIBuilder(_URL_ + "/search/hotel");
             uriBuilder.addParameter("city", hotelSearch.getCity());
@@ -181,7 +155,7 @@ public class TravellerServant extends UnicastRemoteObject {
                 String city = (hotel.getString("city"));
                 int availableRooms = (hotel.getInt("availableRooms"));
                 String pricePerNight = (hotel.getString("pricePerNight"));
-                h = new Hotel(hotelName, city, availableRooms , Double.parseDouble(pricePerNight));
+                h = new Hotel(hotelId, hotelName, city, availableRooms , Double.parseDouble(pricePerNight));
                 hotelsQueried.add(h);
             }
             hotelSearchResultsFrame = new HotelSearchResultsFrame(this, hotelsQueried);
@@ -189,7 +163,7 @@ public class TravellerServant extends UnicastRemoteObject {
             hotelSearchResultsFrame.setVisible(true);
             
         } catch (URISyntaxException ex) {
-            Logger.getLogger(TravellerServant.class.getName()).log(Level.SEVERE, null, ex);
+            this.displayBookingConfirmation("ERROR | Invalid search");
         }        
     }
     
@@ -201,7 +175,7 @@ public class TravellerServant extends UnicastRemoteObject {
         this.displayBookingConfirmation(response);
     }
     
-    public void invokeLaterMessageDialog(String message){
+    public void invokeLaterMessageDialog(String message) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 JOptionPane.showMessageDialog(null, message);
@@ -209,7 +183,7 @@ public class TravellerServant extends UnicastRemoteObject {
         });        
     }
 
-    public void displayBookingConfirmation(String message) throws RemoteException {
+    public void displayBookingConfirmation(String message) {
         invokeLaterMessageDialog(message);
     }
 
