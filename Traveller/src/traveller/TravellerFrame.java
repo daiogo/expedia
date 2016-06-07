@@ -37,8 +37,8 @@ public class TravellerFrame extends javax.swing.JFrame {
     private void setStandardSearchForTesting(){
         fromField.setText("Curitiba");
         toField.setText("São Paulo");
-        departDateFormattedField.setText("01/01/2016");
-        returnDateFormattedField.setText("07/01/2016");
+        departDateFormattedField.setText("08/06/2016");
+        returnDateFormattedField.setText("18/06/2016");
         travellersFormattedField.setText("1");
     }
 

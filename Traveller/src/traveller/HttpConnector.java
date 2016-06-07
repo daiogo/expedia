@@ -22,7 +22,7 @@ import javax.net.ssl.HttpsURLConnection;
  */
 public class HttpConnector {
 
-    private final String USER_AGENT = "Mozilla/5.0";
+    private final String USER_AGENT = "Chrome/51.0.2704.79";
 
     // HTTP GET request
     public String sendGet(String url) {

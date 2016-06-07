@@ -16,13 +16,14 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import messages.Customer;
-import messages.Flight;
 import messages.FlightBooking;
 import messages.FlightSearch;
 import messages.Hotel;
 import messages.HotelBooking;
 import messages.HotelSearch;
 import org.apache.http.client.utils.URIBuilder;
+import org.json.*;
+
 
 /**
  *
@@ -61,28 +62,65 @@ public class TravellerServant extends UnicastRemoteObject {
             }
             //skyscannerReference.searchFlights(flightSearch,this);
             
-            URIBuilder uRIBuilder = new URIBuilder(_URL_ + "/search/flights");
+            URIBuilder uRIBuilder = new URIBuilder(_URL_ + "/search/flight");
             uRIBuilder.addParameter("origin", flightSearch.getOrigin());
             uRIBuilder.addParameter("destination", flightSearch.getDestination());
             uRIBuilder.addParameter("departureDate", flightSearch.getDepartureDate());
             uRIBuilder.addParameter("numberOfPassengers", ""+passengers.size());
             
             String urlString = uRIBuilder.build().toString();
-            System.out.println(urlString);
+            //System.out.println(urlString);
             String response = httpConnector.sendGet(urlString);
-            System.out.println("Response:" + response);
+            //String response = httpConnector.sendGet("http://localhost:3000/search/flight?origin=Curitiba&destination=São Paulo&departureDate=08/06/2016&numberOfPassengers=1");
+            //System.out.println("Response:" + response);
+            //response = response.replace("[", "");
+            //response = response.replace("]", "");
+            JSONArray flights = new JSONArray(response);
+            int n = flights.length();
+            for (int i = 0; i < n; ++i) {
+                final JSONObject flight = flights.getJSONObject(i);
+                System.out.println(flight.getString("airline"));
+                System.out.println(flight.getString("origin"));
+                System.out.println(flight.getString("destination"));
+                System.out.println(flight.getString("departureDate"));
+                System.out.println(flight.getString("arrivalDate"));
+                System.out.println(flight.getString("departureDate"));
+                System.out.println(flight.getString("departureTime"));
+                System.out.println(flight.getString("arrivalTime"));
+                System.out.println(flight.getString("airfare"));
+                System.out.println(flight.getInt("availableSeats"));
+            }
+
             
             if(flightSearch.getRoundTrip()){
-                uRIBuilder = new URIBuilder(_URL_ + "/search/flights");
+                uRIBuilder = new URIBuilder(_URL_ + "/search/flight");
                 uRIBuilder.addParameter("destination", flightSearch.getOrigin());
                 uRIBuilder.addParameter("origin", flightSearch.getDestination());
                 uRIBuilder.addParameter("departureDate", flightSearch.getReturnDate());
                 uRIBuilder.addParameter("numberOfPassengers", ""+passengers.size());
+                
 
                 urlString = uRIBuilder.build().toString();
-                System.out.println(urlString);
+                //System.out.println(urlString);
                 response = httpConnector.sendGet(urlString);
-                System.out.println("Response:" + response);
+                //System.out.println("Response:" + response);
+                
+                flights = new JSONArray(response);
+                n = flights.length();
+                for (int i = 0; i < n; ++i) {
+                    final JSONObject flight = flights.getJSONObject(i);
+                    System.out.println(flight.getString("airline"));
+                    System.out.println(flight.getString("origin"));
+                    System.out.println(flight.getString("destination"));
+                    System.out.println(flight.getString("departureDate"));
+                    System.out.println(flight.getString("arrivalDate"));
+                    System.out.println(flight.getString("departureDate"));
+                    System.out.println(flight.getString("departureTime"));
+                    System.out.println(flight.getString("arrivalTime"));
+                    System.out.println(flight.getString("airfare"));
+                    System.out.println(flight.getInt("availableSeats"));
+                }
+                
             }
             
         } catch (URISyntaxException ex) {
@@ -112,18 +150,18 @@ public class TravellerServant extends UnicastRemoteObject {
             hotelCheckin = hotelSearch.getCheckInDate();
             hotelCheckout = hotelSearch.getCheckOutDate();
             
-            URIBuilder uRIBuilder = new URIBuilder(_URL_ + "/search/hotels");
+            URIBuilder uRIBuilder = new URIBuilder(_URL_ + "/search/hotel");
             uRIBuilder.addParameter("city", hotelSearch.getCity());
             uRIBuilder.addParameter("checkInDate", hotelSearch.getCheckInDate());
             uRIBuilder.addParameter("checkOutDate", ""+ hotelSearch.getCheckOutDate());
             uRIBuilder.addParameter("numberOfRooms", ""+hotelSearch.getNumberOfRooms());
 
-            /*
+            
             String urlString = uRIBuilder.build().toString();
             System.out.println(urlString);
             String response = httpConnector.sendGet(urlString);
             System.out.println("Response:" + response);
-            */
+            
             
         } catch (URISyntaxException ex) {
             Logger.getLogger(TravellerServant.class.getName()).log(Level.SEVERE, null, ex);
