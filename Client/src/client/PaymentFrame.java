@@ -3,29 +3,29 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package traveller;
+package client;
 
-import java.awt.event.WindowEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author diego
  */
-public class PaymentFrame2 extends javax.swing.JFrame {
+public class PaymentFrame extends javax.swing.JFrame {
 
     /**
      * Creates new form PaymentFrame
      */
-    private HotelSearchResultsFrame myHotelSearchResultsFrame;
-    private String price;
+    private FlightSearchResultsFrame myFlightSearchResultsFrame;
+    private String airfare;
     
-    public PaymentFrame2 (HotelSearchResultsFrame myHotelSearchResultsFrame, String price) {
+    public PaymentFrame (FlightSearchResultsFrame myFlightSearchResultsFrame, String airfare) {
         initComponents();
-        this.myHotelSearchResultsFrame = myHotelSearchResultsFrame;
-        this.price = price;
-        airfareField.setText(price);
+        this.myFlightSearchResultsFrame = myFlightSearchResultsFrame;
+        this.airfare = airfare;
+        airfareField.setText(airfare);
     }
 
     /**
@@ -152,10 +152,10 @@ public class PaymentFrame2 extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             // TODO add your handling code here:
-            myHotelSearchResultsFrame.bookHotel();
+            myFlightSearchResultsFrame.bookFlight();
             dispose();
         } catch (Exception ex) {
-            Logger.getLogger(PaymentFrame2.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PaymentFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -176,15 +176,14 @@ public class PaymentFrame2 extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PaymentFrame2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PaymentFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PaymentFrame2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PaymentFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PaymentFrame2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PaymentFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PaymentFrame2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PaymentFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

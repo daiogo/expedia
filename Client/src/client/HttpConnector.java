@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package traveller;
+package client;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -32,21 +32,22 @@ public class HttpConnector {
     public String sendGet(String url) {
 
         try {
-            //url = "http://localhost:3000/search/hotel/?city=Curitiba&numberOfGuests=1";
             
             URL obj = new URL(url);
             HttpURLConnection con = (HttpURLConnection) obj.openConnection();
             
-            // optional default is GET
+            // Optional (default is GET)
             con.setRequestMethod("GET");
             
-            //add request header
+            // Add request header
             con.setRequestProperty("User-Agent", USER_AGENT);
             
+            // Prints response code
             int responseCode = con.getResponseCode();
             System.out.println("\nSending 'GET' request to URL : " + url);
             System.out.println("Response Code : " + responseCode);
             
+            // Retrives response
             if(responseCode != 404){
                 BufferedReader in = new BufferedReader(
                         new InputStreamReader(con.getInputStream()));
@@ -57,8 +58,7 @@ public class HttpConnector {
                     response.append(inputLine);
                 }
                 in.close();
-                //print result
-                System.out.println(response.toString());
+                // Return response
                 return response.toString();
             }
             return "Page not Found";
@@ -73,14 +73,19 @@ public class HttpConnector {
 
     // HTTP POST request
     public String sendPost(String url, String postData) throws Exception {
+        // Create HTTP client
         HttpClient httpclient = new DefaultHttpClient();
 
-        HttpPost httppost = new HttpPost(url);
-        httppost.setEntity(new StringEntity(postData));
-        httppost.setHeader("Accept", "application/json");
-        httppost.setHeader("Content-type", "application/json; charset=UTF-8");
+        // Creates POST request by setting headers and body
+        HttpPost httpPost = new HttpPost(url);
+        httpPost.setEntity(new StringEntity(postData));
+        httpPost.setHeader("Accept", "application/json");
+        httpPost.setHeader("Content-type", "application/json; charset=UTF-8");
 
-        HttpResponse response = httpclient.execute(httppost);
+        // Sends request and waits for response
+        HttpResponse response = httpclient.execute(httpPost);
+        
+        // Returns response
         return EntityUtils.toString(response.getEntity());
     }
 

@@ -3,9 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package traveller;
-
-import java.rmi.RemoteException;
+package client;
 
 /**
  *
@@ -13,7 +11,7 @@ import java.rmi.RemoteException;
  */
 public class Client {
 
-    public static void main(String[] args) throws RemoteException {
+    public static void main(String[] args) {
         Traveller traveller = new Traveller();
         
     }

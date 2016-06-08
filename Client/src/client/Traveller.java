@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package traveller;
+package client;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -21,14 +21,12 @@ import org.json.*;
  */
 public class Traveller {
     
-    private static final String _URL_ = "http://localhost:3000/";
+    private static final String hostURL = "http://localhost:3000/";
     private TravellerFrame travellerFrame;
     private FlightSearchResultsFrame flightSearchResultsFrame;
     private HotelSearchResultsFrame hotelSearchResultsFrame;
     private FlightSearch currentFlightSearch;
     private HotelSearch currentHotelSearch;
-    private String hotelCheckIn;
-    private String hotelCheckOut;
     private HttpConnector httpConnector;
 
     public Traveller() {
@@ -39,21 +37,24 @@ public class Traveller {
     }
     
     public void searchFlights (FlightSearch flightSearch) {
+        // Keeps current search in order to store session variables
         currentFlightSearch = flightSearch;
         
         try {
-            
-            URIBuilder uriBuilder = new URIBuilder(_URL_ + "/search/flight");
+            // Builds URL for HTTP request that queries for departing flights
+            URIBuilder uriBuilder = new URIBuilder(hostURL + "/search/flight");
             uriBuilder.addParameter("origin", flightSearch.getOrigin());
             uriBuilder.addParameter("destination", flightSearch.getDestination());
             uriBuilder.addParameter("departureDate", flightSearch.getDepartureDate());
             uriBuilder.addParameter("numberOfPassengers", String.valueOf(flightSearch.getNumberOfPassengers()));
             
+            // Converts URL to string
             String urlString = uriBuilder.build().toString();
-            //System.out.println(urlString);
-            String response = httpConnector.sendGet(urlString);
-            //System.out.println("Response:" + response);
             
+            // Send GET request and waits for response
+            String response = httpConnector.sendGet(urlString);
+            
+            // Handles response (REST API returns a JSON array)
             ArrayList<Flight> departingFlights = new ArrayList<>();
             JSONArray flights = new JSONArray(response);
             int n = flights.length();
@@ -75,20 +76,26 @@ public class Traveller {
                 departingFlights.add(f);
             }
 
-            ArrayList<Flight> returningFlights = new ArrayList<>();;
+            // Creates array for returning flights
+            ArrayList<Flight> returningFlights = new ArrayList<>();
+            
+            // Prepares second GET request if user searched for a round trip flights
             if (flightSearch.getRoundTrip()) {
-                uriBuilder = new URIBuilder(_URL_ + "/search/flight");
+                
+                // Builds URL for HTTP request that queries for returning flights
+                uriBuilder = new URIBuilder(hostURL + "/search/flight");
                 uriBuilder.addParameter("destination", flightSearch.getOrigin());
                 uriBuilder.addParameter("origin", flightSearch.getDestination());
                 uriBuilder.addParameter("departureDate", flightSearch.getReturnDate());
                 uriBuilder.addParameter("numberOfPassengers", String.valueOf(flightSearch.getNumberOfPassengers()));
                 
-
+                // Converts URL to string
                 urlString = uriBuilder.build().toString();
-                //System.out.println(urlString);
-                response = httpConnector.sendGet(urlString);
-                //System.out.println("Response:" + response);
                 
+                // Sends second GET request and waits for response
+                response = httpConnector.sendGet(urlString);
+                
+                // Handles response from second GET request
                 flights = new JSONArray(response);
                 n = flights.length();
                 for (int i = 0; i < n; ++i) {
@@ -98,7 +105,6 @@ public class Traveller {
                     String origin = (flight.getString("origin"));
                     String destination = (flight.getString("destination"));
                     String departureDate = (flight.getString("departureDate"));
-                    String arrivalDate = (flight.getString("arrivalDate"));
                     departureDate = (flight.getString("departureDate"));
                     String departureTime = (flight.getString("departureTime"));
                     String arrivalTime = (flight.getString("arrivalTime"));
@@ -110,7 +116,8 @@ public class Traveller {
                 
             }
 
-            flightSearchResultsFrame = new FlightSearchResultsFrame(this,departingFlights,returningFlights);
+            // Display search results in a new window
+            flightSearchResultsFrame = new FlightSearchResultsFrame(this, departingFlights, returningFlights);
             flightSearchResultsFrame.setLocationRelativeTo(null);
             flightSearchResultsFrame.setVisible(true);
             
@@ -120,33 +127,39 @@ public class Traveller {
     } 
     
     public void bookFlight(String departureFlightNumber, String returnFlightNumber, String departureDate, String returnDate) throws UnsupportedEncodingException, IOException, Exception {
-        String url = _URL_ + "/book/flight";
+        // Builds request URL (POST)
+        String url = hostURL + "/book/flight";
+        
+        // Builds JSON with booking information
         String postData = "{ \"departingFlightNumber\":\"" + departureFlightNumber + "\", \"returningFlightNumber\":\"" + returnFlightNumber + "\", \"roundTrip\":\"" + currentFlightSearch.getRoundTrip() + "\", \"numberOfPassengers\": " + currentFlightSearch.getNumberOfPassengers() +" }";
         
+        // Sends POST request and waits for response
         String response = httpConnector.sendPost(url, postData);
+        
+        // Displays confirmation message
         this.displayBookingConfirmation(response);
     }
 
     public void searchHotels(HotelSearch hotelSearch) {
+        // Keeps current search in order to store session variables
         currentHotelSearch = hotelSearch;
         
         try {
-            hotelCheckIn = hotelSearch.getCheckInDate();
-            hotelCheckOut = hotelSearch.getCheckOutDate();
-            
-            URIBuilder uriBuilder = new URIBuilder(_URL_ + "/search/hotel");
+            // Builds URL for HTTP request that queries for hotels
+            URIBuilder uriBuilder = new URIBuilder(hostURL + "/search/hotel");
             uriBuilder.addParameter("city", hotelSearch.getCity());
             uriBuilder.addParameter("numberOfGuests", String.valueOf(hotelSearch.getNumberOfRooms()));
             
+            // Converts URL to string
             String urlString = uriBuilder.build().toString();
-            System.out.println(urlString);
-            String response = httpConnector.sendGet(urlString);
-            System.out.println("Response:" + response);
             
+            // Sends GET request and waits for response
+            String response = httpConnector.sendGet(urlString);
+            
+            // Handles server response
             ArrayList<Hotel> hotelsQueried = new ArrayList<>();
             JSONArray hotels = new JSONArray(response);
             int n = hotels.length();
-            Hotel h;
             for (int i = 0; i < n; ++i) {
                 final JSONObject hotel = hotels.getJSONObject(i);
                 String hotelId = (hotel.getString("hotelId"));
@@ -154,9 +167,11 @@ public class Traveller {
                 String city = (hotel.getString("city"));
                 int availableRooms = (hotel.getInt("availableRooms"));
                 String pricePerNight = (hotel.getString("pricePerNight"));
-                h = new Hotel(hotelId, hotelName, city, availableRooms , Double.parseDouble(pricePerNight));
+                Hotel h = new Hotel(hotelId, hotelName, city, availableRooms , Double.parseDouble(pricePerNight));
                 hotelsQueried.add(h);
             }
+            
+            // Display search results on a new window
             hotelSearchResultsFrame = new HotelSearchResultsFrame(this, hotelsQueried);
             hotelSearchResultsFrame.setLocationRelativeTo(null);
             hotelSearchResultsFrame.setVisible(true);
@@ -167,10 +182,16 @@ public class Traveller {
     }
     
     public void bookHotel(String hotelId) throws Exception {
-        String url = _URL_ + "/book/hotel";
+        // Builds booking URL
+        String url = hostURL + "/book/hotel";
+        
+        // Builds JSON with booking information
         String postData = "{ \"hotelId\":\"" + hotelId + "\", \"numberOfGuests\":\"" + currentHotelSearch.getNumberOfRooms() + "\" }";
         
+        // Send POST request for booking and waits for response
         String response = httpConnector.sendPost(url, postData);
+        
+        // Display confirmation message
         this.displayBookingConfirmation(response);
     }
     
